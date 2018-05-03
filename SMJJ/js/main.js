@@ -29,6 +29,15 @@ GamePlay.prototype = {
 }
 
 // add states to StateManager and start MainMenu
+game.state.add('Preload', Preload);
 game.state.add('MainMenu', MainMenu);
+game.state.add('Load', Load);
+
+game.state.add('Act1', Act1);
+game.state.add('Act2', Act2);
+game.state.add('Act3', Act3);
+
 game.state.add('GamePlay', GamePlay);
+
+game.state.add('Combat', Combat);
 game.state.start('MainMenu');
