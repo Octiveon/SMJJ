@@ -14,7 +14,6 @@ Preload.prototype = {
 	  game.load.image('Button','assets/imgs/Button.png')
 		game.load.image('MainMenu','assets/imgs/MainMenu.png')
 
-
 	},
 	create: function() {
 	},
@@ -125,17 +124,46 @@ Act3.prototype = {
 var Combat = function(game) {};
 Combat.prototype = {
 	preload: function() {
+		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
+		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+		game.load.tilemap('map', 'assets/imgs/Test.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', 'assets/imgs/sokoban.png');
 	},
 	create: function() {
+		map = game.add.tilemap('map');
+		map.addTilesetImage('Sokoban','tiles');
 
-		Txt = game.add.text(game.world.centerX, game.world.centerY + 100, 'Bam Combat', { fontSize: '31px', fill: '#ffffff', boundsAlignH: 'center'})
-		Txt.anchor.x = 0.5;
-		Txt.anchor.y = 0.5;
+		layer = map.createLayer(0);
+		layer.resizeWorld();
+		player = new Player(game, 'Characters','Player', 1, 64, 32);
+		game.add.existing(player);
+		game.camera.follow(player, 0, 1, 1);
+
+		game.input.onDown.add(GetTile, this);
 
 	},
 	update: function() {
 
 	}
+}
+
+function GetTile() {
+	//Gets tile location in order to move the player
+	var x = layer.getTileX(game.input.activePointer.worldX);
+  var y = layer.getTileY(game.input.activePointer.worldY);
+  var tile = map.getTile(x, y, layer);
+	currentDataString = JSON.stringify( tile.properties );
+
+	if(tile.properties.isMovable == true)
+	{
+		player.MoveTo(x * 32, y*32 - 32);
+	}
+	else {
+		console.log("Cant Move There");
+	}
+}
+function AddPartyMember() {
+
 }
 
 // add states to StateManager and start MainMenu
