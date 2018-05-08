@@ -1,5 +1,6 @@
 
 var game = new Phaser.Game(1120, 800, Phaser.AUTO);
+var partySize = 4;
 
 // define MainMenu state and methods
 var Preload = function(game) {};
@@ -127,14 +128,21 @@ Combat.prototype = {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.tilemap('map', 'assets/imgs/Test.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'assets/imgs/sokoban.png');
+    game.load.image('tiles', 'assets/imgs/tiles.png');
 	},
 	create: function() {
 		map = game.add.tilemap('map');
-		map.addTilesetImage('Sokoban','tiles');
+		map.addTilesetImage('spritesheet(2)','tiles');
+		outside = map.createLayer(0);
 
-		layer = map.createLayer(0);
-		layer.resizeWorld();
+		outside.resizeWorld();
+
+		vanguard = game.add.group();
+		vanguard.enableBody = true;
+		enemies = game.add.group();
+		enemies.enableBody = true;
+
+
 		player = new Player(game, 'Characters','Player', 1, 64, 32);
 		game.add.existing(player);
 		game.camera.follow(player, 0, 1, 1);
@@ -149,18 +157,27 @@ Combat.prototype = {
 
 function GetTile() {
 	//Gets tile location in order to move the player
-	var x = layer.getTileX(game.input.activePointer.worldX);
-  var y = layer.getTileY(game.input.activePointer.worldY);
-  var tile = map.getTile(x, y, layer);
+	var x = outside.getTileX(game.input.activePointer.worldX);
+  var y = outside.getTileY(game.input.activePointer.worldY);
+	console.log(map.getTile(x, y, outside));
+
+  var tile = map.getTile(x, y, outside);
 	currentDataString = JSON.stringify( tile.properties );
 
-	if(tile.properties.isMovable == true)
+	if(tile.properties.isMovable == false)
 	{
-		player.MoveTo(x * 32, y*32 - 32);
+		console.log("Cant Move There");
+
 	}
 	else {
-		console.log("Cant Move There");
+		player.MoveTo(x * 32, y*32 - 32);
 	}
+}
+function SpawnParty() {
+	for (var i = 0; i < partySize; i++) {
+		array[i]
+	}
+
 }
 function AddPartyMember() {
 
