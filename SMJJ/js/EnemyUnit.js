@@ -1,5 +1,5 @@
 // Enemy prefab constructor function
-function Enemy(game, key, frame, scale, x, y, health, baseDmg) {
+function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 	// call to Phaser.Sprite // new Sprite(game, x, y, key, frame)
 	Phaser.Sprite.call(this, game, x, y, key, frame);
 
@@ -19,11 +19,11 @@ function Enemy(game, key, frame, scale, x, y, health, baseDmg) {
 
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Enemy)
-Enemy.prototype = Object.create(Phaser.Sprite.prototype);
-Enemy.prototype.constructor = Enemy;
+EnemyUnit.prototype = Object.create(Phaser.Sprite.prototype);
+EnemyUnit.prototype.constructor = EnemyUnit;
 
 // override Phaser.Sprite update (to spin the diamond)
-Enemy.prototype.update = function() {
+EnemyUnit.prototype.update = function() {
 
 }
 

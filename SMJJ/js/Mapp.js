@@ -1,29 +1,48 @@
-function Mapp(game,width, length, csvKey, csvSrc, imgKey, imgSrc) {
-  //Call the sprite constructor in phaser.
-  //Phaser.Sprite.call(this, game);
-  this.map = game.add.tilemap('map', 32, 32);
-  this.map.addTilesetImage('tiles');
+function Mapp(game, map, layer) {
+  this.tiles = [];
 
-  this.layer = map.createLayer(0);
-  this.layer.resizeWorld();
 
-  //Set Specilized values for the prefab object
-  //this.anchor.set(0.5,0.5);
 
-  //Set da physics
-
+  for (var i = 0; i < 32; i++) {
+    this.tiles.push([]);
+    for (var j = 0; j < 64; j++) {
+      var tile = map.getTile(j,i, layer);
+      this.tiles[i][j] = new Tile(j, i, tile.properties.canMove, tile.properties.MoveCost);
+    }
+  }
 }
 
-function Tile(game, movable, moveCost) {
-
-  //Set Specilized values for the prefab object
-  //this.anchor.set(0.5,0.5);
-  this.movable = movable;
-  this.moveCost = moveCost;
-
-  //Set da physics
+Mapp.prototype.getTile = function(x,y){
+  return this.tiles[y][x];
 }
 
-//Link the prototype up
-Mapp.prototype = Object.create(Phaser.Tilemap.prototype);
+Mapp.prototype.isTileOpen = function(x,y) {
+  return this.tiles[y][x].Open();
+}
+
+Mapp.prototype.Occupy = function(character, x,y) {
+  this.tiles[y][x].occupant = character;
+}
+
+class Tile {
+  constructor(x, y, movable, moveCost) {
+    this.x = x;
+    this.y = y;
+
+    this.movable = movable;
+    this.moveCost = moveCost;
+    this.occupied = false;
+    this.currentOccupant = NULL;
+  }
+
+  get movable() {return this.movable;}
+  get occupied() {return this.occupied;}
+  get moveCost() {return this.moveCost;}
+  get currentOccupant() {return this.currentOccupant;}
+  set currentOccupant(occupant){
+    this.currentOccupant = occupant;
+    occupied = true;
+  }
+}
+
 Mapp.prototype.constructor = Mapp;
