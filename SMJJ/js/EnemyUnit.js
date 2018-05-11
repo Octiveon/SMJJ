@@ -16,6 +16,7 @@ function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
   this.health = health;
   this.baseDmg = baseDmg;
 	this.threat = 0;
+	this.isAlive = true;
 
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Enemy)
@@ -27,6 +28,22 @@ EnemyUnit.prototype.update = function() {
 
 }
 
-function MoveTo() {
+EnemyUnit.prototype.attack = function() {
+
+}
+
+EnemyUnit.prototype.hit = function(dmg) {
+
+	health = (Math.min(0,health-dmg));
+	if(health == 0){this.isAlive = false;}
+}
+
+EnemyUnit.prototype.onDeath = function() {
+	this.kill();
+}
+
+EnemyUnit.prototype.MoveTo = function(x,y) {
+  this.position.x = x;
+  this.position.y = y;
 
 }

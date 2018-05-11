@@ -193,8 +193,7 @@ function GetTile() {
 	//Gets tile location in order to move the player
 	var x = layer.getTileX(game.input.activePointer.worldX);
   var y = layer.getTileY(game.input.activePointer.worldY);
-	console.log("x" + x + "Y:" + y);
-
+	
   var tile = map.getTile(x, y, layer);
 
 	if(!mapp.isTileOpen(x,y))
