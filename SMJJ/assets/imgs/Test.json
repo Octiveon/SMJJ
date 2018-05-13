@@ -45,110 +45,162 @@
             {
              "0":
                 {
-                 "isMovable":false
+                 "MoveCost":0,
+                 "Occupied":false,
+                 "canMove":false
                 },
              "1":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "10":
                 {
-                 "isMovable":true
+                 "MoveCost":2,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "11":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "12":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "2":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "3":
                 {
-                 "isMovable":true
+                 "MoveCost":2,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "4":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "5":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "6":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "7":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "8":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 },
              "9":
                 {
-                 "isMovable":true
+                 "MoveCost":1,
+                 "Occupied":false,
+                 "canMove":true
                 }
             },
          "tilepropertytypes":
             {
              "0":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "1":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "10":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "11":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "12":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "2":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "3":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "4":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "5":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "6":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "7":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "8":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 },
              "9":
                 {
-                 "isMovable":"bool"
+                 "MoveCost":"int",
+                 "Occupied":"bool",
+                 "canMove":"bool"
                 }
             },
          "tilewidth":32
