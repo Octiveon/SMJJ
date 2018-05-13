@@ -15,6 +15,7 @@ function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 
   this.health = health;
   this.baseDmg = baseDmg;
+	this.movement = 7;
 
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
