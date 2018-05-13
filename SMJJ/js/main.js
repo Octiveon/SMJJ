@@ -1,7 +1,9 @@
 
 var game = new Phaser.Game(1120, 800, Phaser.AUTO);
 var partySize = 4;
-
+var population =1000;
+var food = 1000;
+var supplies=1000;
 // define MainMenu state and methods
 var Preload = function(game) {};
 Preload.prototype = {
@@ -12,7 +14,7 @@ Preload.prototype = {
 		this.game.scale.pageAlignHorizontally = true;this.game.scale.pageAlignVertically = true;this.game.scale.refresh();
 
 		game.load.image('Act1', 'assets/imgs/Act1.png')
-	  game.load.image('Button','assets/imgs/Button.png')
+	    game.load.image('Button','assets/imgs/Button.png')
 		game.load.image('MainMenu','assets/imgs/MainMenu.png')
 
 	},
@@ -83,19 +85,74 @@ MainMenu.prototype = {
 }
 
 var Act1 = function(game) {};
+//variables used for stuff
+var winndow;
+var text;
+var tb;
+var hold;
+var descend;
+var poptxt;
+var foodtxt;
+var supplytext;
 Act1.prototype = {
 	preload: function() {
+		game.load.image('winndow', 'assets/imgs/winndow.png');
+		game.load.image('map', 'assets/imgs/Act1.png');
+		game.load.image('tb', 'assets/imgs/tempButton.png');
+		game.load.image('hold','assets/imgs/hold.png');
+		game.load.image('descend','assets/imgs/descend.png');
 
 	},
 	create: function() {
-		Txt2 = game.add.text(game.world.centerX, game.world.centerY + 100, 'Bam Narrative Yo', { fontSize: '31px', fill: '#ffffff', boundsAlignH: 'center'})
-		Txt2.anchor.x = 0.5;
-		Txt2.anchor.y = 0.5;
-
+		//background 
+		bg = game.add.sprite(0,0, 'map');
+		bg.scale.setTo(1.2,1.2);
+		//textbox window
+		winndow = game.add.sprite(487,320,'winndow');
+		winndow.inputEnabled = true;
+		winndow.input.enableDrag();
+		winndow.x =2000;
+		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
+		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: winndow.width, align: "left", backgroundColor: "#c3c3c3" };
+		text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orks in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orks. \n Holding your ground — fighting in arduous terrain to avoid the orks", style);
+		text.anchor.set(0.5);
+		//map button
+		tb = game.add.button(game.world.centerX - 95, 400, 'tb', moveWinndow);
+		//texbox buttons
+		hold = game.add.button(2000,0,'hold',LoadCombat);
+		descend = game.add.button(2000,0,'descend',descendF);
+		poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '32px', fill: '#999999' });
+		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
+		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
 	},
 	update: function() {
+		
+		text.x = Math.floor(winndow.x + winndow.width / 2 );
+		text.y = Math.floor(winndow.y + winndow.height / 2 - 50);
+		hold.x = Math.floor(winndow.x + 27);
+		hold.y = Math.floor(winndow.y + 237);
+		descend.x = Math.floor(winndow.x + 300);
+		descend.y = Math.floor(winndow.y + 237);
+		poptxt.text = 'Population: ' + population;
+		supplytxt.text = 'Supplies: ' + supplies;
+		foodtxt.text = 'Food: ' + food;
+	} 
+}
+//moves winndow
+function moveWinndow(){
+	winndow.x = 560;
+	winndow.y = 400;
+	population -= 70;
+}
+function holdF(){
+	winndow.x = 560;
+	winndow.y = 400;
 
-	}
+}
+function descendF(){
+	winndow.x = 560;
+	winndow.y = 400;
+	supplies -= 150;
 }
 
 var Act2 = function(game) {};
