@@ -22,9 +22,16 @@ function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 PlayerUnit.prototype = Object.create(Phaser.Sprite.prototype);
 PlayerUnit.prototype.constructor = PlayerUnit;
 
-// override Phaser.Sprite update (to spin the diamond)
-PlayerUnit.prototype.update = function() {
+PlayerUnit.prototype.attack = function(target) {
+	//Base function
+	target.hit(this.baseDmg);
 
+}
+
+PlayerUnit.prototype.hit = function(dmg) {
+
+	health = (Math.min(0,health-dmg));
+	if(health == 0){this.isAlive = false;}
 }
 
 PlayerUnit.prototype.MoveTo = function(x,y) {

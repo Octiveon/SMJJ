@@ -14,12 +14,31 @@ Mapp.prototype.getTile = function(x,y){
   return this.tiles[y][x];
 }
 
+Mapp.prototype.getTileOccupant = function(x,y){
+  return this.tiles[y][x].occupant;
+}
+
+Mapp.prototype.getTileStatus = function(x,y){
+  if(this.tiles[y][x].occupied)
+  {
+    return 1;
+  }
+  else if (this.tiles[y][x].movable) {
+    return 0;
+  }
+}
+
 Mapp.prototype.isTileOpen = function(x,y) {
   return this.tiles[y][x].Open();
 }
 
-Mapp.prototype.Occupy = function(character, x,y) {
+Mapp.prototype.Occupy = function(character,x,y) {
   this.tiles[y][x].occupant = character;
+  this.tiles[y][x].occupied = true;
+}
+
+Mapp.prototype.setOccupied = function(x,y) {
+  this.tiles[y][x].occupied = true;
 }
 
 Mapp.prototype.CreateTiles = function(x,y){

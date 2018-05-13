@@ -153,20 +153,30 @@ Combat.prototype = {
 
 		mapp = new Mapp(game, map, layer);
 
+		uiGrp = game.add.group();
+		uiGrp.enableBody = true;
+
 		vanguard = game.add.group();
 		vanguard.enableBody = true;
+
 		enemyUnits = game.add.group();
 		enemyUnits.enableBody = true;
 
 		portrait = game.add.sprite(0,game.height - (600 * 0.2), 'UIHalfWindow');
 		portrait.scale.setTo(0.2,0.2);
 		portrait.fixedToCamera = true;
+		portrait.enableBody = true;
+		uiGrp.add(portrait);
 
 		endTurn = game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, 'ButtonRnd', EndTurn, this);
 		endTurn.anchor.x = 0.5;
 		endTurn.anchor.y = 0.5;
 		endTurn.fixedToCamera = true;
     endTurn.scale.setTo(1,1);
+		endTurn.enableBody = true;
+
+		uiGrp.add(endTurn);
+
 
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,
 		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
@@ -209,12 +219,17 @@ Combat.prototype = {
 
 		game.input.onDown.add(GetTile, this);
 		game.input.addMoveCallback(updateMarker, this);
+		UpdateUI();
 
 	},
 	update: function() {
 		CheckForInput();
 
 
+	},
+	render: function()
+	{
+		//game.debug.body(portrait);
 	}
 }
 
@@ -236,20 +251,19 @@ function EndTurn() {
 
 }
 
-
 function EnemyAct() {
 
 	pnt = getRandomTile();
+
 	x = layer.getTileX(currentUnit.position.x + pnt[0]);
   y = layer.getTileY(currentUnit.position.y + pnt[1]);
 
-	currentUnit.MoveTo(x * 32, y * 32 - 32);
 
+	currentUnit.MoveTo(x * 32, y * 32 - 32);
 
 }
 
-function getRandomTile()
-{
+function getRandomTile(){
 	var randX = game.rnd.integerInRange(0,2);
 	var randY = game.rnd.integerInRange(0,2);
 	var x = 0;
@@ -289,29 +303,36 @@ function updateMarker() {
     marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
 }
 
+function GetTile() {
+	var x = game.input.activePointer.worldX;
+	var y = game.input.activePointer.worldY;
 
-function updateMarker() {
-    marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
-    marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
+	//Gets tile location in order to move the player
+for (var i = 0; i < uiGrp.children.length; i++) {
+	console.log(uiGrp.children[i].getBounds().contains(x, y));
+	if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
 }
 
+	x = layer.getTileX(game.input.activePointer.worldX);
+  y = layer.getTileY(game.input.activePointer.worldY);
 
-function GetTile() {
-	//Gets tile location in order to move the player
-	var x = layer.getTileX(game.input.activePointer.worldX);
-  var y = layer.getTileY(game.input.activePointer.worldY);
+  var tile = mapp.getTile(x, y);
 
-  var tile = map.getTile(x, y, layer);
+	if(!mapp.isTileOpen(x,y)){
+		var flag = mapp.getTileStatus(x,y);
 
-	if(!mapp.isTileOpen(x,y))
-	{
-		console.log("Cant Move There");
+		if(flag == 1){
+			occup = mapp.getTileOccupant(x,y);
+			if(enemyUnits.children.indexOf(occup) > -1) {
+			   currentUnit.attack(occup);
+			}
+		}
 	}
 	else {
 		currentUnit.MoveTo(x * 32, y * 32 - 32);
 		playermarker.x = currentUnit.position.x - 32;
 		playermarker.y = currentUnit.position.y;
-		tile.properties.Occupied = true;
+		tile.occupied = true;
 	}
 }
 
@@ -326,6 +347,9 @@ function SpawnEnemies(count, type) {
 			y = game.rnd.integerInRange(0, 31)
 		}
 
+		var tile = mapp.getTile(x, y);
+		tile.occupied = true;
+
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32, 50, 10);
 		game.add.existing(eUnit);
@@ -334,7 +358,7 @@ function SpawnEnemies(count, type) {
 }
 
 function SpawnParty() {
-	for (var i = 0; i < partySize; i++) {
+	for (var i = 0; i < partySize; i++){
 		var x = game.rnd.integerInRange(0, 63);
 		var y = game.rnd.integerInRange(0, 31)
 
@@ -344,13 +368,17 @@ function SpawnParty() {
 			y = game.rnd.integerInRange(0, 31)
 		}
 
-//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
+		var tile = mapp.getTile(x, y);
+		tile.occupied = true;
+
+		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		pUnit = new PlayerUnit(game, 'Characters','Player', 1, x * 32, y * 32, 100, 15);
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);
-		}
+	}
 
 }
+
 function AddPartyMember() {
 
 }
