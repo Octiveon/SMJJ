@@ -13,18 +13,10 @@ Preload.prototype = {
 
 		this.game.scale.pageAlignHorizontally = true;this.game.scale.pageAlignVertically = true;this.game.scale.refresh();
 
-<<<<<<< HEAD
 		game.load.image('Act1', 'assets/imgs/Act1.png')
-	    game.load.image('Button','assets/imgs/Button.png')
+	  game.load.image('Button','assets/imgs/Button.png')
 		game.load.image('MainMenu','assets/imgs/MainMenu.png')
-=======
-		game.load.image('Act1', 'assets/imgs/Act1.png');
-	  game.load.image('Button','assets/imgs/Button.png');
 		game.load.image('ButtonRnd','assets/imgs/Button_up.png');
-
-		game.load.image('MainMenu','assets/imgs/MainMenu.png');
->>>>>>> bcab56f6443231dc51a251ee073fa9c4435cd664
-
 	},
 	create: function() {
 
@@ -114,7 +106,7 @@ Act1.prototype = {
 
 	},
 	create: function() {
-		//background 
+		//background
 		bg = game.add.sprite(0,0, 'map');
 		bg.scale.setTo(1.2,1.2);
 		//textbox window
@@ -136,7 +128,7 @@ Act1.prototype = {
 		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
 	},
 	update: function() {
-		
+
 		text.x = Math.floor(winndow.x + winndow.width / 2 );
 		text.y = Math.floor(winndow.y + winndow.height / 2 - 50);
 		hold.x = Math.floor(winndow.x + 27);
@@ -146,7 +138,7 @@ Act1.prototype = {
 		poptxt.text = 'Population: ' + population;
 		supplytxt.text = 'Supplies: ' + supplies;
 		foodtxt.text = 'Food: ' + food;
-	} 
+	}
 }
 //moves winndow
 function moveWinndow(){
