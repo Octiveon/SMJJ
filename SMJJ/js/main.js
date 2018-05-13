@@ -23,6 +23,7 @@ Preload.prototype = {
 	},
 	update: function() {
 		LoadScene('MainMenu');
+		
 
 	}
 }
