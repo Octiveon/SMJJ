@@ -23,7 +23,7 @@ Preload.prototype = {
 	},
 	update: function() {
 		LoadScene('MainMenu');
-		
+
 
 	}
 }
@@ -259,6 +259,11 @@ function EnemyAct() {
 	x = layer.getTileX(currentUnit.position.x + pnt[0]);
   y = layer.getTileY(currentUnit.position.y + pnt[1]);
 
+	currX = layer.getTileX(currentUnit.position.x);
+  currY = layer.getTileY(currentUnit.position.y);
+
+	mapp.OccupentLeft(x,y);
+
 
 	currentUnit.MoveTo(x * 32, y * 32 - 32);
 
@@ -318,7 +323,7 @@ for (var i = 0; i < uiGrp.children.length; i++) {
   y = layer.getTileY(game.input.activePointer.worldY);
 
   var tile = mapp.getTile(x, y);
-
+	console.log(tile);
 	if(!mapp.isTileOpen(x,y)){
 		var flag = mapp.getTileStatus(x,y);
 
@@ -330,10 +335,12 @@ for (var i = 0; i < uiGrp.children.length; i++) {
 		}
 	}
 	else {
+		mapp.OccupentLeft(layer.getTileX(currentUnit.position.x), layer.getTileX(currentUnit.position.y));
 		currentUnit.MoveTo(x * 32, y * 32 - 32);
 		playermarker.x = currentUnit.position.x - 32;
 		playermarker.y = currentUnit.position.y;
-		tile.occupied = true;
+		mapp.Occupy(x,y,currentUnit)
+
 	}
 }
 

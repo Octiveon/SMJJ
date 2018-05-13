@@ -32,13 +32,19 @@ Mapp.prototype.isTileOpen = function(x,y) {
   return this.tiles[y][x].Open();
 }
 
-Mapp.prototype.Occupy = function(character,x,y) {
+Mapp.prototype.Occupy = function(x,y,character) {
   this.tiles[y][x].occupant = character;
   this.tiles[y][x].occupied = true;
 }
 
-Mapp.prototype.setOccupied = function(x,y) {
-  this.tiles[y][x].occupied = true;
+Mapp.prototype.setOccupied = function(x,y,bool) {
+  this.tiles[y][x].occupied = bool;
+}
+Mapp.prototype.OccupentLeft = function(x,y) {
+  this.tiles[y][x].occupied = false;
+  this.tiles[y][x].occupant = null;
+
+
 }
 
 Mapp.prototype.CreateTiles = function(x,y){
