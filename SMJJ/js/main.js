@@ -4,6 +4,7 @@ var partySize = 4;
 var population =1000;
 var food = 1000;
 var supplies=1000;
+var currentBGM;
 // define MainMenu state and methods
 var Preload = function(game) {};
 Preload.prototype = {
@@ -17,6 +18,10 @@ Preload.prototype = {
 	  game.load.image('Button','assets/imgs/Button.png')
 		game.load.image('MainMenu','assets/imgs/MainMenu.png')
 		game.load.image('ButtonRnd','assets/imgs/Button_up.png');
+		game.load.audio('menuSnd', 'assets/snds/menu.ogg');
+		game.load.audio('battleSnd', 'assets/snds/battle.ogg');
+
+
 	},
 	create: function() {
 
@@ -58,6 +63,17 @@ MainMenu.prototype = {
 	preload: function() {
 	},
 	create: function() {
+		if(currentBGM != 0)
+		{
+			game.sound.stopAll();
+			currentBGM = game.add.audio('menuSnd');
+			currentBGM.play('',0,1,true);
+		}
+		else {
+			currentBGM = game.add.audio('menuSnd');
+			currentBGM.play('',0,1,true);
+		}
+
 		bg = game.add.sprite(0,0, 'MainMenu');
 		bg.scale.setTo(1.2,1.6);
 
@@ -196,6 +212,15 @@ Combat.prototype = {
 
 	},
 	create: function() {
+		if(currentBGM != 0)
+		{
+			game.sound.stopAll();
+			currentBGM = game.add.audio('battleSnd');
+			currentBGM.play('',0,1,true);
+		}
+		else {
+			currentBGM.play('',0,1,true);
+		}
 
 		units = [];
 		currentUnit = 0;
@@ -230,11 +255,27 @@ Combat.prototype = {
 		endTurn.fixedToCamera = true;
     endTurn.scale.setTo(1,1);
 		endTurn.enableBody = true;
+		var style = { font: "10px Arial", fill: "#000000", wordWrap: true,
+		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
+		endTurntext = game.add.text(portrait.width * 0.85 ,game.height - portrait.height * 0.25, "End Turn", style);
+		endTurntext.fixedToCamera = true;
+
+		exitBtn = game.add.button(50 ,50, 'ButtonRnd', Exit, this);
+		exitBtn.anchor.x = 0.5;
+		exitBtn.anchor.y = 0.5;
+		exitBtn.fixedToCamera = true;
+    exitBtn.scale.setTo(1,1);
+		exitBtn.enableBody = true;
+		var style = { font: "14px Arial",backgroundColor:"#ffffff", fill: "#000000", wordWrap: true,
+		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
+		exitBtntext = game.add.text(40 ,40, "Exit", style);
+		exitBtntext.fixedToCamera = true;
+
 
 		uiGrp.add(endTurn);
 
 
-		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,
+		style = { font: "16px Arial", fill: "#000000", wordWrap: true,
 		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
 		unitWindowtext = game.add.text(portrait.width * 0.5 ,game.height - portrait.height * 0.7, "Health: \n Move:", style);
 		unitWindowtext.fixedToCamera = true;
@@ -288,6 +329,11 @@ Combat.prototype = {
 		//game.debug.body(portrait);
 	}
 }
+
+function Exit() {
+	game.state.start('MainMenu');
+}
+
 
 function EndTurn() {
 	//Check for end turn button
@@ -370,7 +416,7 @@ function GetTile() {
 
 	//Gets tile location in order to move the player
 for (var i = 0; i < uiGrp.children.length; i++) {
-	console.log(uiGrp.children[i].getBounds().contains(x, y));
+	//console.log(uiGrp.children[i].getBounds().contains(x, y));
 	if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
 }
 
@@ -378,7 +424,7 @@ for (var i = 0; i < uiGrp.children.length; i++) {
   y = layer.getTileY(game.input.activePointer.worldY);
 
   var tile = mapp.getTile(x, y);
-	console.log(tile);
+	//console.log(tile);
 	if(!mapp.isTileOpen(x,y)){
 		var flag = mapp.getTileStatus(x,y);
 
