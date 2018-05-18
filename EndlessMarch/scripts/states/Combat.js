@@ -69,8 +69,7 @@ Combat.prototype = {
 		unitWindowtext.fixedToCamera = true;
 
 		endTurn = game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, 'RndButton', EndTurn, this, 'Hover', 'Up','Down');
-		endTurn.anchor.x = 0.5;
-		endTurn.anchor.y = 0.5;
+		endTurn.anchor.x = endTurn.anchor.y = 0.5;
 		endTurn.fixedToCamera = true;
     endTurn.scale.setTo(1,1);
 		endTurn.enableBody = true;
@@ -94,6 +93,8 @@ Combat.prototype = {
 		moveBtn.fixedToCamera = true;
     moveBtn.scale.setTo(1,1);
 		moveBtn.enableBody = true;
+		uiGrp.add(moveBtn);
+
 
 		moveBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 35, "Move", style);
 		moveBtntext.fixedToCamera = true;
@@ -104,6 +105,9 @@ Combat.prototype = {
     attackBtn.scale.setTo(1,1);
 		attackBtn.enableBody = true;
 
+		uiGrp.add(attackBtn);
+
+
 		attackBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 70, "Attack", style);
 		attackBtntext.fixedToCamera = true;
 
@@ -112,6 +116,9 @@ Combat.prototype = {
 		abilityBtn.fixedToCamera = true;
 		abilityBtn.scale.setTo(1,1);
 		abilityBtn.enableBody = true;
+
+		uiGrp.add(abilityBtn);
+
 
 		abilityBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 105, "Ability", style);
 		abilityBtntext.fixedToCamera = true;
@@ -194,6 +201,7 @@ function EndTurn() {
 	if(unitNum > units.length - 1){unitNum = 0;}
 	currentUnit = units[unitNum];
 	currentUnit.NewTurn();
+	currentUnit.bringToTop();
 
 	while(enemyUnits.children.indexOf(currentUnit) > -1)
 	{//What to do when enemy turn comes up
@@ -271,18 +279,22 @@ function updateMarker() {
 	x = layer.getTileX(x);
 	y = layer.getTileY(y);
 
+	if(x < 0){ x = 0;}
+	if(y < 0){ y = 0;}
+
 	var flag = mapp.getTileStatus(x,y);
 
 	if(actionEnum == "Move")
 	{
-		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 &&
-			currentUnit.CanMove(mapp.getTileCost(x, y)))
-		{	marker.tint = 0x3eff03;}
-		else{		marker.tint = 0xBD0404;}
+		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 && currentUnit.CanMove(mapp.getTileCost(x, y)))
+		{ marker.tint = 0x3eff03; }
+		else{		marker.tint = 0xBD0404; }
 	}
 	else if (actionEnum == "Attack") {
-		marker.tint = 0xBD0404;
 
+		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 && flag == 1)
+		{ marker.tint = 0xBD0404; }
+		else{ marker.tint = 0xffffff; }
 
 	}
 
@@ -348,8 +360,7 @@ function Ability(x,y) {
 }
 
 function Attack(x,y) {
-	if(!mapp.isTileOpen(x,y)){
-		console.log("Not Open")
+	if(!mapp.isTileOpen(x,y) && GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60){
 		var flag = mapp.getTileStatus(x,y);
 
 		if(flag == 1){
