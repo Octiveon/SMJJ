@@ -23,7 +23,7 @@ function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 EnemyUnit.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyUnit.prototype.constructor = EnemyUnit;
 
-PlayerUnit.prototype.NewTurn = function(x,y) {
+EnemyUnit.prototype.NewTurn = function(x,y) {
   this.movement = 7;
 }
 
