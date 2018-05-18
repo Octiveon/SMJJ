@@ -47,7 +47,7 @@ Act1.prototype = {
 		windoww.x =2000;
 		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left", backgroundColor: "#c3c3c3" };
-		text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orks in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orks. \n Holding your ground — fighting in arduous terrain to avoid the orks", style);
+		text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orcs in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orcs. \n Holding your ground — fighting in arduous terrain to avoid the orcs", style);
 		text.anchor.set(0.5);
 		//map button
 		tb = game.add.button(game.world.centerX - 95, 400, 'tb', moveWindow);
