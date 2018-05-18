@@ -74,7 +74,10 @@ Act1.prototype = {
 
 		actInstructions = game.add.sprite(100, 400, 'instructions', 'actInstructions');
 		actInstructions.fixedToCamera = true;
+<<<<<<< HEAD
     DrawPath();
+=======
+>>>>>>> 4a77488dbedaaee57a779d96ef8e44e273412cbb
 	},
 	update: function() {
 

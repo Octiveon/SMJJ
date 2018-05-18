@@ -16,6 +16,10 @@ Combat.prototype = {
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/imgs/tiles.png');
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
+<<<<<<< HEAD
+=======
+
+>>>>>>> 4a77488dbedaaee57a779d96ef8e44e273412cbb
 	},
 	create: function() {
 
