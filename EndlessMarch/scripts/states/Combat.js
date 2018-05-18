@@ -4,6 +4,7 @@ var Combat = function(game) {};
 Combat.prototype = {
 	init: function() {
 		partyAlive = partySize;
+		actionEnum = "Move"; //Move, Ability, Attack
 
 	},
 	preload: function() {
@@ -19,10 +20,10 @@ Combat.prototype = {
 		{
 			game.sound.stopAll();
 			currentBGM = game.add.audio('battleSnd');
-			currentBGM.play('',0,1,true);
+			currentBGM.play('',0,0.1,true);
 		}
 		else {
-			currentBGM.play('',0,1,true);
+			currentBGM.play('',0,0.1,true);
 		}
 
 		units = [];
@@ -46,50 +47,82 @@ Combat.prototype = {
 		enemyUnits = game.add.group();
 		enemyUnits.enableBody = true;
 
-		portrait = game.add.sprite(0,game.height - (600 * 0.2), 'UIHalfWindow');
+		portrait = game.add.sprite(0, game.height - (600 * 0.2), 'UIHalfWindow');
 		portrait.scale.setTo(0.2,0.2);
 		portrait.fixedToCamera = true;
 		portrait.enableBody = true;
 		uiGrp.add(portrait);
 
-		endTurn = game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, 'ButtonRnd', EndTurn, this);
+		var style = { font: "10px Arial", fill: "#000000", wordWrap: true,
+		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
+
+		wind = game.add.sprite(game.camera.width,0, 'TextWindow');
+		wind.anchor.x =  1;
+		wind.scale.setTo(0.1,0.15);
+		wind.fixedToCamera = true;
+
+		unitWindowtext = game.add.text(portrait.width * 0.5 ,game.height - portrait.height * 0.7, "Health: \n Move:", style);
+		unitWindowtext.fixedToCamera = true;
+
+		endTurn = game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, 'RndButton', EndTurn, this, 'Hover', 'Up','Down');
 		endTurn.anchor.x = 0.5;
 		endTurn.anchor.y = 0.5;
 		endTurn.fixedToCamera = true;
     endTurn.scale.setTo(1,1);
 		endTurn.enableBody = true;
-		var style = { font: "10px Arial", fill: "#000000", wordWrap: true,
-		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
+
 		endTurntext = game.add.text(portrait.width * 0.85 ,game.height - portrait.height * 0.25, "End Turn", style);
 		endTurntext.fixedToCamera = true;
 
-		exitBtn = game.add.button(50 ,50, 'ButtonRnd', Exit, this);
-		exitBtn.anchor.x = 0.5;
-		exitBtn.anchor.y = 0.5;
+		exitBtn = game.add.button(50 ,50, 'RndButton', Exit, this, 'Hover', 'Up','Down');
+		exitBtn.anchor.x = exitBtn.anchor.y = 0.5;
 		exitBtn.fixedToCamera = true;
     exitBtn.scale.setTo(1,1);
 		exitBtn.enableBody = true;
-		var style = { font: "14px Arial",backgroundColor:"#ffffff", fill: "#000000", wordWrap: true,
-		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
+
+		var style = { font: "14px Arial", fill: "#000000", wordWrap: true,
+		 wordWrapWidth: wind.width, align: "center", fontWeight: "bold" };
 		exitBtntext = game.add.text(40 ,40, "Exit", style);
 		exitBtntext.fixedToCamera = true;
 
+		moveBtn = game.add.button(wind.position.x - 150 ,35, 'RndButton', MoveMode, this, 'Hover', 'Up','Down');
+		moveBtn.anchor.x = exitBtn.anchor.y = 0.5;
+		moveBtn.fixedToCamera = true;
+    moveBtn.scale.setTo(1,1);
+		moveBtn.enableBody = true;
+
+		moveBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 35, "Move", style);
+		moveBtntext.fixedToCamera = true;
+
+		attackBtn = game.add.button(wind.position.x - 150 ,70, 'RndButton', AttackMode, this, 'Hover', 'Up','Down');
+		attackBtn.anchor.x = exitBtn.anchor.y = 0.5;
+		attackBtn.fixedToCamera = true;
+    attackBtn.scale.setTo(1,1);
+		attackBtn.enableBody = true;
+
+		attackBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 70, "Attack", style);
+		attackBtntext.fixedToCamera = true;
+
+		abilityBtn = game.add.button(wind.position.x - 150 ,105, 'RndButton', AbilityMode, this, 'Hover', 'Up','Down');
+		abilityBtn.anchor.x = exitBtn.anchor.y = 0.5;
+		abilityBtn.fixedToCamera = true;
+		abilityBtn.scale.setTo(1,1);
+		abilityBtn.enableBody = true;
+
+		abilityBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 105, "Ability", style);
+		abilityBtntext.fixedToCamera = true;
 
 		uiGrp.add(endTurn);
 
-
 		style = { font: "16px Arial", fill: "#000000", wordWrap: true,
 		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
-		unitWindowtext = game.add.text(portrait.width * 0.5 ,game.height - portrait.height * 0.7, "Health: \n Move:", style);
-		unitWindowtext.fixedToCamera = true;
 
+		////////////////////////////////////////////////////////////////////
+		marker = game.add.graphics();
+		marker.lineStyle(2, 0xffffff, 1);
+		marker.drawRect(0, 0, 32, 32);
+		////////////////////////////////////////////////////////////////////
 
-
-			////////////////////////////////////////////////////////////////////
-	     marker = game.add.graphics();
-	     marker.lineStyle(2, 0xffffff, 1);
-	     marker.drawRect(0, 0, 32, 32);
-			 ////////////////////////////////////////////////////////////////////
 		SpawnParty();
 		SpawnEnemies(3, 'Enemy');
 
@@ -102,24 +135,24 @@ Combat.prototype = {
 		}
 		currentUnit = units[unitNum];
 		game.camera.follow(currentUnit, 0, 0.2, 0.2);
+		// Arg(HowMany, key of enemy image in atlas)
+		////////////////////////////////////////////////////////////////////
+		playermarker = game.add.graphics();
+		playermarker.lineStyle(2, 0x00ff77, 1);
+		playermarker.drawRect(0,0, 32 * 3, 32 * 3);
+		playermarker.x = currentUnit.position.x - 32;
+		playermarker.y = currentUnit.position.y;
 
-// Arg(HowMany, key of enemy image in atlas)
+		key1 = game.input.keyboard.addKey(Phaser.Keyboard.T);
+		key1.onDown.add(EndTurn, this);
+		////////////////////////////////////////////////////////////////////
 
-						////////////////////////////////////////////////////////////////////
-			     playermarker = game.add.graphics();
-			     playermarker.lineStyle(2, 0x00ff77, 1);
-					 playermarker.drawRect(0,0, 32 * 3, 32 * 3);
-					 playermarker.x = currentUnit.position.x - 32;
-					 playermarker.y = currentUnit.position.y;
 
-					 key1 = game.input.keyboard.addKey(Phaser.Keyboard.T);
-    	 		 key1.onDown.add(EndTurn, this);
 
-					 ////////////////////////////////////////////////////////////////////
-
-		game.input.onDown.add(GetTile, this);
+		game.input.onDown.add(TileSelect, this);
 		game.input.addMoveCallback(updateMarker, this);
 		UpdateUI();
+		//mapp.Debug();
 
 	},
 	update: function() {
@@ -132,6 +165,19 @@ Combat.prototype = {
 };
 
 
+function AttackMode() {
+	actionEnum = "Attack";
+}
+
+function MoveMode() {
+	actionEnum = "Move";
+
+}
+
+function AbilityMode() {
+	actionEnum = "Ability";
+}
+
 function Exit() {
 	game.state.start('mainMenu');
 }
@@ -141,6 +187,8 @@ function EndTurn() {
 	unitNum++;
 	if(unitNum > units.length - 1){unitNum = 0;}
 	currentUnit = units[unitNum];
+	currentUnit.NewTurn();
+
 	while(enemyUnits.children.indexOf(currentUnit) > -1)
 	{//What to do when enemy turn comes up
 		EnemyAct();
@@ -161,11 +209,11 @@ function EnemyAct() {
 	x = layer.getTileX(currentUnit.position.x + pnt[0]);
   y = layer.getTileY(currentUnit.position.y + pnt[1]);
 
-	currX = layer.getTileX(currentUnit.position.x);
-  currY = layer.getTileY(currentUnit.position.y);
+	prevX = layer.getTileX(currentUnit.position.x);
+  prevY = layer.getTileY(currentUnit.position.y);
 
-	mapp.OccupentLeft(x,y);
-
+	mapp.OccupentLeft(prevX,prevY + 1);
+	mapp.Occupy(x,y);
 
 	currentUnit.MoveTo(x * 32, y * 32 - 32);
 
@@ -201,46 +249,105 @@ function UpdateUI() {
 	//Update boundry box of currentUnit
 	playermarker.x = currentUnit.position.x - 32;
 	playermarker.y = currentUnit.position.y;
+	if(currentUnit.movement == 0){
+		playermarker.destroy();
+	 }
+	else{
+		playermarker.lineStyle(2, 0x00ff77, 1);
+		playermarker.drawRect(0,0, 32 * 3, 32 * 3);
+		playermarker.x = currentUnit.position.x - 32;
+		playermarker.y = currentUnit.position.y;
+	}
 }
 
 function updateMarker() {
-    marker.x = layer.getTileX(game.input.activePointer.worldX) * 32;
-    marker.y = layer.getTileY(game.input.activePointer.worldY) * 32;
-}
-
-function GetTile() {
 	var x = game.input.activePointer.worldX;
 	var y = game.input.activePointer.worldY;
 
-	//Gets tile location in order to move the player
+	//Stops tile selection if over tiles
 	for (var i = 0; i < uiGrp.children.length; i++) {
 		//console.log(uiGrp.children[i].getBounds().contains(x, y));
 		if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
 	}
 
-	x = layer.getTileX(game.input.activePointer.worldX);
-  y = layer.getTileY(game.input.activePointer.worldY);
+    marker.x = layer.getTileX(x) * 32;
+    marker.y = layer.getTileY(y) * 32;
+}
 
-  var tile = mapp.getTile(x, y);
-	//console.log(tile);
+function TileSelect() {
+	var x = game.input.activePointer.worldX;
+	var y = game.input.activePointer.worldY;
+	//Stops tile selection if over tiles
+	for (var i = 0; i < uiGrp.children.length; i++) {
+		//console.log(uiGrp.children[i].getBounds().contains(x, y));
+		if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
+	}
+
+	var x = game.input.activePointer.worldX;
+	var y = game.input.activePointer.worldY;
+
+	//Gets tile location in order to move the player
+	x = layer.getTileX(game.input.activePointer.worldX);
+	y = layer.getTileY(game.input.activePointer.worldY);
+
+	switch (actionEnum) {
+		case "Move":
+		Move(x,y);
+			break;
+		case "Ability":
+		Ability(x,y);
+			break;
+		case "Attack":
+		Attack(x,y);
+			break;
+		default:
+	}
+	UpdateUI();
+
+}
+
+function Move(x,y) {
+		//Gets tile location in order to move the player
+		x = layer.getTileX(game.input.activePointer.worldX);
+	  y = layer.getTileY(game.input.activePointer.worldY);
+
+		var prevX = layer.getTileX(currentUnit.position.x);
+		var prevY = layer.getTileY(currentUnit.position.y);
+
+		//console.log(tile);
+		if(mapp.isTileOpen(x,y) &&
+		 GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 &&
+		 currentUnit.CanMove(mapp.getTileCost(x,y))){
+			mapp.OccupentLeft(prevX, prevY+1);
+			currentUnit.MoveTo(x * 32, y * 32 - 32, mapp.getTileCost(x,y));
+			playermarker.x = currentUnit.position.x - 32;
+			playermarker.y = currentUnit.position.y;
+			mapp.Occupy(x,y,currentUnit)
+		}
+}
+
+function Ability(x,y) {
+	x = layer.getTileX(game.input.activePointer.worldX);
+	y = layer.getTileY(game.input.activePointer.worldY);
+}
+
+function Attack(x,y) {
 	if(!mapp.isTileOpen(x,y)){
+		console.log("Not Open")
 		var flag = mapp.getTileStatus(x,y);
 
 		if(flag == 1){
 			occup = mapp.getTileOccupant(x,y);
 			if(enemyUnits.children.indexOf(occup) > -1) {
-			   currentUnit.attack(occup);
+				 console.log("Attack");
+				 currentUnit.Attack(occup);
 			}
 		}
 	}
-	else {
-		mapp.OccupentLeft(layer.getTileX(currentUnit.position.x), layer.getTileX(currentUnit.position.y));
-		currentUnit.MoveTo(x * 32, y * 32 - 32);
-		playermarker.x = currentUnit.position.x - 32;
-		playermarker.y = currentUnit.position.y;
-		mapp.Occupy(x,y,currentUnit)
+}
 
-	}
+function GetDistance(x1,y1,x2,y2) {
+	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
 function SpawnEnemies(count, type) {
@@ -254,13 +361,13 @@ function SpawnEnemies(count, type) {
 			y = game.rnd.integerInRange(0, 31)
 		}
 
-		var tile = mapp.getTile(x, y);
-		tile.occupied = true;
 
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32, 50, 10);
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
+		mapp.Occupy(x,y+1,eUnit);
+
 	}
 }
 
@@ -275,13 +382,12 @@ function SpawnParty() {
 			y = game.rnd.integerInRange(0, 31)
 		}
 
-		var tile = mapp.getTile(x, y);
-		tile.occupied = true;
-
 		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		pUnit = new PlayerUnit(game, 'Characters','Player', 1, x * 32, y * 32, 100, 15);
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);
+		mapp.Occupy(x,y + 1, pUnit);
+
 	}
 
 }

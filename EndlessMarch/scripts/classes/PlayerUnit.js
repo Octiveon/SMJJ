@@ -22,20 +22,26 @@ function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 PlayerUnit.prototype = Object.create(Phaser.Sprite.prototype);
 PlayerUnit.prototype.constructor = PlayerUnit;
 
-PlayerUnit.prototype.attack = function(target) {
-	//Base function
-	target.hit(this.baseDmg);
-
+PlayerUnit.prototype.NewTurn = function(x,y) {
+  this.movement = 7;
 }
 
-PlayerUnit.prototype.hit = function(dmg) {
+PlayerUnit.prototype.Attack = function(target) {
+	target.Hit(this.baseDmg);
+}
 
+PlayerUnit.prototype.Hit = function(dmg) {
 	health = (Math.min(0,health-dmg));
 	if(health == 0){this.isAlive = false;}
 }
 
-PlayerUnit.prototype.MoveTo = function(x,y) {
+PlayerUnit.prototype.MoveTo = function(x,y, cost) {
   this.position.x = x;
   this.position.y = y;
+	this.movement -= cost;
+}
 
+PlayerUnit.prototype.CanMove = function(cost) {
+	if(cost > this.movement){return false;}
+	return true;
 }
