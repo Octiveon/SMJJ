@@ -47,6 +47,8 @@ Combat.prototype = {
 		enemyUnits = game.add.group();
 		enemyUnits.enableBody = true;
 
+		//Add Things in after here
+
 		portrait = game.add.sprite(0, game.height - (600 * 0.2), 'UIHalfWindow');
 		portrait.scale.setTo(0.2,0.2);
 		portrait.fixedToCamera = true;
@@ -60,6 +62,8 @@ Combat.prototype = {
 		wind.anchor.x =  1;
 		wind.scale.setTo(0.1,0.15);
 		wind.fixedToCamera = true;
+		uiGrp.add(wind);
+
 
 		unitWindowtext = game.add.text(portrait.width * 0.5 ,game.height - portrait.height * 0.7, "Health: \n Move:", style);
 		unitWindowtext.fixedToCamera = true;
@@ -120,7 +124,9 @@ Combat.prototype = {
 		////////////////////////////////////////////////////////////////////
 		marker = game.add.graphics();
 		marker.lineStyle(2, 0xffffff, 1);
+		marker.beginFill(0xffffff, 0.5);
 		marker.drawRect(0, 0, 32, 32);
+		marker.endFill();
 		////////////////////////////////////////////////////////////////////
 
 		SpawnParty();
@@ -249,15 +255,7 @@ function UpdateUI() {
 	//Update boundry box of currentUnit
 	playermarker.x = currentUnit.position.x - 32;
 	playermarker.y = currentUnit.position.y;
-	if(currentUnit.movement == 0){
-		playermarker.destroy();
-	 }
-	else{
-		playermarker.lineStyle(2, 0x00ff77, 1);
-		playermarker.drawRect(0,0, 32 * 3, 32 * 3);
-		playermarker.x = currentUnit.position.x - 32;
-		playermarker.y = currentUnit.position.y;
-	}
+
 }
 
 function updateMarker() {
@@ -270,8 +268,26 @@ function updateMarker() {
 		if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
 	}
 
-    marker.x = layer.getTileX(x) * 32;
-    marker.y = layer.getTileY(y) * 32;
+	x = layer.getTileX(x);
+	y = layer.getTileY(y);
+
+	var flag = mapp.getTileStatus(x,y);
+
+	if(actionEnum == "Move")
+	{
+		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 &&
+			currentUnit.CanMove(mapp.getTileCost(x, y)))
+		{	marker.tint = 0x3eff03;}
+		else{		marker.tint = 0xBD0404;}
+	}
+	else if (actionEnum == "Attack") {
+		marker.tint = 0xBD0404;
+
+
+	}
+
+  marker.x = x * 32;
+  marker.y = y * 32;
 }
 
 function TileSelect() {
