@@ -1,5 +1,6 @@
 var Acts = function(game) {};
-
+Path = [];
+cnt = 0;
 
 Acts.prototype = {
     preload: function () {
@@ -13,7 +14,6 @@ Acts.prototype = {
 };
 
 var Act1 = function(game) {};
-
 var text;
 var tb;
 var hold;
@@ -30,7 +30,6 @@ Act1.prototype = {
   },
 	preload: function() {
 		game.load.image('window', 'assets/imgs/window.png');
-		game.load.image('map', 'assets/imgs/Act1.png');
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
 		game.load.image('descend','assets/imgs/descend.png');
@@ -38,8 +37,15 @@ Act1.prototype = {
 	},
 	create: function() {
 		//background
-		bg = game.add.sprite(0,0, 'map');
+		bg = game.add.sprite(0,0, 'backgrounds', 'Act1');
 		bg.scale.setTo(1.2,1.2);
+
+    /////////////////////////////
+    line = game.add.graphics();
+		line.lineStyle(3, 0xf20418, 1);
+
+
+    /////////////////////////////
 		//textbox window
 		windoww = game.add.sprite(487,320,'window');
 		windoww.inputEnabled = true;
@@ -47,16 +53,28 @@ Act1.prototype = {
 		windoww.x =2000;
 		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left", backgroundColor: "#c3c3c3" };
-		text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orks in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orks. \n Holding your ground — fighting in arduous terrain to avoid the orks", style);
+		text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orcs in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orcs. \n Holding your ground — fighting in arduous terrain to avoid the orcs", style);
 		text.anchor.set(0.5);
 		//map button
-		tb = game.add.button(game.world.centerX - 95, 400, 'tb', moveWindow);
-		//texbox buttons
-		hold = game.add.button(2000,0,'hold',LoadCombat);
-		descend = game.add.button(2000,0,'descend',descendF);
+    tb = game.add.button(game.camera.width / 2 - 95, 400, 'RndButton', moveWindow, this, 'Hover','Up','Down');
+    tb.anchor.set(0.5);
+    Path[cnt++] = {x:tb.position.x, y:tb.position.y};
+    tb = game.add.button(game.camera.width / 2 + 50 , 300, 'RndButton', moveWindow, this, 'Hover','Up','Down');
+    tb.anchor.set(0.5);
+    Path[cnt++] = {x:tb.position.x, y:tb.position.y};
+
+    //texbox buttons
+    //game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, [Atlas], [Function], this, [Hover], [UP],[Down]);
+
+		hold = game.add.button(2000,0, 'narrativeButtons',LoadCombat,this,'hold','hold','hold');
+		descend = game.add.button(2000,0,'narrativeButtons',descendF,this,'descend','descend','descend');
 		poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '32px', fill: '#999999' });
 		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
 		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
+
+		actInstructions = game.add.sprite(100, 400, 'instructions', 'actInstructions');
+		actInstructions.fixedToCamera = true;
+    DrawPath();
 	},
 	update: function() {
 
@@ -96,6 +114,7 @@ Act2.prototype = {
 	update: function() {
 	}
 }
+
 //moves window
 function moveWindow(){
 	windoww.x = 560;
@@ -111,4 +130,17 @@ function descendF(){
 	windoww.x = 560;
 	windoww.y = 400;
 	supplies -= 150;
+}
+
+function DrawPath()
+{
+  for (var i = 0; i < Path.length; i++) {
+    if(i == 0)
+    {
+      line.moveTo(Path[i].x, Path[i].y);
+    }
+    else {
+      line.lineTo(Path[i].x, Path[i].y);
+    }
+  }
 }

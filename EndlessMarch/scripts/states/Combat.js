@@ -2,19 +2,20 @@ var Combat = function(game) {};
 
 
 Combat.prototype = {
-	init: function() {
+	init: function(mapAssetName) {
 		partyAlive = partySize;
 		actionEnum = "Move"; //Move, Ability, Attack
+		_mapAssetPath = 'assets/imgs/'  + mapAssetName;
 
+		mapWidth = -1;
+		mapHeight = -1;
 	},
 	preload: function() {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
-		game.load.tilemap('map', 'assets/imgs/Test.json', null, Phaser.Tilemap.TILED_JSON);
-    	game.load.image('tiles', 'assets/imgs/tiles.png');
+		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
+    game.load.image('tiles', 'assets/imgs/tiles.png');
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
-		game.load.image('instructions', 'assets/imgs/instructions.png');
-
 	},
 	create: function() {
 
@@ -35,6 +36,11 @@ Combat.prototype = {
 		//map = new Mapp(game, 'map', 'tiles', 'spritesheet(2)')
 		map = game.add.tilemap('map');
 		map.addTilesetImage('spritesheet(2)','tiles');
+
+		mapWidth = map.layers[0].width;
+		mapHeight = map.layers[0].height;
+
+
 		layer = map.createLayer(0);
 		layer.resizeWorld();
 		mapp = new Mapp(game, map, layer);
@@ -108,7 +114,6 @@ Combat.prototype = {
 
 		uiGrp.add(attackBtn);
 
-
 		attackBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 70, "Attack", style);
 		attackBtntext.fixedToCamera = true;
 
@@ -120,13 +125,12 @@ Combat.prototype = {
 
 		uiGrp.add(abilityBtn);
 
-
 		abilityBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 105, "Ability", style);
 		abilityBtntext.fixedToCamera = true;
 
 		// add instructions in the bottom right corner
-		instructions = game.add.sprite(850, 600, 'instructions');
-		instructions.fixedToCamera = true;
+		combatInstructions = game.add.sprite(850, 600, 'instructions','combatInstructions');
+		combatInstructions.fixedToCamera = true;
 
 		uiGrp.add(endTurn);
 
@@ -203,8 +207,8 @@ function EndTurn() {
 	//Check for end turn button
 	unitNum++;
 	if(unitNum > units.length - 1){unitNum = 0;}
-	currentUnit = units[unitNum];
 	currentUnit.NewTurn();
+	currentUnit = units[unitNum];
 	currentUnit.bringToTop();
 
 	while(enemyUnits.children.indexOf(currentUnit) > -1)
@@ -215,8 +219,17 @@ function EndTurn() {
 		currentUnit = units[unitNum];
 
 	}
+
 	UpdateUI();
 	game.camera.follow(currentUnit, 0, 0.2, 0.2);
+
+}
+
+function DEBUGTURNS() {
+
+	for (var i = 0; i < 25 * partySize; i++) {
+EndTurn();
+	}
 
 }
 
@@ -227,11 +240,17 @@ function EnemyAct() {
 	x = layer.getTileX(currentUnit.position.x + pnt[0]);
   y = layer.getTileY(currentUnit.position.y + pnt[1]);
 
+	while (y >= 0 && !mapp.isTileOpen(x, y)) {
+		pnt = getRandomTile();
+		x = layer.getTileX(currentUnit.position.x + pnt[0]);
+	  y = layer.getTileY(currentUnit.position.y + pnt[1]);
+	}
+
 	prevX = layer.getTileX(currentUnit.position.x);
   prevY = layer.getTileY(currentUnit.position.y);
 
 	mapp.OccupentLeft(prevX,prevY + 1);
-	mapp.Occupy(x,y);
+	mapp.Occupy(x,y, currentUnit);
 
 	currentUnit.MoveTo(x * 32, y * 32 - 32);
 
@@ -275,10 +294,12 @@ function updateMarker() {
 	var y = game.input.activePointer.worldY;
 
 	//Stops tile selection if over tiles
-	for (var i = 0; i < uiGrp.children.length; i++) {
+	//Bounds buggy
+	/*for (var i = 0; i < uiGrp.children.length; i++) {
 		//console.log(uiGrp.children[i].getBounds().contains(x, y));
 		if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
 	}
+	*/
 
 	x = layer.getTileX(x);
 	y = layer.getTileY(y);
@@ -310,11 +331,11 @@ function TileSelect() {
 	var x = game.input.activePointer.worldX;
 	var y = game.input.activePointer.worldY;
 	//Stops tile selection if over tiles
-	for (var i = 0; i < uiGrp.children.length; i++) {
+	/*for (var i = 0; i < uiGrp.children.length; i++) {
 		//console.log(uiGrp.children[i].getBounds().contains(x, y));
 		if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
 	}
-
+	*/
 	var x = game.input.activePointer.worldX;
 	var y = game.input.activePointer.worldY;
 
@@ -383,41 +404,42 @@ function GetDistance(x1,y1,x2,y2) {
 
 function SpawnEnemies(count, type) {
 	for (var i = 0; i < count; i++) {
-		var x = game.rnd.integerInRange(0, 63);
-		var y = game.rnd.integerInRange(0, 31)
+		var x = game.rnd.integerInRange(1, mapWidth-1);
+		var y = game.rnd.integerInRange(1, mapHeight-1);
 
 		//Checks to make sure tile they will spawn in is open
-		while (!mapp.isTileOpen(x,y)) {
-			x = game.rnd.integerInRange(0, 63);
-			y = game.rnd.integerInRange(0, 31)
+		while (!mapp.isTileOpen(x,y+1)) {
+			x = game.rnd.integerInRange(1, mapWidth-1);
+			y = game.rnd.integerInRange(1, mapHeight-1);
 		}
 
 
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
-		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32, 50, 10);
+		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32 -32, 50, 10);
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
-		mapp.Occupy(x,y+1,eUnit);
+		console.log(x, y + 1);
+		mapp.Occupy(x,y,eUnit);
 
 	}
 }
 
 function SpawnParty() {
 	for (var i = 0; i < partySize; i++){
-		var x = game.rnd.integerInRange(0, 63);
-		var y = game.rnd.integerInRange(0, 31)
+		var x = game.rnd.integerInRange(1, mapWidth-1);
+		var y = game.rnd.integerInRange(1, mapHeight-1);
 
 		//Checks to make sure tile they will spawn in is open
-		while (!mapp.isTileOpen(x,y)) {
-			x = game.rnd.integerInRange(0, 63);
-			y = game.rnd.integerInRange(0, 31)
+		while (!mapp.isTileOpen(x,y+1)) {
+			x = game.rnd.integerInRange(1, mapWidth-1);
+			y = game.rnd.integerInRange(1, mapHeight-1);
 		}
 
 		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		pUnit = new PlayerUnit(game, 'Characters','Player', 1, x * 32, y * 32, 100, 15);
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);
-		mapp.Occupy(x,y + 1, pUnit);
+		mapp.Occupy(x,y, pUnit);
 
 	}
 
