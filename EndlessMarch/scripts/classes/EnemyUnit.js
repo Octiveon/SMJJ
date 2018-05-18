@@ -23,22 +23,31 @@ function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 EnemyUnit.prototype = Object.create(Phaser.Sprite.prototype);
 EnemyUnit.prototype.constructor = EnemyUnit;
 
+PlayerUnit.prototype.NewTurn = function(x,y) {
+  this.movement = 7;
+}
+
 // override Phaser.Sprite update (to spin the diamond)
 EnemyUnit.prototype.update = function() {
+	if(this.isAlive == false)
+	{
+		this.OnDeath();
+	}
 
 }
 
-EnemyUnit.prototype.attack = function() {
+EnemyUnit.prototype.Attack = function(target) {
+	target.Hit(this.baseDmg);
 
 }
 
-EnemyUnit.prototype.hit = function(dmg) {
+EnemyUnit.prototype.Hit = function(dmg) {
 
-	health = (Math.min(0,health-dmg));
-	if(health == 0){this.isAlive = false;}
+	this.health = (Math.max(0,this.health-dmg));
+	if(this.health == 0){this.isAlive = false;}
 }
 
-EnemyUnit.prototype.onDeath = function() {
+EnemyUnit.prototype.OnDeath = function() {
 	this.kill();
 }
 

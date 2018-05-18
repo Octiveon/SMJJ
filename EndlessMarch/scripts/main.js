@@ -32,7 +32,6 @@ window.onload = function(){
 
 };
 
-
 // define MainMenu state and methods
 var Preload = function(game) {};
 Preload.prototype = {
@@ -40,12 +39,15 @@ Preload.prototype = {
 		//Preload menu assets and music here!
 		//Centers the game screen.
 		game.load.image('Act1', 'assets/imgs/Act1.png')
-	  game.load.image('Button','assets/imgs/Button.png')
 		game.load.image('MainMenu','assets/imgs/MainMenu.png')
-		game.load.image('ButtonRnd','assets/imgs/Button_up.png');
+    game.load.image('TextWindow','assets/imgs/TextWindow.png')
+
+
+    game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
+		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+
 		game.load.audio('menuSnd', 'assets/snds/menu.ogg');
 		game.load.audio('battleSnd', 'assets/snds/battle.ogg');
-
 
 	},
 	create: function() {
@@ -88,35 +90,36 @@ MainMenu.prototype = {
 		{
 			game.sound.stopAll();
 			currentBGM = game.add.audio('menuSnd');
-			currentBGM.play('',0,1,true);
+			currentBGM.play('',0,0.1,true);
 		}
 		else {
 			currentBGM = game.add.audio('menuSnd');
-			currentBGM.play('',0,1,true);
+			currentBGM.play('',0,0.1,true);
 		}
 
 		bg = game.add.sprite(0,0, 'MainMenu');
 		bg.scale.setTo(1.2,1.6);
 
-		bCombat = game.add.button(game.world.centerX, game.world.centerY, 'Button', LoadCombat, this);
-		bCombat.anchor.x = 0.5;
-		bCombat.anchor.y = 0.5;
-		bCombat.position.x = game.world.centerX;
-		bCombat.position.y = game.world.centerY;
+    menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2, 'TextWindow');
+    menuWindow.anchor.x = menuWindow.anchor.y = 0.5;
+    menuWindow.scale.setTo(0.5,0.5);
+
+		bCombat = game.add.button(game.camera.width / 2,game.camera.height / 2, 'RndButton', LoadCombat, this, 'Hover', 'Up','Down');
+		bCombat.anchor.x = bCombat.anchor.y = 0.5;
     bCombat.scale.setTo(1.2,1);
 		//new Text(game, x, y, text [, style])
-	  bCombatTxt = game.add.text(bCombat.centerX,bCombat.centerY, 'Load Combat', { fontSize: '31px', fill: '#ffffff', boundsAlignH: 'center'})
-		bCombatTxt.anchor.x = 0.5;
-		bCombatTxt.anchor.y = 0.5;
+	  bCombatTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 + 50, 'Load Combat',
+     { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'})
+		bCombatTxt.anchor.x = bCombatTxt.anchor.y = 0.5;
 
-		bNarrative = game.add.button(game.world.centerX, game.world.centerY + 100, 'Button', Narrative, this);
-		bNarrative.anchor.x = 0.5;
-		bNarrative.anchor.y = 0.5;
+		bNarrative = game.add.button(game.camera.width / 2,game.camera.height / 2 + 100, 'RndButton', Narrative, this, 'Hover', 'Up','Down');
+		bNarrative.anchor.x = bNarrative.anchor.y = 0.5;
 		bNarrative.scale.setTo(1.2,1);
 
-		bNarrativeTxt = game.add.text(bCombat.centerX,bCombat.centerY + 100, 'Load Narrative', { fontSize: '31px', fill: '#ffffff', boundsAlignH: 'center'})
-		bNarrativeTxt.anchor.x = 0.5;
-		bNarrativeTxt.anchor.y = 0.5;
+		bNarrativeTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 + 150, 'Load Narrative',
+     { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'})
+		bNarrativeTxt.anchor.x = bNarrativeTxt.anchor.y = 0.5;
+
 
 	},
 	update: function() {
