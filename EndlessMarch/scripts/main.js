@@ -38,12 +38,7 @@ Preload.prototype = {
 	preload: function() {
 		//Preload menu assets and music here!
 		//Centers the game screen.
-<<<<<<< HEAD
     game.load.image('TextWindow','assets/imgs/TextWindow.png')
-=======
-		game.load.image('Act1', 'assets/imgs/Act1.png')
-    	game.load.image('TextWindow','assets/imgs/TextWindow.png')
->>>>>>> 4a77488dbedaaee57a779d96ef8e44e273412cbb
 
 
     	game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
@@ -51,12 +46,8 @@ Preload.prototype = {
 
 		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
 		game.load.atlas('backgrounds', 'assets/imgs/backgrounds.png','assets/imgs/backgrounds.json'),
-<<<<<<< HEAD
 		game.load.atlas('narrativeButtons', 'assets/imgs/narrativeButtons.png','assets/imgs/narrativeButtons.json',
      Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
-=======
-		game.load.atlas('narrativeButtons', 'assets/imgs/narrativeButtons.png','assets/imgs/narrativeButtons.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH),
->>>>>>> 4a77488dbedaaee57a779d96ef8e44e273412cbb
 
 		game.load.audio('menuSnd', 'assets/snds/menu.ogg');
 		game.load.audio('battleSnd', 'assets/snds/battle.ogg');
