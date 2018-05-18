@@ -34,6 +34,7 @@ Act1.prototype = {
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
 		game.load.image('descend','assets/imgs/descend.png');
+		game.load.image('actInstructions','assets/imgs/actInstructions.png');
 
 	},
 	create: function() {
@@ -57,6 +58,9 @@ Act1.prototype = {
 		poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '32px', fill: '#999999' });
 		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
 		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
+
+		actInstructions = game.add.sprite(100, 400, 'actInstructions');
+		actInstructions.fixedToCamera = true;
 	},
 	update: function() {
 

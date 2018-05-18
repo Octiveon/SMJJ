@@ -125,8 +125,8 @@ Combat.prototype = {
 		abilityBtntext.fixedToCamera = true;
 
 		// add instructions in the bottom right corner
-		combaInstructions = game.add.sprite(850, 600, 'combatInstructions');
-		combaInstructions.fixedToCamera = true;
+		combatInstructions = game.add.sprite(850, 600, 'combatInstructions');
+		combatInstructions.fixedToCamera = true;
 
 		uiGrp.add(endTurn);
 
