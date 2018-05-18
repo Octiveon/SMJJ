@@ -11,11 +11,13 @@ Combat.prototype = {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.tilemap('map', 'assets/imgs/Test.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'assets/imgs/tiles.png');
+    	game.load.image('tiles', 'assets/imgs/tiles.png');
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
+		game.load.image('instructions', 'assets/imgs/instructions.png');
 
 	},
 	create: function() {
+
 		if(currentBGM != 0)
 		{
 			game.sound.stopAll();
@@ -35,7 +37,6 @@ Combat.prototype = {
 		map.addTilesetImage('spritesheet(2)','tiles');
 		layer = map.createLayer(0);
 		layer.resizeWorld();
-
 		mapp = new Mapp(game, map, layer);
 
 		uiGrp = game.add.group();
@@ -81,7 +82,7 @@ Combat.prototype = {
 		exitBtn.enableBody = true;
 
 		var style = { font: "14px Arial", fill: "#000000", wordWrap: true,
-		 wordWrapWidth: wind.width, align: "center", fontWeight: "bold" };
+		wordWrapWidth: wind.width, align: "center", fontWeight: "bold" };
 		exitBtntext = game.add.text(40 ,40, "Exit", style);
 		exitBtntext.fixedToCamera = true;
 
@@ -111,6 +112,10 @@ Combat.prototype = {
 
 		abilityBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 105, "Ability", style);
 		abilityBtntext.fixedToCamera = true;
+
+		// add instructions in the bottom right corner
+		instructions = game.add.sprite(850, 600, 'instructions');
+		instructions.fixedToCamera = true;
 
 		uiGrp.add(endTurn);
 
@@ -147,12 +152,11 @@ Combat.prototype = {
 		key1.onDown.add(EndTurn, this);
 		////////////////////////////////////////////////////////////////////
 
-
-
 		game.input.onDown.add(TileSelect, this);
 		game.input.addMoveCallback(updateMarker, this);
 		UpdateUI();
 		//mapp.Debug();
+
 
 	},
 	update: function() {
