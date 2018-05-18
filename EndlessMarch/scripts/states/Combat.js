@@ -13,7 +13,6 @@ Combat.prototype = {
 		game.load.tilemap('map', 'assets/imgs/Test.json', null, Phaser.Tilemap.TILED_JSON);
     	game.load.image('tiles', 'assets/imgs/tiles.png');
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
-		game.load.image('combatInstructions', 'assets/imgs/combatInstructions.png');
 
 	},
 	create: function() {
@@ -125,7 +124,7 @@ Combat.prototype = {
 		abilityBtntext.fixedToCamera = true;
 
 		// add instructions in the bottom right corner
-		combatInstructions = game.add.sprite(850, 600, 'combatInstructions');
+		combatInstructions = game.add.sprite(850, 600, 'instructions','combatInstructions');
 		combatInstructions.fixedToCamera = true;
 
 		uiGrp.add(endTurn);

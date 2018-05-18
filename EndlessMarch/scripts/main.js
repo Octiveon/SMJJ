@@ -39,12 +39,15 @@ Preload.prototype = {
 		//Preload menu assets and music here!
 		//Centers the game screen.
 		game.load.image('Act1', 'assets/imgs/Act1.png')
-		game.load.image('MainMenu','assets/imgs/MainMenu.png')
-    game.load.image('TextWindow','assets/imgs/TextWindow.png')
+    	game.load.image('TextWindow','assets/imgs/TextWindow.png')
 
 
-    game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
+    	game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+
+		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
+		game.load.atlas('backgrounds', 'assets/imgs/backgrounds.png','assets/imgs/backgrounds.json'),
+		game.load.atlas('narrativeButtons', 'assets/imgs/narrativeButtons.png','assets/imgs/narrativeButtons.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH),
 
 		game.load.audio('menuSnd', 'assets/snds/menu.ogg');
 		game.load.audio('battleSnd', 'assets/snds/battle.ogg');
@@ -97,7 +100,7 @@ MainMenu.prototype = {
 			currentBGM.play('',0,0.1,true);
 		}
 
-		bg = game.add.sprite(0,0, 'MainMenu');
+		bg = game.add.sprite(0,0, 'backgrounds', 'MainMenu');
 		bg.scale.setTo(1.2,1.6);
 
     menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2, 'TextWindow');

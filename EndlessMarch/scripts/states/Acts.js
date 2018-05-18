@@ -30,16 +30,14 @@ Act1.prototype = {
   },
 	preload: function() {
 		game.load.image('window', 'assets/imgs/window.png');
-		game.load.image('map', 'assets/imgs/Act1.png');
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
 		game.load.image('descend','assets/imgs/descend.png');
-		game.load.image('actInstructions','assets/imgs/actInstructions.png');
 
 	},
 	create: function() {
 		//background
-		bg = game.add.sprite(0,0, 'map');
+		bg = game.add.sprite(0,0, 'backgrounds', 'Act1');
 		bg.scale.setTo(1.2,1.2);
 		//textbox window
 		windoww = game.add.sprite(487,320,'window');
@@ -59,7 +57,7 @@ Act1.prototype = {
 		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
 		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
 
-		actInstructions = game.add.sprite(100, 400, 'actInstructions');
+		actInstructions = game.add.sprite(100, 400, 'instructions', 'actInstructions');
 		actInstructions.fixedToCamera = true;
 	},
 	update: function() {
