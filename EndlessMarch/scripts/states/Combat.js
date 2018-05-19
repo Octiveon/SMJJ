@@ -9,6 +9,7 @@ Combat.prototype = {
 
 		mapWidth = -1;
 		mapHeight = -1;
+		overUI = false;
 	},
 	preload: function() {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
@@ -56,32 +57,37 @@ Combat.prototype = {
 
 		//Add Things in after here
 
-		portrait = game.add.sprite(0, game.height - (600 * 0.2), 'UIHalfWindow');
-		portrait.scale.setTo(0.2,0.2);
-		portrait.fixedToCamera = true;
-		portrait.enableBody = true;
-		uiGrp.add(portrait);
+		unitWindow = game.add.sprite(0, game.height - (600 * 0.2), 'UIHalfWindow');
+		unitWindow.scale.setTo(0.2,0.2);
+		unitWindow.fixedToCamera = true;
+		unitWindow.enableBody = true;
+		uiGrp.add(unitWindow);
 
-		var style = { font: "10px Arial", fill: "#000000", wordWrap: true,
-		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
 
+
+		style = { font: "16px Arial", fill: "#000000", wordWrap: true,
+		  wordWrapWidth: unitWindow.width, align: "center", fontWeight: "bold" };
 		wind = game.add.sprite(game.camera.width,0, 'TextWindow');
 		wind.anchor.x =  1;
-		wind.scale.setTo(0.1,0.15);
+		wind.scale.setTo(0.15,0.15);
 		wind.fixedToCamera = true;
 		uiGrp.add(wind);
 
 
-		unitWindowtext = game.add.text(portrait.width * 0.5 ,game.height - portrait.height * 0.7, "Health: \n Move:", style);
+		unitWindowtext = game.add.text(unitWindow.width * 0.5 ,game.height - unitWindow.height * 0.7, "Health: \n Move:", style);
 		unitWindowtext.fixedToCamera = true;
 
-		endTurn = game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, 'RndButton', EndTurn, this, 'Hover', 'Up','Down');
+		endTurn = game.add.button(unitWindow.width * 0.9 ,game.height - unitWindow.height * 0.4, 'RndButton', EndTurn, this, 'Hover', 'Up','Down');
 		endTurn.anchor.x = endTurn.anchor.y = 0.5;
 		endTurn.fixedToCamera = true;
     endTurn.scale.setTo(1,1);
 		endTurn.enableBody = true;
+		uiGrp.add(endTurn);
 
-		endTurntext = game.add.text(portrait.width * 0.85 ,game.height - portrait.height * 0.25, "End Turn", style);
+		var style = { font: "10px Arial", fill: "#000000", wordWrap: true,
+		 wordWrapWidth: unitWindow.width, align: "center", fontWeight: "bold" };
+
+		endTurntext = game.add.text(unitWindow.width * 0.85 ,game.height - unitWindow.height * 0.25, "End Turn", style);
 		endTurntext.fixedToCamera = true;
 
 		exitBtn = game.add.button(50 ,50, 'RndButton', Exit, this, 'Hover', 'Up','Down');
@@ -95,7 +101,7 @@ Combat.prototype = {
 		exitBtntext = game.add.text(40 ,40, "Exit", style);
 		exitBtntext.fixedToCamera = true;
 
-		moveBtn = game.add.button(wind.position.x - 150 ,35, 'RndButton', MoveMode, this, 'Hover', 'Up','Down');
+		moveBtn = game.add.button(wind.position.x - 225 ,35, 'RndButton', MoveMode, this, 'Hover', 'Up','Down');
 		moveBtn.anchor.x = exitBtn.anchor.y = 0.5;
 		moveBtn.fixedToCamera = true;
     moveBtn.scale.setTo(1,1);
@@ -103,29 +109,29 @@ Combat.prototype = {
 		uiGrp.add(moveBtn);
 
 
-		moveBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 35, "Move", style);
+		moveBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 40, "Move", style);
 		moveBtntext.fixedToCamera = true;
 
-		attackBtn = game.add.button(wind.position.x - 150 ,70, 'RndButton', AttackMode, this, 'Hover', 'Up','Down');
+		attackBtn = game.add.button(wind.position.x - 225 ,70, 'RndButton', AttackMode, this, 'Hover', 'Up','Down');
 		attackBtn.anchor.x = exitBtn.anchor.y = 0.5;
 		attackBtn.fixedToCamera = true;
     attackBtn.scale.setTo(1,1);
 		attackBtn.enableBody = true;
-
 		uiGrp.add(attackBtn);
 
-		attackBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 70, "Attack", style);
+
+		attackBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 80, "Attack", style);
 		attackBtntext.fixedToCamera = true;
 
-		abilityBtn = game.add.button(wind.position.x - 150 ,105, 'RndButton', AbilityMode, this, 'Hover', 'Up','Down');
+		abilityBtn = game.add.button(wind.position.x - 225 ,105, 'RndButton', AbilityMode, this, 'Hover', 'Up','Down');
 		abilityBtn.anchor.x = exitBtn.anchor.y = 0.5;
 		abilityBtn.fixedToCamera = true;
 		abilityBtn.scale.setTo(1,1);
 		abilityBtn.enableBody = true;
-
 		uiGrp.add(abilityBtn);
 
-		abilityBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 105, "Ability", style);
+
+		abilityBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 120, "Ability", style);
 		abilityBtntext.fixedToCamera = true;
 
 		// add instructions in the bottom right corner
@@ -133,9 +139,9 @@ Combat.prototype = {
 		combatInstructions.fixedToCamera = true;
 
 		uiGrp.add(endTurn);
+		tileText = game.add.text(game.camera.width - wind.width * 0.70 , 80, "", style);
 
-		style = { font: "16px Arial", fill: "#000000", wordWrap: true,
-		 wordWrapWidth: portrait.width, align: "center", fontWeight: "bold" };
+
 
 		////////////////////////////////////////////////////////////////////
 		marker = game.add.graphics();
@@ -149,6 +155,11 @@ Combat.prototype = {
 		SpawnEnemies(3, 'Enemy');
 
 		var i;
+		for (var i = 0; i < uiGrp.children.length; i++) {
+			uiGrp.children[i].inputEnabled = true;
+			uiGrp.children[i].events.onInputOver.add(Over, this);
+			uiGrp.children[i].events.onInputOut.add(Out, this);
+		}
 		for (var i = 0; i < vanguard.children.length; i++) {
 			units[i] = vanguard.children[i];
 		}
@@ -169,6 +180,11 @@ Combat.prototype = {
 		key1.onDown.add(EndTurn, this);
 		////////////////////////////////////////////////////////////////////
 
+		for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
+			uiGrp.children[i].bringToTop();
+		}
+		currentUnit.bringToTop();
+
 		game.input.onDown.add(TileSelect, this);
 		game.input.addMoveCallback(updateMarker, this);
 		UpdateUI();
@@ -181,27 +197,22 @@ Combat.prototype = {
 	},
 	render: function()
 	{
-		//game.debug.body(portrait);
+		game.debug.body(unitWindow);
+		game.debug.body(wind);
+
 	}
 };
 
+//Functions for UI Detection
+function Over(){overUI = true;}
+function Out(){overUI = false;}
 
-function AttackMode() {
-	actionEnum = "Attack";
-}
+//Functions for Action Selection
+function AttackMode() {actionEnum = "Attack";}
+function MoveMode() {actionEnum = "Move";}
+function AbilityMode() {actionEnum = "Ability";}
 
-function MoveMode() {
-	actionEnum = "Move";
-
-}
-
-function AbilityMode() {
-	actionEnum = "Ability";
-}
-
-function Exit() {
-	game.state.start('mainMenu');
-}
+function Exit() {game.state.start('mainMenu');}
 
 function EndTurn() {
 	//Check for end turn button
@@ -209,6 +220,11 @@ function EndTurn() {
 	if(unitNum > units.length - 1){unitNum = 0;}
 	currentUnit.NewTurn();
 	currentUnit = units[unitNum];
+
+	for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
+		uiGrp.children[i].bringToTop();
+	}
+
 	currentUnit.bringToTop();
 
 	while(enemyUnits.children.indexOf(currentUnit) > -1)
@@ -217,21 +233,13 @@ function EndTurn() {
 		unitNum++;
 		if(unitNum > units.length - 1){unitNum = 0;}
 		currentUnit = units[unitNum];
-
 	}
 
 	UpdateUI();
 	game.camera.follow(currentUnit, 0, 0.2, 0.2);
-
 }
 
-function DEBUGTURNS() {
-
-	for (var i = 0; i < 25 * partySize; i++) {
-EndTurn();
-	}
-
-}
+function DEBUGTURNS() {for (var i = 0; i < 25 * partySize; i++) {EndTurn();}}
 
 function EnemyAct() {
 
@@ -295,11 +303,9 @@ function updateMarker() {
 
 	//Stops tile selection if over tiles
 	//Bounds buggy
-	/*for (var i = 0; i < uiGrp.children.length; i++) {
-		//console.log(uiGrp.children[i].getBounds().contains(x, y));
-		if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
-	}
-	*/
+
+	if (overUI){return;}
+
 
 	x = layer.getTileX(x);
 	y = layer.getTileY(y);
@@ -311,12 +317,16 @@ function updateMarker() {
 
 	if(actionEnum == "Move")
 	{
+		tileText.text = mapp.getTileCost(x,y);
+		tileText.position.x = x * 32 + 12;
+		tileText.position.y = y * 32 + 10;
+
 		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 && currentUnit.CanMove(mapp.getTileCost(x, y)))
 		{ marker.tint = 0x3eff03; }
 		else{		marker.tint = 0xBD0404; }
 	}
 	else if (actionEnum == "Attack") {
-
+		tileText.text = "";
 		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 && flag == 1)
 		{ marker.tint = 0xBD0404; }
 		else{ marker.tint = 0xffffff; }
@@ -331,11 +341,8 @@ function TileSelect() {
 	var x = game.input.activePointer.worldX;
 	var y = game.input.activePointer.worldY;
 	//Stops tile selection if over tiles
-	/*for (var i = 0; i < uiGrp.children.length; i++) {
-		//console.log(uiGrp.children[i].getBounds().contains(x, y));
-		if ((uiGrp.children[i].getBounds().contains(x, y))){return;}
-	}
-	*/
+	if (overUI){return;}
+
 	var x = game.input.activePointer.worldX;
 	var y = game.input.activePointer.worldY;
 
@@ -439,7 +446,7 @@ function SpawnParty() {
 		pUnit = new PlayerUnit(game, 'Characters','Player', 1, x * 32, y * 32, 100, 15);
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);
-		mapp.Occupy(x,y, pUnit);
+		mapp.Occupy(x,y +1, pUnit);
 
 	}
 
