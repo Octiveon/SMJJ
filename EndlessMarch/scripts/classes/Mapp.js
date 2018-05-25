@@ -1,11 +1,30 @@
-function Mapp(game, map, layer) {
+function Mapp(game, map, layer, spawnLayer) {
   this.tiles = [];
+  this.eSpawnTiles = [];
+  this.vSpawnTiles = [];
 
-  for (var i = 0; i < 32; i++) {
+  for (var i = 0; i < mapHeight; i++) {
     this.tiles.push([]);
-    for (var j = 0; j < 64; j++) {
+    for (var j = 0; j < mapWidth; j++) {
       var tile = map.getTile(j,i, layer);
-      this.tiles[i][j] = new Tile(j, i, tile.properties.canMove, tile.properties.MoveCost);
+      var spawn = map.getTile(j,i, spawnLayer);
+      if(spawn != null)
+      {
+        this.tiles[i][j] = new Tile(j, i, tile.properties.canMove, tile.properties.moveCost, true);
+
+        if(spawn.properties.VanguardSpawn)
+        {
+          this.vSpawnTiles.push({x:j,y:i});
+        }
+        else {
+          this.eSpawnTiles.push({x:j,y:i});
+        }
+      }
+      else {
+        this.tiles[i][j] = new Tile(j, i, tile.properties.canMove, tile.properties.moveCost, false);
+      }
+
+
     }
   }
 }
@@ -36,6 +55,10 @@ Mapp.prototype.Debug = function(){
 Mapp.prototype.getTile = function(x,y){
   return this.tiles[y][x];
 }
+
+Mapp.prototype.GetVSpawn = function(){return this.vSpawnTiles;}
+Mapp.prototype.GetESpawn = function(){return this.eSpawnTiles;}
+
 
 Mapp.prototype.getTileOccupant = function(x,y){
   return this.tiles[y][x].currentOccupant;
@@ -76,7 +99,7 @@ Mapp.prototype.CreateTiles = function(x,y){
 }
 
 class Tile {
-  constructor(x, y, movable, moveCost) {
+  constructor(x, y, movable, moveCost, spawnable) {
     this.x = x;
     this.y = y;
 
@@ -84,6 +107,8 @@ class Tile {
     this.moveCost = moveCost;
     this.occupied = false;
     this.currentOccupant = null;
+    this.spawnTile = spawnable;
+
   }
 
   get movable() {return this._movable;}

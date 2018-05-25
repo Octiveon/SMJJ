@@ -17,6 +17,7 @@ function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
   this.baseDmg = baseDmg;
 	this.threat = 0;
 	this.isAlive = true;
+	this.attacked = false;
 	this.movement = 7;
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Enemy)

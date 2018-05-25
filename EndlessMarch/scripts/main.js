@@ -77,7 +77,7 @@ function LoadScene(scene) {
 
 //Temp Laod Functions
 function LoadCombat() {
-	game.state.start("combat", true, false,'test');
+	game.state.start("combat", true, false,'TestMap3');
 }
 
 function Narrative() {

@@ -10,12 +10,16 @@ Combat.prototype = {
 		mapWidth = -1;
 		mapHeight = -1;
 		overUI = false;
+		enemyActing = false;
 	},
 	preload: function() {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'assets/imgs/tiles.png');
+    game.load.image('tiles', 'assets/imgs/32X32.png');
+		game.load.image('64X64', 'assets/imgs/64x64.png');
+		game.load.image('Tree3', 'assets/imgs/tree3.png');
+
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
 	},
 	create: function() {
@@ -36,15 +40,20 @@ Combat.prototype = {
 		//function Mapp(game, csvKey, csvSrc, imgSrc) {
 		//map = new Mapp(game, 'map', 'tiles', 'spritesheet(2)')
 		map = game.add.tilemap('map');
-		map.addTilesetImage('spritesheet(2)','tiles');
+		map.addTilesetImage('32X32', 'tiles');
+		map.addTilesetImage('64X64');
 
 		mapWidth = map.layers[0].width;
 		mapHeight = map.layers[0].height;
 
+		//spawnLayer = map.createLayer(3);
+		spawnLayer = map.createLayer(3);
+		dataLayer = map.createLayer(2);
+		map.createLayer(0);
+		map.createLayer(1);
 
-		layer = map.createLayer(0);
-		layer.resizeWorld();
-		mapp = new Mapp(game, map, layer);
+		dataLayer.resizeWorld();
+		mapp = new Mapp(game, map, dataLayer, spawnLayer);
 
 		uiGrp = game.add.group();
 		uiGrp.enableBody = true;
@@ -62,8 +71,6 @@ Combat.prototype = {
 		unitWindow.fixedToCamera = true;
 		unitWindow.enableBody = true;
 		uiGrp.add(unitWindow);
-
-
 
 		style = { font: "16px Arial", fill: "#000000", wordWrap: true,
 		  wordWrapWidth: unitWindow.width, align: "center", fontWeight: "bold" };
@@ -188,17 +195,13 @@ Combat.prototype = {
 		game.input.onDown.add(TileSelect, this);
 		game.input.addMoveCallback(updateMarker, this);
 		UpdateUI();
-		//mapp.Debug();
-
-
 	},
 	update: function() {
 
 	},
-	render: function()
-	{
-		game.debug.body(unitWindow);
-		game.debug.body(wind);
+	render: function(){
+		//game.debug.body(unitWindow);
+		//game.debug.body(wind);
 
 	}
 };
@@ -214,53 +217,55 @@ function AbilityMode() {actionEnum = "Ability";}
 
 function Exit() {game.state.start('mainMenu');}
 
-function EndTurn() {
+function EndVanguardTurn() {
 	//Check for end turn button
-	unitNum++;
-	if(unitNum > units.length - 1){unitNum = 0;}
-	currentUnit.NewTurn();
-	currentUnit = units[unitNum];
+	if(enemyUnits.children.indexOf(currentUnit) == -1)
+	{
+		unitNum++;
+		if(unitNum > units.length - 1){unitNum = 0;}
+		currentUnit.NewTurn();
+		currentUnit = units[unitNum];
 
-	for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
-		uiGrp.children[i].bringToTop();
+		for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
+			uiGrp.children[i].bringToTop();
+		}
+
+		currentUnit.bringToTop();
+
+
+		UpdateUI();
+		game.camera.follow(currentUnit, 0, 0.2, 0.2);
 	}
+	else {
+		StartEnemyTurns();
+		game.time.events.repeat(Phaser.Timer.SECOND * 10, enemyUnits.children.length-1, StartEnemyTurns, this);
+	}
+}
+function StartEnemyTurns(){
+	game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 8, EnemyAct, this);
+}
 
-	currentUnit.bringToTop();
-
+function EndEnemyTurn(){
 	while(enemyUnits.children.indexOf(currentUnit) > -1)
 	{//What to do when enemy turn comes up
-		EnemyAct();
+		game.camera.follow(currentUnit, 0, 0.2, 0.2);
+		game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 8, EnemyAct, this);
+
 		unitNum++;
 		if(unitNum > units.length - 1){unitNum = 0;}
 		currentUnit = units[unitNum];
 	}
 
-	UpdateUI();
-	game.camera.follow(currentUnit, 0, 0.2, 0.2);
 }
 
 function DEBUGTURNS() {for (var i = 0; i < 25 * partySize; i++) {EndTurn();}}
 
 function EnemyAct() {
+	var time = game.time.totalElapsedSeconds();
+	console.log("delay Start");
+	Thread.sleep(1000);
 
-	pnt = getRandomTile();
-
-	x = layer.getTileX(currentUnit.position.x + pnt[0]);
-  y = layer.getTileY(currentUnit.position.y + pnt[1]);
-
-	while (y >= 0 && !mapp.isTileOpen(x, y)) {
-		pnt = getRandomTile();
-		x = layer.getTileX(currentUnit.position.x + pnt[0]);
-	  y = layer.getTileY(currentUnit.position.y + pnt[1]);
-	}
-
-	prevX = layer.getTileX(currentUnit.position.x);
-  prevY = layer.getTileY(currentUnit.position.y);
-
-	mapp.OccupentLeft(prevX,prevY + 1);
-	mapp.Occupy(x,y, currentUnit);
-
-	currentUnit.MoveTo(x * 32, y * 32 - 32);
+	console.log("delay End");
 
 }
 
@@ -302,13 +307,10 @@ function updateMarker() {
 	var y = game.input.activePointer.worldY;
 
 	//Stops tile selection if over tiles
-	//Bounds buggy
-
 	if (overUI){return;}
 
-
-	x = layer.getTileX(x);
-	y = layer.getTileY(y);
+	x = dataLayer.getTileX(x);
+	y = dataLayer.getTileY(y);
 
 	if(x < 0){ x = 0;}
 	if(y < 0){ y = 0;}
@@ -347,8 +349,8 @@ function TileSelect() {
 	var y = game.input.activePointer.worldY;
 
 	//Gets tile location in order to move the player
-	x = layer.getTileX(game.input.activePointer.worldX);
-	y = layer.getTileY(game.input.activePointer.worldY);
+	x = dataLayer.getTileX(game.input.activePointer.worldX);
+	y = dataLayer.getTileY(game.input.activePointer.worldY);
 
 	switch (actionEnum) {
 		case "Move":
@@ -368,11 +370,11 @@ function TileSelect() {
 
 function Move(x,y) {
 		//Gets tile location in order to move the player
-		x = layer.getTileX(game.input.activePointer.worldX);
-	  y = layer.getTileY(game.input.activePointer.worldY);
+		x = dataLayer.getTileX(game.input.activePointer.worldX);
+	  y = dataLayer.getTileY(game.input.activePointer.worldY);
 
-		var prevX = layer.getTileX(currentUnit.position.x);
-		var prevY = layer.getTileY(currentUnit.position.y);
+		var prevX = dataLayer.getTileX(currentUnit.position.x);
+		var prevY = dataLayer.getTileY(currentUnit.position.y);
 
 		//console.log(tile);
 		if(mapp.isTileOpen(x,y) &&
@@ -387,19 +389,20 @@ function Move(x,y) {
 }
 
 function Ability(x,y) {
-	x = layer.getTileX(game.input.activePointer.worldX);
-	y = layer.getTileY(game.input.activePointer.worldY);
+	x = dataLayer.getTileX(game.input.activePointer.worldX);
+	y = dataLayer.getTileY(game.input.activePointer.worldY);
 }
 
 function Attack(x,y) {
 	if(!mapp.isTileOpen(x,y) && GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60){
 		var flag = mapp.getTileStatus(x,y);
 
-		if(flag == 1){
+		if(flag == 1 && currentUnit.attacked == false){
 			occup = mapp.getTileOccupant(x,y);
 			if(enemyUnits.children.indexOf(occup) > -1) {
 				 console.log("Attack");
 				 currentUnit.Attack(occup);
+				 console.log(occup.health);
 			}
 		}
 	}
@@ -410,38 +413,28 @@ function GetDistance(x1,y1,x2,y2) {
 }
 
 function SpawnEnemies(count, type) {
-	for (var i = 0; i < count; i++) {
-		var x = game.rnd.integerInRange(1, mapWidth-1);
-		var y = game.rnd.integerInRange(1, mapHeight-1);
-
-		//Checks to make sure tile they will spawn in is open
-		while (!mapp.isTileOpen(x,y+1)) {
-			x = game.rnd.integerInRange(1, mapWidth-1);
-			y = game.rnd.integerInRange(1, mapHeight-1);
-		}
-
-
+	//Checks to make sure tile they will spawn in is open
+	locs = mapp.GetESpawn();
+	for (var i = 0; i < locs.length; i++) {
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
-		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32 -32, 50, 10);
+		var x = locs[i].x;
+		var y = locs[i].y;
+		if(i > count){break;}
+		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32 - 32, 50, 10);
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
 		console.log(x, y + 1);
 		mapp.Occupy(x,y,eUnit);
-
 	}
 }
 
 function SpawnParty() {
-	for (var i = 0; i < partySize; i++){
-		var x = game.rnd.integerInRange(1, mapWidth-1);
-		var y = game.rnd.integerInRange(1, mapHeight-1);
+	locs = mapp.GetVSpawn();
 
-		//Checks to make sure tile they will spawn in is open
-		while (!mapp.isTileOpen(x,y+1)) {
-			x = game.rnd.integerInRange(1, mapWidth-1);
-			y = game.rnd.integerInRange(1, mapHeight-1);
-		}
-
+	for (var i = 0; i < locs.length; i++) {
+		if(i >= partySize){break;}
+		var x = locs[i].x;
+		var y = locs[i].y;
 		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		pUnit = new PlayerUnit(game, 'Characters','Player', 1, x * 32, y * 32, 100, 15);
 		game.add.existing(pUnit);

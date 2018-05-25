@@ -16,6 +16,8 @@ function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
   this.health = health;
   this.baseDmg = baseDmg;
 	this.movement = 7;
+	this.attacked = false;
+
 
 }
 // explicitly define prefab's prototype (Phaser.Sprite) and constructor (Player)
@@ -24,10 +26,13 @@ PlayerUnit.prototype.constructor = PlayerUnit;
 
 PlayerUnit.prototype.NewTurn = function(x,y) {
   this.movement = 7;
+	this.attacked = false;
+
 }
 
 PlayerUnit.prototype.Attack = function(target) {
 	target.Hit(this.baseDmg);
+	this.attacked = true;
 }
 
 PlayerUnit.prototype.Hit = function(dmg) {
