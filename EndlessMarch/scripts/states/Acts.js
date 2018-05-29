@@ -72,7 +72,9 @@ Act1.prototype = {
 		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
 		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
 
-		actInstructions = game.add.sprite(100, 400, 'instructions', 'actInstructions');
+		//elderBattle = game.add.sprite (100, 200, 'A1T', 'Elder Battle');
+		//elderBattle.fixedToCamera = true;
+		//actInstructions = game.add.sprite(100, 400, 'instructions', 'actInstructions');
 		actInstructions.fixedToCamera = true;
     DrawPath();
 	},
