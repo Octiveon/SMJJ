@@ -55,5 +55,9 @@ EnemyUnit.prototype.OnDeath = function() {
 EnemyUnit.prototype.MoveTo = function(x,y) {
   this.position.x = x;
   this.position.y = y;
+}
 
+EnemyUnit.prototype.CanMove = function(cost) {
+	if(cost > this.movement){return false;}
+	return true;
 }

@@ -183,8 +183,8 @@ Combat.prototype = {
 		playermarker.x = currentUnit.position.x - 32;
 		playermarker.y = currentUnit.position.y;
 
-		key1 = game.input.keyboard.addKey(Phaser.Keyboard.T);
-		key1.onDown.add(EndTurn, this);
+		//key1 = game.input.keyboard.addKey(Phaser.Keyboard.T);
+		//key1.onDown.add(EndTurn, this);
 		////////////////////////////////////////////////////////////////////
 
 		for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
@@ -217,55 +217,65 @@ function AbilityMode() {actionEnum = "Ability";}
 
 function Exit() {game.state.start('mainMenu');}
 
-function EndVanguardTurn() {
+function EndTurn() {
 	//Check for end turn button
+	unitNum++;
+	if(unitNum > units.length - 1){unitNum = 0;}
+
+	currentUnit = units[unitNum];
+	game.camera.follow(currentUnit, 0, 0.2, 0.2);
+	currentUnit.bringToTop();
+	currentUnit.NewTurn();
+	UpdateUI();
+
+
+	console.log("UNIT:" + unitNum);
+
+	for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
+		uiGrp.children[i].bringToTop();
+	}
+
 	if(enemyUnits.children.indexOf(currentUnit) == -1)
 	{
-		unitNum++;
-		if(unitNum > units.length - 1){unitNum = 0;}
-		currentUnit.NewTurn();
-		currentUnit = units[unitNum];
-
-		for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
-			uiGrp.children[i].bringToTop();
-		}
-
-		currentUnit.bringToTop();
-
-
-		UpdateUI();
-		game.camera.follow(currentUnit, 0, 0.2, 0.2);
+		endTurn.inputEnabled = true;
+		enemyActing = false;
 	}
-	else {
+	else if(enemyActing == false) {
+		endTurn.inputEnabled = false;
+		enemyActing = true;
 		StartEnemyTurns();
-		game.time.events.repeat(Phaser.Timer.SECOND * 10, enemyUnits.children.length-1, StartEnemyTurns, this);
+		game.time.events.repeat(Phaser.Timer.SECOND * 8, enemyUnits.children.length-1, StartEnemyTurns, this);
 	}
+
 }
+
 function StartEnemyTurns(){
-	game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 8, EnemyAct, this);
-}
-
-function EndEnemyTurn(){
-	while(enemyUnits.children.indexOf(currentUnit) > -1)
-	{//What to do when enemy turn comes up
-		game.camera.follow(currentUnit, 0, 0.2, 0.2);
-		game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 8, EnemyAct, this);
-
-		unitNum++;
-		if(unitNum > units.length - 1){unitNum = 0;}
-		currentUnit = units[unitNum];
-	}
+	game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 7, EnemyAct, this);
+	game.time.events.add((Phaser.Timer.SECOND * 0.5) * 7, EndTurn, this);
 
 }
 
 function DEBUGTURNS() {for (var i = 0; i < 25 * partySize; i++) {EndTurn();}}
 
 function EnemyAct() {
-	var time = game.time.totalElapsedSeconds();
-	console.log("delay Start");
-	Thread.sleep(1000);
+	rnd= getRandomTile();
+	x = dataLayer.getTileX(rnd.xPos + currentUnit.position.x);
+	y = dataLayer.getTileY(rnd.yPos + currentUnit.position.y);
 
-	console.log("delay End");
+	var prevX = dataLayer.getTileX(currentUnit.position.x);
+	var prevY = dataLayer.getTileY(currentUnit.position.y);
+	d ={x:prevX, y:prevY, toX:x, toY:y}
+	console.log(d);
+
+	if(mapp.isTileOpen(x,y) &&
+	 GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 &&
+	 currentUnit.CanMove(mapp.getTileCost(x,y))){
+		mapp.OccupentLeft(prevX, prevY+1);
+		currentUnit.MoveTo(x * 32, y * 32 - 32, mapp.getTileCost(x,y));
+		playermarker.x = currentUnit.position.x - 32;
+		playermarker.y = currentUnit.position.y;
+		mapp.Occupy(x,y,currentUnit)
+	}
 
 }
 
@@ -276,20 +286,21 @@ function getRandomTile(){
 	var y = 0;
 
 	if (randX == 0) {
-		x = 32;
+		x = 64;
 
 	} else if(randX == 1) {
-		x = -32;
+		x = -31;
 	}
 
 	if (randY == 0) {
-		y = 32;
+		y = 64;
 
 	} else if(randY == 1) {
-		y = -32;
+		y = -31;
 	}
-
-	return [x,y];
+	var r = {xPos:x,yPos:y};
+	//console.log(r);
+	return r
 }
 
 function UpdateUI() {
@@ -307,7 +318,8 @@ function updateMarker() {
 	var y = game.input.activePointer.worldY;
 
 	//Stops tile selection if over tiles
-	if (overUI){return;}
+	if (overUI || enemyActing){return;}
+
 
 	x = dataLayer.getTileX(x);
 	y = dataLayer.getTileY(y);
