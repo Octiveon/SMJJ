@@ -16,7 +16,7 @@ Combat.prototype = {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'assets/imgs/32X32.png');
+    	game.load.image('tiles', 'assets/imgs/32X32.png');
 		game.load.image('64X64', 'assets/imgs/64x64.png');
 		game.load.image('Tree3', 'assets/imgs/tree3.png');
 
@@ -413,6 +413,7 @@ function Attack(x,y) {
 			occup = mapp.getTileOccupant(x,y);
 			if(enemyUnits.children.indexOf(occup) > -1) {
 				 console.log("Attack");
+				 currentUnit.animations.play('attack');
 				 currentUnit.Attack(occup);
 				 console.log(occup.health);
 			}
@@ -448,7 +449,8 @@ function SpawnParty() {
 		var x = locs[i].x;
 		var y = locs[i].y;
 		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
-		pUnit = new PlayerUnit(game, 'Characters','Player', 1, x * 32, y * 32, 100, 15);
+		pUnit = new PlayerUnit(game, 'knightR','Knight1', 1.5, x * 32, y * 32, 100, 15);
+		pUnit.animations.add('attack', Phaser.Animation.generateFrameNames('Knight', 1,9), 10, false);
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);
 		mapp.Occupy(x,y +1, pUnit);
