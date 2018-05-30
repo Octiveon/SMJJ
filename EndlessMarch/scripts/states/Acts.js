@@ -1,6 +1,9 @@
 var Acts = function(game) {};
 Path = [];
 cnt = 0;
+var poptxt;
+var foodtxt;
+var supplytext;
 
 Acts.prototype = {
     preload: function () {
@@ -16,12 +19,14 @@ Acts.prototype = {
 var Act1 = function(game) {};
 var text;
 var tb;
-var hold;
-var descend;
-var poptxt;
-var foodtxt;
-var supplytext;
-var windoww
+var button1;
+var b1t;
+var button2;
+var b2t;
+var button3;
+var b3t;
+var windoww;
+var ctxt="text has been changed";
 Act1.prototype = {
 
   init: function() {
@@ -29,7 +34,7 @@ Act1.prototype = {
 
   },
 	preload: function() {
-		game.load.image('window', 'assets/imgs/window.png');
+		game.load.image('window', 'assets/imgs/TextWindow.png');
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
 		game.load.image('descend','assets/imgs/descend.png');
@@ -48,13 +53,21 @@ Act1.prototype = {
     /////////////////////////////
 		//textbox window
 		windoww = game.add.sprite(487,320,'window');
+		windoww.scale.set(.4,.4);
 		windoww.inputEnabled = true;
 		windoww.input.enableDrag();
 		windoww.x =2000;
 		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
-		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left", backgroundColor: "#c3c3c3" };
+		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left"};
 		text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orcs in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orcs. \n Holding your ground — fighting in arduous terrain to avoid the orcs", style);
 		text.anchor.set(0.5);
+		b1t =game.add.text(0,0,"tempword",style);
+		b1t.anchor.set(0.5);
+		b2t =game.add.text(0,0,"tempword",style);
+		b2t.anchor.set(0.5);
+		b3t =game.add.text(0,0,"tempword",style);
+		b3t.anchor.set(0.5);
+
 		//map button
     tb = game.add.button(game.camera.width / 2 - 95, 400, 'RndButton', moveWindow, this, 'Hover','Up','Down');
     tb.anchor.set(0.5);
@@ -66,8 +79,9 @@ Act1.prototype = {
     //texbox buttons
     //game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, [Atlas], [Function], this, [Hover], [UP],[Down]);
 
-		hold = game.add.button(2000,0, 'narrativeButtons',LoadCombat,this,'hold','hold','hold');
-		descend = game.add.button(2000,0,'narrativeButtons',descendF,this,'descend','descend','descend');
+		button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
+		button2 = game.add.button(2000,0,'RndButton',holdF,this,'Hover','Up','Down');
+		button3 = game.add.button(2000,0,'RndButton',holdF,this,'Hover','Up','Down');
 		poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '32px', fill: '#999999' });
 		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
 		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
@@ -80,10 +94,21 @@ Act1.prototype = {
 
 		text.x = Math.floor(windoww.x + windoww.width / 2 );
 		text.y = Math.floor(windoww.y + windoww.height / 2 - 50);
-		hold.x = Math.floor(windoww.x + 27);
-		hold.y = Math.floor(windoww.y + 237);
-		descend.x = Math.floor(windoww.x + 300);
-		descend.y = Math.floor(windoww.y + 237);
+		// window button 1 
+		button1.x = Math.floor(windoww.x + 40);
+		button1.y = Math.floor(windoww.y + 350);
+		b1t.x = Math.floor(windoww.x + 120);
+		b1t.y = Math.floor(windoww.y + 370);
+		//window button 2
+		button2.x = Math.floor(windoww.x + 300);
+		button2.y = Math.floor(windoww.y + 350);
+		b2t.x = Math.floor(windoww.x + 380);
+		b2t.y = Math.floor(windoww.y + 370);
+		//window button 3
+		button3.x = Math.floor(windoww.x + 500);
+		button3.y = Math.floor(windoww.y + 350);
+		b3t.x = Math.floor(windoww.x + 580);
+		b3t.y = Math.floor(windoww.y + 370);
 		poptxt.text = 'Population: ' + population;
 		supplytxt.text = 'Supplies: ' + supplies;
 		foodtxt.text = 'Food: ' + food;
@@ -131,6 +156,10 @@ function descendF(){
 	windoww.y = 400;
 	supplies -= 150;
 }
+function elderbattle(){
+
+}
+
 
 function DrawPath()
 {
