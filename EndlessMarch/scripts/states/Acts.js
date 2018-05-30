@@ -86,10 +86,6 @@ Act1.prototype = {
 		//text.anchor.set(0.5);
 >>>>>>> 813600d53fd5e15156fdbd8f137fab8a2cc23862
 		//map button
-    tb = game.add.button(game.camera.width / 2 - 95, 400, 'RndButton', moveWindow, this, 'Hover','Up','Down');
-    tb.anchor.set(0.5);
-    Path[cnt++] = {x:tb.position.x, y:tb.position.y};
-    tb = game.add.button(game.camera.width / 2 + 50 , 300, 'RndButton', moveWindow, this, 'Hover','Up','Down');
     SpawnOldButtons();
 
     if(Path.length == 0)
