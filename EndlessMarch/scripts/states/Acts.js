@@ -65,7 +65,6 @@ Act1.prototype = {
 >>>>>>> 813600d53fd5e15156fdbd8f137fab8a2cc23862
 		windoww.inputEnabled = true;
 		windoww.input.enableDrag();
-		windoww.x =2000;
 		//windoww.x =2000;
 		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
 <<<<<<< HEAD
@@ -120,7 +119,6 @@ Act1.prototype = {
 		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
 		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
 
-		actInstructions = game.add.sprite(100, 400, 'instructions', 'actInstructions');
 		//elderBattle = game.add.sprite (100, 200, 'A1T', 'Elder Battle');
 		//elderBattle.fixedToCamera = true;
 		//actInstructions = game.add.sprite(100, 400, 'instructions', 'actInstructions');
@@ -226,8 +224,6 @@ function elderbattle(){
 }
 
 
-function DrawPath()
-{
 function DrawPath(){
   for (var i = 0; i < Path.length; i++) {
     if(i == 0)
