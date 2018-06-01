@@ -60,27 +60,10 @@ Act1.prototype = {
 		b3t =game.add.text(0,0,"tempword",style);
 		b3t.anchor.set(0.5);
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
-    console.log(windoww.position);
     // console.log(windoww.position);
 
-    SpawnOldButtons();
     // SpawnOldButtons();
 
-    if(Path.length == 0)
-    {
-      caravanStart = game.add.button(game.camera.width *0.15, game.camera.height *0.7, 'RndButton', moveWindow, this, 'Hover','Up','Down');
-      caravanStart.anchor.set(0.5);
-      //caravanStart.textWindow = "[KEY IN ATLAS]"
-      caravanStart.textWindow = ""
-      caravanStart.choice1 = "";
-      caravanStart.choice2 = "";
-
-      Path[cnt++] =
-      {
-        x:game.camera.width *0.15,
-        y:600
-      };
-    }
     // if(Path.length == 0)
     // {
        caravanStart = game.add.button(game.camera.width *0.15, game.camera.height *0.7, 'RndButton', moveWindow, this, 'Hover','Up','Down');
@@ -98,11 +81,6 @@ Act1.prototype = {
     // }
     //texbox buttons
     //game.add.button(portrait.width * 0.9 ,game.height - portrait.height * 0.4, [Atlas], [Function], this, [Hover], [UP],[Down]);
-		button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
-		button2 = game.add.button(2000,0,'RndButton',holdF,this,'Hover','Up','Down');
-		button3 = game.add.button(2000,0,'RndButton',holdF,this,'Hover','Up','Down');
-		hold = game.add.button(2000,0, 'narrativeButtons',LoadCombat,this,'hold','hold','hold');
-		descend = game.add.button(2000,0,'narrativeButtons',CreateNewNode,this,'descend','descend','descend');
 		button1 = game.add.button(2000,0, 'RndButton',,this,'Hover','Up','Down');
 		button2 = game.add.button(2000,0,'RndButton',null,this,'Hover','Up','Down');
 		button3 = game.add.button(2000,0,'RndButton',null,this,'Hover','Up','Down');
@@ -197,15 +175,10 @@ function SpawnOldButtons() {
 }
 //moves window
 function moveWindow(){
-	windoww.x = 560;
-	windoww.y = 400;
 	windoww.x = 60;
 	windoww.y = 200;
 	population -= 70;
 }
-function holdF(){
-	windoww.x = 560;
-	windoww.y = 400;
 function moveWindowOnScreen(){
 	windoww.x = 60;
 	windoww.y = 200;
@@ -276,7 +249,6 @@ function villagerBattle(){
 	button1.callback=LoadCombat;
 	//end of this battle nbeeds to have cne set to either vblost or vbwon
 }
-function elderbattle(){
 
 function vbwon(){
 	b1t="Lootvilage";
