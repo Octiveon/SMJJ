@@ -214,6 +214,10 @@ function LoadScene(info) {
   }
 }
 
+function LoadFireScene(info) {
+  game.state.start(info.scene, info.keepPreload, info.keepCreate,info.combat);
+}
+
 //Temp Laod Functions
 function LoadCombat() {
   var combat = {map:"TestMap3", enemies: 5}

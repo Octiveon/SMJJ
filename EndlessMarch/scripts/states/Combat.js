@@ -5,7 +5,6 @@ Combat.prototype = {
 	init: function(info) {
 		partyAlive = partySize;
 		enemieCnt = info.enemies;
-		console.log("enemieCnt:"+enemieCnt);
 		actionEnum = "Move"; //Move, Ability, Attack
 		_mapAssetPath = 'assets/imgs/'  + info.map;
 
@@ -13,8 +12,6 @@ Combat.prototype = {
 		mapHeight = -1;
 		overUI = false;
 		enemyActing = false;
-		win = false;
-		peopleLost = 0;
 	},
 	preload: function() {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
@@ -167,9 +164,16 @@ Combat.prototype = {
 	update: function() {
 		if(partyAlive == 0)
 		{
+			var combat = {win:false, lost: (partySize / partySize) * 100}
+
+			var info = {timer: 1, scene: "act1", keepPreload: true, keepCreate: false, combat:combat}
+			LoadFireScene(info);
 
 		}else if (enemieCnt == 0) {
-			win = true;
+			var combat = {win:true, lost: (partySize / partySize) * 100}
+
+			var info = {timer: 1, scene: "act1", keepPreload: true, keepCreate: false, combat:combat}
+			LoadFireScene(info);
 		}
 
 	},
