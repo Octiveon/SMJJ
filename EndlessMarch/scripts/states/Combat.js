@@ -2,15 +2,19 @@ var Combat = function(game) {};
 
 
 Combat.prototype = {
-	init: function(mapAssetName) {
+	init: function(info) {
 		partyAlive = partySize;
+		enemieCnt = info.enemies;
+		console.log("enemieCnt:"+enemieCnt);
 		actionEnum = "Move"; //Move, Ability, Attack
-		_mapAssetPath = 'assets/imgs/'  + mapAssetName;
+		_mapAssetPath = 'assets/imgs/'  + info.map;
 
 		mapWidth = -1;
 		mapHeight = -1;
 		overUI = false;
 		enemyActing = false;
+		win = false;
+		peopleLost = 0;
 	},
 	preload: function() {
 		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
@@ -74,11 +78,7 @@ Combat.prototype = {
 
 		style = { font: "16px Arial", fill: "#000000", wordWrap: true,
 		  wordWrapWidth: unitWindow.width, align: "center", fontWeight: "bold" };
-		wind = game.add.sprite(game.camera.width,0, 'TextWindow');
-		wind.anchor.x =  1;
-		wind.scale.setTo(0.15,0.15);
-		wind.fixedToCamera = true;
-		uiGrp.add(wind);
+
 
 
 		unitWindowtext = game.add.text(unitWindow.width * 0.5 ,game.height - unitWindow.height * 0.7, "Health: \n Move:", style);
@@ -104,49 +104,16 @@ Combat.prototype = {
 		exitBtn.enableBody = true;
 
 		var style = { font: "14px Arial", fill: "#000000", wordWrap: true,
-		wordWrapWidth: wind.width, align: "center", fontWeight: "bold" };
+		 align: "center", fontWeight: "bold" };
 		exitBtntext = game.add.text(40 ,40, "Exit", style);
 		exitBtntext.fixedToCamera = true;
-
-		moveBtn = game.add.button(wind.position.x - 225 ,35, 'RndButton', MoveMode, this, 'Hover', 'Up','Down');
-		moveBtn.anchor.x = exitBtn.anchor.y = 0.5;
-		moveBtn.fixedToCamera = true;
-    moveBtn.scale.setTo(1,1);
-		moveBtn.enableBody = true;
-		uiGrp.add(moveBtn);
-
-
-		moveBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 40, "Move", style);
-		moveBtntext.fixedToCamera = true;
-
-		attackBtn = game.add.button(wind.position.x - 225 ,70, 'RndButton', AttackMode, this, 'Hover', 'Up','Down');
-		attackBtn.anchor.x = exitBtn.anchor.y = 0.5;
-		attackBtn.fixedToCamera = true;
-    attackBtn.scale.setTo(1,1);
-		attackBtn.enableBody = true;
-		uiGrp.add(attackBtn);
-
-
-		attackBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 80, "Attack", style);
-		attackBtntext.fixedToCamera = true;
-
-		abilityBtn = game.add.button(wind.position.x - 225 ,105, 'RndButton', AbilityMode, this, 'Hover', 'Up','Down');
-		abilityBtn.anchor.x = exitBtn.anchor.y = 0.5;
-		abilityBtn.fixedToCamera = true;
-		abilityBtn.scale.setTo(1,1);
-		abilityBtn.enableBody = true;
-		uiGrp.add(abilityBtn);
-
-
-		abilityBtntext = game.add.text(game.camera.width - wind.width * 0.70 , 120, "Ability", style);
-		abilityBtntext.fixedToCamera = true;
 
 		// add instructions in the bottom right corner
 		combatInstructions = game.add.sprite(850, 600, 'instructions','combatInstructions');
 		combatInstructions.fixedToCamera = true;
 
 		uiGrp.add(endTurn);
-		tileText = game.add.text(game.camera.width - wind.width * 0.70 , 80, "", style);
+		tileText = game.add.text(game.camera.width * 0.70 , 80, "", style);
 
 
 
@@ -158,8 +125,9 @@ Combat.prototype = {
 		marker.endFill();
 		////////////////////////////////////////////////////////////////////
 
+		SpawnEnemies('Enemy');
 		SpawnParty();
-		SpawnEnemies(3, 'Enemy');
+
 
 		var i;
 		for (var i = 0; i < uiGrp.children.length; i++) {
@@ -197,6 +165,12 @@ Combat.prototype = {
 		UpdateUI();
 	},
 	update: function() {
+		if(partyAlive == 0)
+		{
+
+		}else if (enemieCnt == 0) {
+			win = true;
+		}
 
 	},
 	render: function(){
@@ -244,6 +218,7 @@ function EndTurn() {
 		endTurn.inputEnabled = false;
 		enemyActing = true;
 		StartEnemyTurns();
+		console.log(enemyUnits.children.length);
 		game.time.events.repeat(Phaser.Timer.SECOND * 8, enemyUnits.children.length-1, StartEnemyTurns, this);
 	}
 
@@ -254,8 +229,6 @@ function StartEnemyTurns(){
 	game.time.events.add((Phaser.Timer.SECOND * 0.5) * 7, EndTurn, this);
 
 }
-
-function DEBUGTURNS() {for (var i = 0; i < 25 * partySize; i++) {EndTurn();}}
 
 function EnemyAct() {
 	rnd= getRandomTile();
@@ -320,7 +293,6 @@ function updateMarker() {
 	//Stops tile selection if over tiles
 	if (overUI || enemyActing){return;}
 
-
 	x = dataLayer.getTileX(x);
 	y = dataLayer.getTileY(y);
 
@@ -328,9 +300,21 @@ function updateMarker() {
 	if(y < 0){ y = 0;}
 
 	var flag = mapp.getTileStatus(x,y);
-
-	if(actionEnum == "Move")
+	if(flag == 0)
 	{
+		actionEnum = "Move";
+	}
+	else {
+		if(enemyUnits.children.indexOf(flag) > -1)
+		{
+			actionEnum = "Attack";
+		}
+		else {
+			actionEnum = "Attack";
+		}
+	}
+
+	if(actionEnum == "Move"){
 		tileText.text = mapp.getTileCost(x,y);
 		tileText.position.x = x * 32 + 12;
 		tileText.position.y = y * 32 + 10;
@@ -341,9 +325,9 @@ function updateMarker() {
 	}
 	else if (actionEnum == "Attack") {
 		tileText.text = "";
-		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 && flag == 1)
+		if(GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 && enemyUnits.children.indexOf(flag) > -1)
 		{ marker.tint = 0xBD0404; }
-		else{ marker.tint = 0xffffff; }
+		else{ marker.tint = 0x42e5f4; }
 
 	}
 
@@ -363,6 +347,7 @@ function TileSelect() {
 	//Gets tile location in order to move the player
 	x = dataLayer.getTileX(game.input.activePointer.worldX);
 	y = dataLayer.getTileY(game.input.activePointer.worldY);
+	console.log(x + "====" + y);
 
 	switch (actionEnum) {
 		case "Move":
@@ -377,6 +362,7 @@ function TileSelect() {
 		default:
 	}
 	UpdateUI();
+	game.time.events.add(Phaser.Timer.SECOND * 0.1, updateMarker, this);
 
 }
 
@@ -409,7 +395,7 @@ function Attack(x,y) {
 	if(!mapp.isTileOpen(x,y) && GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60){
 		var flag = mapp.getTileStatus(x,y);
 
-		if(flag == 1 && currentUnit.attacked == false){
+		if(flag != 0 && currentUnit.attacked == false){
 			occup = mapp.getTileOccupant(x,y);
 			if(enemyUnits.children.indexOf(occup) > -1) {
 				 console.log("Attack");
@@ -425,20 +411,42 @@ function GetDistance(x1,y1,x2,y2) {
 	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
-function SpawnEnemies(count, type) {
+function SpawnEnemies(type) {
 	//Checks to make sure tile they will spawn in is open
 	locs = mapp.GetESpawn();
 	for (var i = 0; i < locs.length; i++) {
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		var x = locs[i].x;
 		var y = locs[i].y;
-		if(i > count){break;}
+		if(i >= enemieCnt){break;}
 		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32 - 32, 50, 10);
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
-		console.log(x, y + 1);
 		mapp.Occupy(x,y,eUnit);
 	}
+}
+function EnemyDied(unit){
+	var eInd = enemyUnits.children.indexOf(unit);
+	var uInd = units.indexOf(unit);
+
+	var x = dataLayer.getTileX(currentUnit.position.x);
+	var y = dataLayer.getTileY(currentUnit.position.y);
+	console.log(x + "---" + y);
+
+	mapp.OccupentLeft(x + 1, y + 1);
+
+
+	if(eInd > -1)
+	{
+		enemieCnt--;
+		enemyUnits.children.splice(eInd, 1);
+	}
+
+	if(uInd > -1)
+	{
+		units.splice(uInd, 1);
+	}
+
 }
 
 function SpawnParty() {
@@ -448,13 +456,37 @@ function SpawnParty() {
 		if(i >= partySize){break;}
 		var x = locs[i].x;
 		var y = locs[i].y;
+
 		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
-		pUnit = new PlayerUnit(game, 'knightR','Knight1', 1.5, x * 32, y * 32, 100, 15);
+		pUnit = new PlayerUnit(game, 'knightR','Knight1', 1.5, x * 32, y * 32, 100, 50);
 		pUnit.animations.add('attack', Phaser.Animation.generateFrameNames('Knight', 1,9), 10, false);
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);
-		mapp.Occupy(x,y +1, pUnit);
+		mapp.Occupy(x,y + 1, pUnit);
 
+	}
+
+}
+function VanguardDied(unit){
+	var index = vanguard.children.indexOf(unit);
+	var uInd = units.indexOf(unit);
+
+	var x = dataLayer.getTileX(currentUnit.position.x);
+	var y = dataLayer.getTileY(currentUnit.position.y);
+
+	console.log(prevX + "---" + prevY);
+
+	mapp.OccupentLeft(x, y+1);
+
+	if(eInd > -1)
+	{
+		enemieCnt--;
+		vanguard.children.splice(eInd, 1);
+	}
+
+	if(uInd > -1)
+	{
+		units.splice(uInd, 1);
 	}
 
 }

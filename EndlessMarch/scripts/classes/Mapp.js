@@ -30,15 +30,17 @@ function Mapp(game, map, layer, spawnLayer) {
 }
 
 Mapp.prototype.Debug = function(){
+  var tiled;
+  if(tiled!= null)
+  {
+    tiled.destroy();
+  }
   for (var i = 0; i < this.tiles.length; i++) {
     for (var j = 0; j < this.tiles[i].length; j++) {
       if (this.tiles[i][j].occupied) {
-        tiled = game.add.graphics();
+         tiled = game.add.graphics();
         tiled.lineStyle(2, 0xbd0404, 1);
-
         tiled.drawRect(j*32, i*32, 32, 32);
-
-
       }
       else{
         tiled = game.add.graphics();
@@ -70,7 +72,7 @@ Mapp.prototype.getTileCost = function(x,y){
 Mapp.prototype.getTileStatus = function(x,y){
   if(this.tiles[y][x].occupied)
   {
-    return 1;
+    return this.tiles[y][x].currentOccupant;
   }
   else if (this.tiles[y][x].movable) {
     return 0;

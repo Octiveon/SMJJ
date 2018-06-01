@@ -49,6 +49,7 @@ EnemyUnit.prototype.Hit = function(dmg) {
 }
 
 EnemyUnit.prototype.OnDeath = function() {
+	EnemyDied(this);
 	this.kill();
 }
 

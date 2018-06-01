@@ -41,7 +41,7 @@ Preload.prototype = {
     game.load.image('TextWindow','assets/imgs/TextWindow.png')
 
 
-    	game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
+    game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
 		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
@@ -72,7 +72,7 @@ Load.prototype = {
   },
 	preload: function() {
     // preload assets
-  	game.load.atlas('loading','assets/imgs/loadingAtlas.png','assets/img/loading.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+  	game.load.atlas('loading','assets/imgs/loadingAtlas.png','assets/imgs/loading.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
   	game.load.image('window','assets/imgs/TextWindow.png');//Replace with UI atlas when its made available
   	treesSprite = ["Tree1","Tree2","Tree3","Tree4","Tree5","Tree6","skull","Skeleton"];
   	dustSprite = ["dust1","dust2","dust3"];
@@ -87,7 +87,7 @@ Load.prototype = {
   	//if variable names change check the bottom of create at ~line 90
 	},
 	create: function() {
-    game.add.sprite(0,0,'loading','BG');
+    game.add.sprite(0,0,'loading','Gradient');
   	sun = game.add.sprite(800,535,'loading','Sun');
   	sun.anchor.setTo(.5,.5);
   	game.add.sprite(0,443,'loading','Mountains');
@@ -161,8 +161,8 @@ Load.prototype = {
   	currentPopulation = game.add.text(285, 170, startingPopulation-population+" People died on this stretch of you journey");
   	currentFood = game.add.text(285, 220, startingFood-food+" Food was consumed or lost");
   	currentResources = game.add.text(285, 270, startingResources-resources+" resources were consumer or lost");
-    game.time.events.add(Phaser.Timer.SECOND * this.loadInfo.seconds , EndTurn, this, this.loadInfo);
-
+    console.log(this.loadInfo);
+    game.time.events.add(Phaser.Timer.SECOND * this.loadInfo.timer, LoadScene, this, this.loadInfo);
 	},
 	update: function() {
     hills.tilePosition.x-=.1;
@@ -204,12 +204,20 @@ function HeadDir2(){
 }
 
 function LoadScene(info) {
-	game.state.start(info.scene, info.keepPreload, info.keepCreate);
+  if(info.combat != null)
+  {
+    game.state.start(info.scene, info.keepPreload, info.keepCreate,info.combat);
+
+  }
+  else {
+    game.state.start(info.scene, info.keepPreload, info.keepCreate);
+  }
 }
 
 //Temp Laod Functions
 function LoadCombat() {
-  var info = {timer: 7, scene: "combat", keepPreload: true, keepCreate: false}
+  var combat = {map:"TestMap3", enemies: 5}
+  var info = {timer: 1, scene: "combat", keepPreload: true, keepCreate: false, combat:combat}
   game.state.start("load", true, false, info);
 	//game.state.start("combat", true, false,'TestMap3');
 }
