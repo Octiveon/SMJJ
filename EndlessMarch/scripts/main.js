@@ -50,8 +50,11 @@ Preload.prototype = {
 		game.load.atlas('narrativeButtons', 'assets/imgs/narrativeButtons.png','assets/imgs/narrativeButtons.json',
      Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.atlas('A1T', 'assets/imgs/act_1_text.png', 'assets/imgs/act_1_text.json'),
-		game.load.atlas('knightL', 'assets/imgs/knightLeft.png', 'assets/imgs/knightLeft.json'),
-		game.load.atlas('knightR', 'assets/imgs/knightRight.png', 'assets/imgs/knightRight.json'),
+		
+		//Sprites
+		game.load.atlas('knightL', 'assets/imgs/Sprites/knightLeft.png', 'assets/imgs/Sprites/knightLeft.json'),
+		game.load.atlas('knightR', 'assets/imgs/Sprites/knightRight.png', 'assets/imgs/Sprites/knightRight.json'),
+		game.load.atlas('orcL', 'assets/imgs/Sprites/orcLeft.png', 'assets/imgs/Sprites/orcLeft.json'),
 
 		game.load.audio('menuSnd', 'assets/snds/menu.ogg');
 		game.load.audio('battleSnd', 'assets/snds/battle.ogg');
