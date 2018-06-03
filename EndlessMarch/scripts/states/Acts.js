@@ -239,7 +239,6 @@ function moveWindowOffScreen(){
 	windoww.x = 60;
 	windoww.y = 2000;
 }
-//event functions
 //act1 functions
 function elderbattleEnd(){
 	console.log("elderbattle");
@@ -249,7 +248,6 @@ function elderbattleEnd(){
 	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-	button2.callback=LoadCombat;
 	button2.destroy();
 	button2 = game.add.button(2000,0, 'RndButton',villagerBattle,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
@@ -266,17 +264,15 @@ function rockslide(){
 	button1 = game.add.button(2000,0, 'RndButton',Orcbattle,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy
 	button2.destroy();
 	button2 = game.add.button(2000,0, 'RndButton',clearPath,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
 	moveWindowOnScreen();
+	caravanStart = game.add.button(game.x, game.camera.height *0.7, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+    caravanStart.anchor.set(0.5);
 }
 function clearPath(){
-	console.log(cp);
-	button1.distroy();
-	button2.distroy();
 	console.log("cp");
 	button1.destroy();
 	button2.destroy();
@@ -302,11 +298,6 @@ function Orcbattle(){
 function weatherDecision(){
 	console.log("wd");
 	supplies-=getRandomInt(5);
-	foor-=getRandomInt(5)+3;
-	bt1.text="Risk Storm";
-	bt2.text="Decend to the coast";
-	button1.callback=RiskStorm;
-	button2.callback=LoadCombat;//banditlevel
 	food-=getRandomInt(5)+3;
 	b1t.text="Risk Storm";
 	b2t.text="Decend to the coast";
@@ -331,7 +322,6 @@ function RiskStorm(){
 	}
 	//texthere;
 	bt1="Mountain Decent";
-	button1.callback=mountainDesent;
 	button1.destroy();
 	button2.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',mountainDesent,this,'Hover','Up','Down');
@@ -344,8 +334,6 @@ function mountainDesent(){
 	moveWindowOnScreen();
 	b1t.text="go fast";
 	b2t.text="go slow";
-	button1.callback=goFast;
-	button1.callback=goSlow;
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',goFast,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
