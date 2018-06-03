@@ -240,6 +240,7 @@ function moveWindowOffScreen(){
 	windoww.y = 2000;
 }
 //event functions
+//act1 functions
 function elderbattleEnd(){
 	console.log("elderbattle");
 	b1t.text="Asscend Mountains";
@@ -249,6 +250,10 @@ function elderbattleEnd(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.callback=LoadCombat;
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',villagerBattle,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 	moveWindowOnScreen();
 }
 function rockslide(){
@@ -262,6 +267,7 @@ function rockslide(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy
+	button2.destroy();
 	button2 = game.add.button(2000,0, 'RndButton',clearPath,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
@@ -271,6 +277,9 @@ function clearPath(){
 	console.log(cp);
 	button1.distroy();
 	button2.distroy();
+	console.log("cp");
+	button1.destroy();
+	button2.destroy();
 	supplies-= getRandomInt(5)+10 ;
 	food-=getRandomInt(5)+13;
 	bt1="Venture forward";
@@ -282,20 +291,37 @@ function Orcbattle(){
 	console.log("ob");
 	b1t.text="Start Comabt";
 	b2t.text="";
+	button1.destroy();
+	button2.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
 	cne=weatherDecision;
 	moveWindowOnScreen();
 }
 function weatherDecision(){
+	console.log("wd");
 	supplies-=getRandomInt(5);
 	foor-=getRandomInt(5)+3;
 	bt1.text="Risk Storm";
 	bt2.text="Decend to the coast";
 	button1.callback=RiskStorm;
 	button2.callback=LoadCombat;//banditlevel
+	food-=getRandomInt(5)+3;
+	b1t.text="Risk Storm";
+	b2t.text="Decend to the coast";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//banditlevel
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 	moveWindowOnScreen();
 }
 function RiskStorm(){
+	console.log("RS");
 	supplies-=getRandomInt(5)+3;
 	food-=getRandomInt(12);
 	if(getRandomInt(1)==1){
@@ -306,43 +332,113 @@ function RiskStorm(){
 	//texthere;
 	bt1="Mountain Decent";
 	button1.callback=mountainDesent;
+	button1.destroy();
+	button2.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',mountainDesent,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
 	moveWindowOnScreen();
 }
 function mountainDesent(){
+	console.log("MD");
 	moveWindowOnScreen();
 	b1t.text="go fast";
 	b2t.text="go slow";
 	button1.callback=goFast;
 	button1.callback=goSlow;
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',goFast,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.callback=goSlow;
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',goSlow,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 }
 function gofast(){
 	supplies-=getRandomInt(5);
+	var control;
+	control=getRandomInt(1);
+	if (control==1) {
+		supplies-=getRandomInt(8)+8;
+	}
+	bt1.text="BorderBattle";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+}
+function goSlow(){
+	supplies-=getRandomInt(5)+1;
+	food-=getRandomInt(5)+3;
+	Population-=getRandomInt(8)+4;
+	var c=getRandomInt(100);
+	if (c>30){
+		population-=getRandomInt(8)+4;
+		food-=getRandomInt(5)+3;
+		supplies-=getRandomInt(4)+1;
+		//text code here
+	}else{
+		population-=getRandomInt(98)+24;
+		food-=getRandomInt(12)+4;
+		supplies-=getRandomInt(12)+12;
+		//textcode here
+	}
 
 }
+
+
 function foothilbandits(){
 	bt1="take higherpath"
 	bt2="decend mountains"
-	button1.callback=RiskStorm;
-	button2.callback=crossroad;
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',crossroad,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 }
 function villagerBattle(){
 	//settext
-	b1t="Start Comabt";
-	button1.callback=LoadCombat;
+	console.log("vb");
+	b1t.text="Start Comabt";
+	b2t.text=" ";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
 	//end of this battle nbeeds to have cne set to either vblost or vbwon
 }
 
 function vbwon(){
+	console.log("vbw");
 	b1t="Lootvilage";
 	b2t="recruit villagers";
-	button1.callback=lootvillage;
-	button2.callback=recruitvillagers;
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',lootvillage,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',recruitvillagers,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 }
 function vblost(){
+	console.log("vblost");
 	b1t.text="Move on";
 	b2t.text="avenge";
-	button1.callback=rest;
-	button2.callback=avenge;
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',avenge,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 }
 function lootvillage(){
 	supplies+=getRandomInt(10);
@@ -352,8 +448,12 @@ function lootvillage(){
 }
 function recruitvillagers(){
 	population+=getRandomInt(10);
-	bt1="rest";
-	button1=rest();
+	b1t="rest";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
 
 }
 function rest(){
@@ -361,26 +461,70 @@ function rest(){
 	bt1="Take rest";
 	bt2="press on";
 	//text image call
-	button1.callback=takeRest;
-	button2.callback= PressOn;
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 }
 
 function takeRest(){
 	//rest image call
 	bt1="mountain pass"
 	bt2="foothill Bandits"
-	button1.callback=crossroad;
-	button2.callback=foothilbandits;
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',crossroad,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',foothilbandits,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 }
 function crossroad(){
 	bt1="raider batle";
 	bt2="avoid village";
-	button1.callback=raiderBattle;//loadcomabt;
-	button2.callback=avoidVillage;
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',raiderBattle,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',avoidVillage,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
 }
 function avoidVillage(){
 	bt1="border battle";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
  }
+ function raiderBattle(){
+ 	cne=BorderBattle;
+ 	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//load raider battle
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+
+ }
+ function BorderBattle(){
+ 	console.log("BB");
+ 	food -=getRandomInt(5)+3;
+ 	supplies-=getRandomInt(5);
+ 	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//border battle
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+
+ }
+ //act1 functions end
 //apropriated from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
