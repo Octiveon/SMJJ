@@ -39,6 +39,7 @@ Act1.prototype = {
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
 		game.load.image('descend','assets/imgs/descend.png');
+		game.load.atlas('')
 	},
 	create: function() {
 		//background
@@ -144,9 +145,9 @@ Act2.prototype = {
 		windoww.input.enableDrag();
 		windoww.x =2000;
 		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
-		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left"};
-		text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orcs in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orcs. \n Holding your ground — fighting in arduous terrain to avoid the orcs", style);
-		text.anchor.set(0.5);
+		//var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left"};
+		//text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orcs in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orcs. \n Holding your ground — fighting in arduous terrain to avoid the orcs", style);
+		//text.anchor.set(0.5);
 		b1t =game.add.text(0,0,"tempword",style);
 		b1t.anchor.set(0.5);
 		b2t =game.add.text(0,0,"tempword",style);
@@ -156,8 +157,8 @@ Act2.prototype = {
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
 	},
 	update: function() {
-		text.x = Math.floor(windoww.x + windoww.width / 2 );
-		text.y = Math.floor(windoww.y + windoww.height / 2 - 50);
+		//text.x = Math.floor(windoww.x + windoww.width / 2 );
+		//text.y = Math.floor(windoww.y + windoww.height / 2 - 50);
 		// window button 1 
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
@@ -179,12 +180,32 @@ Act2.prototype = {
 	}
 
 }
-// act2 functions
+///////////////////// act2 functions begin
+
+
+//won border battle
+function bbv(){
+	console.log("bbv");
+	population-=population/12;
+	supplies+=100;
+	b1t.text="";
+// 	text = game.add.text(0, 0, "A landslide befalls you and your caravan killing some and wounding others. Amidst all of the confusion the a war horns can be heard in the distance!\n Scouts are sent out and report that you will be besieged by orcs in 3 days time! Your options are: \n Executing an emergency descent — leaving a group behind to slow the orcs. \n Holding your ground — fighting in arduous terrain to avoid the orcs", style);
+// 	text.anchor.set(0.5);
+// 	text.x = Math.floor(windoww.x + windoww.width / 2 );
+// 	text.y = Math.floor(windoww.y + windoww.height / 2 - 50);
+//lost border battle
+}
+function bbl(){
+	console.log("bbl");
+	population-=population/6;
+	supplies-=100;
+	food-=100;
+}
 function siege(){
-		
-	}
 
+}
 
+///////////////////////act2 functions end
 var Act3 = function(game) {};
 Act2.prototype = {
   init: function() {
@@ -239,7 +260,7 @@ function moveWindowOffScreen(){
 	windoww.x = 60;
 	windoww.y = 2000;
 }
-//act1 functions
+////////////////////////act1 functions begin
 function elderbattleEnd(){
 	console.log("elderbattle");
 	b1t.text="Asscend Mountains";
@@ -279,7 +300,8 @@ function clearPath(){
 	button2.destroy();
 	supplies-= getRandomInt(5)+10 ;
 	food-=getRandomInt(5)+13;
-	bt1="Venture forward";
+	b1t.text="Venture forward";
+	b2t.text=" ";
 	button1 = game.add.button(2000,0, 'RndButton',weatherDecision,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
@@ -328,7 +350,8 @@ function RiskStorm(){
 		food-=getRandomInt(12);
 	}
 	//texthere;
-	bt1="Mountain Decent";
+	b1t.text="Mountain Decent";
+	b2t.text=" ";
 	button1.destroy();
 	button2.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',mountainDesent,this,'Hover','Up','Down');
@@ -364,7 +387,8 @@ function gofast(){
 	if (control==1) {
 		supplies-=getRandomInt(8)+8;
 	}
-	bt1.text="BorderBattle";
+	b1t.text="BorderBattle";
+	b2t.text="";
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
@@ -497,7 +521,8 @@ function recruitvillagers(){
 
 }
 function rest(){
-
+	food=+3;
+	supplies-=4;
 	bt1="Take rest";
 	bt2="press on";
 	//text image call
@@ -515,8 +540,9 @@ function rest(){
     caravanStart.anchor.set(0.5);
 
 }
-function presson(){
+function PressOn(){
 	supplies-=6;
+	food-=6;
 	bt1="Take rest";
 	bt2="press on";
 	//text image call
@@ -535,6 +561,7 @@ function presson(){
 }
 
 function takeRest(){
+	food-=3;
 	//rest image call
 	bt1="mountain pass"
 	bt2="foothill Bandits"
@@ -552,6 +579,7 @@ function takeRest(){
     caravanStart.anchor.set(0.5);
 }
 function crossroad(){
+	food-=3;
 	bt1="raider batle";
 	bt2="avoid village";
 	button1.destroy();
@@ -568,6 +596,8 @@ function crossroad(){
     caravanStart.anchor.set(0.5);
 }
 function avoidVillage(){
+	supplies-=3;
+	food-=3;
 	bt1="border battle";
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
@@ -590,10 +620,11 @@ function avoidVillage(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(750,277, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
     caravanStart.anchor.set(0.5);
-
  }
  function BorderBattle(){
  	console.log("BB");
+ 	b1t.text="FIGHT!";
+ 	b2t.text=" ";
  	food -=getRandomInt(5)+3;
  	supplies-=getRandomInt(5);
  	button1.destroy();
@@ -605,8 +636,10 @@ function avoidVillage(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(614,58, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
     caravanStart.anchor.set(0.5);
- }
- //act1 functions end
+}
+////////////////////act1 functions end
+
+
 //apropriated from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomInt(max) {
   return Math.floor(Math.random() * Math.floor(max));
