@@ -423,7 +423,7 @@ function SpawnEnemies(type) {
 		var x = locs[i].x;
 		var y = locs[i].y;
 		if(i >= enemieCnt){break;}
-		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1, x * 32, y * 32 - 32, 50, 10);
+		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1.5, x * 32, y * 32 - 32, 50, 10);
 		eUnit.animations.add('eAttack', Phaser.Animation.generateFrameNames('Orc', 1,9), 10, false); // Attack animation for enemies
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
