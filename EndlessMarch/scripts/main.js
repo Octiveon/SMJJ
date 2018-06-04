@@ -221,13 +221,16 @@ function LoadFireScene(info) {
 //Temp Laod Functions
 function LoadCombat() {
   var combat = {map:"TestMap3", enemies: 5}
-  var info = {timer: 1, scene: "combat", keepPreload: true, keepCreate: false, combat:combat}
+  var info = {timer: 3, scene: "combat", keepPreload: true, keepCreate: false, combat:combat}
   game.state.start("load", true, false, info);
 	//game.state.start("combat", true, false,'TestMap3');
 }
 
 function Narrative() {
-	game.state.start("act1", true, false);
+  var combat;
+  var info = {timer: 3, scene: "act1", keepPreload: true, keepCreate: false, combat:combat}
+  game.state.start("load", true, false, info);
+	//game.state.start("act1", true, false);
 }
 
 var MainMenu = function(game) {};
