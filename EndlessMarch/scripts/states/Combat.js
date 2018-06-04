@@ -403,7 +403,7 @@ function Attack(x,y) {
 			occup = mapp.getTileOccupant(x,y);
 			if(enemyUnits.children.indexOf(occup) > -1) {
 				 console.log("Attack");
-				 currentUnit.animations.play('attack');
+				 currentUnit.animations.play('pAttack');
 				 currentUnit.Attack(occup);
 				 console.log(occup.health);
 			}
@@ -423,7 +423,8 @@ function SpawnEnemies(type) {
 		var x = locs[i].x;
 		var y = locs[i].y;
 		if(i >= enemieCnt){break;}
-		eUnit = new EnemyUnit(game, 'Characters',type, 1, x * 32, y * 32 - 32, 50, 10);
+		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1, x * 32, y * 32 - 32, 50, 10);
+		eUnit.animations.add('eAttack', Phaser.Animation.generateFrameNames('Orc', 1,9), 10, false); // Attack animation for enemies
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
 		mapp.Occupy(x,y,eUnit);
@@ -463,7 +464,7 @@ function SpawnParty() {
 
 		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		pUnit = new PlayerUnit(game, 'knightR','Knight1', 1.5, x * 32, y * 32, 100, 50);
-		pUnit.animations.add('attack', Phaser.Animation.generateFrameNames('Knight', 1,9), 10, false);
+		pUnit.animations.add('pAttack', Phaser.Animation.generateFrameNames('Knight', 1,9), 10, false); // Attack animation for player unit
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);
 		mapp.Occupy(x,y + 1, pUnit);
