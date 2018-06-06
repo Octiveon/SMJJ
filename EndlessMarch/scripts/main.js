@@ -68,15 +68,18 @@ Preload.prototype = {
 }
 
 var LoadCampfire = function(game) {};
-Load.prototype = {
+LoadCampfire.prototype = {
   init: function(loadInfo) {
    this.loadInfo = loadInfo
 
   },
   preload: function() {
+    game.load.spritesheet('campfire', 'assets/imgs/campfire_16x16.png', 16, 16);
+
 
   },
   create: function() {
+    player = game.add.sprite(camera.width/2 +16, camera.height/2 + 16, 'campfire');
 
   },
   update: function() {
@@ -229,17 +232,17 @@ function LoadScene(info) {
     game.state.start(info.scene, info.keepPreload, info.keepCreate,info.combat);
   }
   else {
-    console.log("Hellp");
     game.state.start(info.scene, info.keepPreload, info.keepCreate);
   }
 }
 
 //Temp Laod Functions
+
 function LoadCombat(button) {
-  var combat = {map:button.combatmap}
+  var combat = {map:button.combatmap, prevScene:button.prevScene,
+     lossFunction: button.lossFunction,  winFunction: button.winFunction}
   var info = {timer: 3, scene: "combat", keepPreload: true, keepCreate: false, combat:combat}
   game.state.start("load", true, false, info);
-	//game.state.start("combat", true, false,'TestMap3');
 }
 
 function LoadNarrative(button) {

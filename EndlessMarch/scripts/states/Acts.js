@@ -37,6 +37,8 @@ Act1.prototype = {
 
   },
 	preload: function() {
+    game.load.image('statusBar', 'assets/imgs/UIHalfWindow.png');
+
 		game.load.image('window', 'assets/imgs/TextWindow.png');
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
@@ -68,9 +70,11 @@ Act1.prototype = {
 		button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
 		button2 = game.add.button(2000,0,'RndButton',villagerBattle,this,'Hover','Up','Down');
 		button3 = game.add.button(2000,0,'RndButton',null,this,'Hover','Up','Down');
-		poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '32px', fill: '#999999' });
-		supplytxt = game.add.text(300, 16, 'Supplies: 1000', { fontSize: '32px', fill: '#818181' });
-		foodtxt = game.add.text(750, 16, 'Food: 1000', { fontSize: '32px', fill: '#000' });
+    statusWindow = game.add.image(0,0,"statusBar");
+    statusWindow.scale.setTo(0.5,0.2);
+		poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '24px', fill: '#00000' });
+		supplytxt = game.add.text(250, 16, 'Supplies: 1000', { fontSize: '24px', fill: '#00000' });
+		foodtxt = game.add.text(155, 45, 'Food: 1000', { fontSize: '24px', fill: '#00000' });
 
     DrawPath();
 	},
@@ -309,6 +313,9 @@ function Orcbattle(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
   button1.combatmap = "OrcBattle";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
 	cne=weatherDecision;
 	moveWindowOffScreen();
 	caravanStart.destroy();
@@ -334,6 +341,9 @@ function weatherDecision(){
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
   button2.combatmap = "FootHillM2C";
+  button2.winFunction = "{INSERT FUNCTION NAME}";
+  button2.lossFunction = "{INSERT FUNCTION NAME}";
+  button2.scene = "Act1";
 
 	moveWindowOffScreen();
 	caravanStart.destroy();
@@ -467,6 +477,9 @@ function villagerBattle(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
   button1.combatmap = "VillageBattle";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
 
 	//end of this battle nbeeds to have cne set to either vblost or vbwon
 	moveWindowOffScreen();
@@ -514,6 +527,9 @@ function avenge(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
   button1.combatmap = "VillageRaid";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
 
 	button2.destroy();
 	narrative.destroy();
@@ -674,6 +690,10 @@ function raiderBattle(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
   button1.combatmap = "RaiderBattle";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
+
 	button2.destroy();
 	moveWindowOffScreen();
 	caravanStart.destroy();
@@ -695,7 +715,11 @@ function BorderBattle(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//border battle
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
+  //Addes data to the button to be pulled by LoadCombat
   button1.combatmap = "BorderBattle";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
 
 	button2.destroy();
 	moveWindowOffScreen();

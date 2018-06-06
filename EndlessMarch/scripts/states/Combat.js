@@ -5,8 +5,12 @@ Combat.prototype = {
 	init: function(info) {
 		partyAlive = partySize;
 		enemieCnt = 99;
+		winFunction = info.winFunction;
+		lossFunction = info.lossFunction;
+		act = info.prevAct;
 		actionEnum = "Move"; //Move, Ability, Attack
 		_mapAssetPath = 'assets/imgs/CombatMaps/'  + info.map;
+		console.log(info);
 
 		mapWidth = -1;
 		mapHeight = -1;
@@ -163,16 +167,14 @@ Combat.prototype = {
 	update: function() {
 		if(partyAlive == 0)
 		{
-			var combat = {win:false, lost: (partySize / partySize) * 100}
+			var combatEnd = {scene: act, win:false, lost: (partySize / partySize) * 100, scene: scene, next: lossFunction}
 
-			var info = {timer: 1, scene: "act1", keepPreload: true, keepCreate: false, combat:combat}
-			LoadFireScene(info);
+			game.state.start("LoadCampfire", info.keepPreload, info.keepCreate,info.combat, combatEnd);
 
 		}else if (enemieCnt == 0) {
-			var combat = {win:true, lost: (partySize / partySize) * 100}
+			var combatEnd = {win:false, lost: (partySize / partySize) * 100, scene: scene, next: winFunction}
+			game.state.start("LoadCampfire", info.keepPreload, info.keepCreate,info.combat, combatEnd);
 
-			var info = {timer: 1, scene: "act1", keepPreload: true, keepCreate: false, combat:combat}
-			LoadFireScene(info);
 		}
 
 	},
