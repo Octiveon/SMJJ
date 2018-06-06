@@ -4,9 +4,9 @@ var Combat = function(game) {};
 Combat.prototype = {
 	init: function(info) {
 		partyAlive = partySize;
-		enemieCnt = info.enemies;
+		enemieCnt = 99;
 		actionEnum = "Move"; //Move, Ability, Attack
-		_mapAssetPath = 'assets/imgs/'  + info.map;
+		_mapAssetPath = 'assets/imgs/CombatMaps/'  + info.map;
 
 		mapWidth = -1;
 		mapHeight = -1;
@@ -19,7 +19,6 @@ Combat.prototype = {
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
     	game.load.image('tiles', 'assets/imgs/32X32.png');
 		game.load.image('64X64', 'assets/imgs/64x64.png');
-		game.load.image('Tree3', 'assets/imgs/tree3.png');
 
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
 	},
@@ -422,12 +421,12 @@ function SpawnEnemies(type) {
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		var x = locs[i].x;
 		var y = locs[i].y;
-		if(i >= enemieCnt){break;}
 		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1.5, x * 32, y * 32 - 32, 50, 10);
 		eUnit.animations.add('eAttack', Phaser.Animation.generateFrameNames('Orc', 1,9), 10, false); // Attack animation for enemies
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
 		mapp.Occupy(x,y,eUnit);
+		enemieCnt++;
 	}
 }
 function EnemyDied(unit){

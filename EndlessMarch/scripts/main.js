@@ -67,13 +67,30 @@ Preload.prototype = {
 	}
 }
 
+var LoadCampfire = function(game) {};
+Load.prototype = {
+  init: function(loadInfo) {
+   this.loadInfo = loadInfo
+
+  },
+  preload: function() {
+
+  },
+  create: function() {
+
+  },
+  update: function() {
+
+ }
+}
+
 var Load = function(game) {};
 Load.prototype = {
   init: function(loadInfo) {
    this.loadInfo = loadInfo
 
   },
- preload: function() {
+  preload: function() {
     // preload assets
   	game.load.atlas('loading','assets/imgs/loadingAtlas.png','assets/imgs/loading.json', Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
   	game.load.image('window','assets/imgs/TextWindow.png');//Replace with UI atlas when its made available
@@ -83,13 +100,13 @@ Load.prototype = {
   	resources=75;
   	population=1250;
   	//replace with global variables
-  	startingFood=100;
-  	startingResources=100;
-  	startingPopulation=1500;
+  	startingFood=food;
+  	startingResources=supplies;
+  	startingPopulation=population;
   	//replace with global variables
   	//if variable names change check the bottom of create at ~line 90
- },
- create: function() {
+  },
+  create: function() {
     game.add.sprite(0,0,'loading','Gradient');
   	sun = game.add.sprite(800,535,'loading','Sun');
   	sun.anchor.setTo(.5,.5);
@@ -166,8 +183,8 @@ Load.prototype = {
   	currentResources = game.add.text(285, 270, startingResources-resources+" resources were consumer or lost");
     console.log(this.loadInfo);
     game.time.events.add(Phaser.Timer.SECOND * this.loadInfo.timer, LoadScene, this, this.loadInfo);
-},
-update: function() {
+  },
+  update: function() {
     hills.tilePosition.x-=.1;
     sun.angle+=.1;
     bgtrees.forEachAlive(function(bgtree) {bgtree.x-=.3},this);
@@ -217,16 +234,15 @@ function LoadScene(info) {
   }
 }
 
-
 //Temp Laod Functions
-function LoadCombat() {
-  var combat = {map:"TestMap3", enemies: 5}
+function LoadCombat(button) {
+  var combat = {map:button.combatmap}
   var info = {timer: 3, scene: "combat", keepPreload: true, keepCreate: false, combat:combat}
   game.state.start("load", true, false, info);
 	//game.state.start("combat", true, false,'TestMap3');
 }
 
-function Narrative() {
+function LoadNarrative(button) {
   var combat;
   var info = {timer: 3, scene: "act1", keepPreload: true, keepCreate: false, combat:combat}
   game.state.start("load", true, false, info);
@@ -264,7 +280,7 @@ MainMenu.prototype = {
      { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'})
 		bCombatTxt.anchor.x = bCombatTxt.anchor.y = 0.5;
 
-		bNarrative = game.add.button(game.camera.width / 2,game.camera.height / 2 + 100, 'RndButton', Narrative, this, 'Hover', 'Up','Down');
+		bNarrative = game.add.button(game.camera.width / 2,game.camera.height / 2 + 100, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		bNarrative.anchor.x = bNarrative.anchor.y = 0.5;
 		bNarrative.scale.setTo(1.2,1);
 
