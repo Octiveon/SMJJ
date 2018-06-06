@@ -16,7 +16,7 @@ function Mapp(game, map, layer, spawnLayer) {
         {
           this.vSpawnTiles.push({x:j,y:i});
         }
-        else {
+        else if(spawn.properties.EnemySpawn) {
           this.eSpawnTiles.push({x:j,y:i});
         }
       }
