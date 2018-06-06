@@ -249,6 +249,7 @@ function elderbattleEnd(){
 	button2 = game.add.button(2000,0, 'RndButton',villagerBattle,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
+	narrative.destroy();
 	narrative = game.add.sprite(2000, 0, 'A1T','Elder Battle');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
