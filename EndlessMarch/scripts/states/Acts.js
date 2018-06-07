@@ -53,20 +53,20 @@ Act1.prototype = {
 		windoww.input.enableDrag();
 		windoww.x =2000;
 		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
-		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left"};
+		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width-25, align: "left"};
 		b1t =game.add.text(0,0,"tempword",style);
-		b1t.anchor.set(0.5);
+		b1t.anchor.set(0);
 		b2t =game.add.text(0,0,"tempword",style);
-		b2t.anchor.set(0.5);
+    b1t.anchor.set(0);
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
 		narrative = game.add.sprite(0, 0);
 
-    	caravanStart = game.add.button(game.camera.width *0.15, game.camera.height *0.7, 'RndButton', elderbattleEnd, this, 'Hover','Up','Down');
-    	caravanStart.anchor.set(0.5);
+    caravanStart = game.add.button(game.camera.width *0.15, game.camera.height *0.7, 'RndButton', elderbattleEnd, this, 'Hover','Up','Down');
+    caravanStart.anchor.set(0.5);
 		button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
 		button2 = game.add.button(2000,0,'RndButton',villagerBattle,this,'Hover','Up','Down');
-    	statusWindow = game.add.image(0,0,"statusBar");
-    	statusWindow.scale.setTo(0.5,0.2);
+    statusWindow = game.add.image(0,0,"statusBar");
+    statusWindow.scale.setTo(0.5,0.2);
 		poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '24px', fill: '#00000' });
 		supplytxt = game.add.text(250, 16, 'Supplies: 1000', { fontSize: '24px', fill: '#00000' });
 		foodtxt = game.add.text(155, 45, 'Food: 1000', { fontSize: '24px', fill: '#00000' });
@@ -78,13 +78,13 @@ Act1.prototype = {
 		// window button 1
 		button1.x = Math.floor(windoww.x + 200);
 		button1.y = Math.floor(windoww.y + 350);
-		b1t.x = Math.floor(windoww.x + 310);
-		b1t.y = Math.floor(windoww.y + 370);
+		b1t.x = Math.floor(windoww.x + 250);
+		b1t.y = Math.floor(windoww.y + 355);
 		//window button 2
 		button2.x = Math.floor(windoww.x + 400);
 		button2.y = Math.floor(windoww.y + 350);
-		b2t.x = Math.floor(windoww.x + 490);
-		b2t.y = Math.floor(windoww.y + 370);
+		b2t.x = Math.floor(windoww.x + 450);
+		b2t.y = Math.floor(windoww.y + 355);
 		poptxt.text = 'Population: ' + population;
 		supplytxt.text = 'Supplies: ' + supplies;
 		foodtxt.text = 'Food: ' + food;
@@ -295,10 +295,11 @@ function Orcbattle(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-  	button1.combatmap = "OrcBattle";
-  	button1.winFunction = "{INSERT FUNCTION NAME}";
-  	button1.lossFunction = "{INSERT FUNCTION NAME}";
-  	button1.scene = "Act1";
+  button1.combatmap = "OrcBattle";
+  button1.enemy = "Orc";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
 	cne=weatherDecision;
 	moveWindowOffScreen();
 	caravanStart.destroy();
@@ -323,10 +324,11 @@ function weatherDecision(){
 	button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//banditlevel
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
-  	button2.combatmap = "FootHillM2C";
-  	button2.winFunction = "{INSERT FUNCTION NAME}";
-  	button2.lossFunction = "{INSERT FUNCTION NAME}";
-  	button2.scene = "Act1";
+  button2.combatmap = "FootHillM2C";
+  button2.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+  button2.winFunction = "{INSERT FUNCTION NAME}";
+  button2.lossFunction = "{INSERT FUNCTION NAME}";
+  button2.scene = "Act1";
 
 	moveWindowOffScreen();
 	caravanStart.destroy();
@@ -461,6 +463,7 @@ function villagerBattle(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
   	button1.combatmap = "VillageBattle";
+    button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
   	button1.winFunction = "{INSERT FUNCTION NAME}";
   	button1.lossFunction = "{INSERT FUNCTION NAME}";
   	button1.scene = "Act1";
@@ -517,6 +520,7 @@ function avenge(){
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
   	button1.combatmap = "VillageRaid";
+    button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
   	button1.winFunction = "{INSERT FUNCTION NAME}";
   	button1.lossFunction = "{INSERT FUNCTION NAME}";
   	button1.scene = "Act1";
@@ -666,9 +670,9 @@ function avoidVillage(){
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(750,277, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  	caravanStart.anchor.set(0.5);
-  	narrative.destroy();
-  	narrative = game.add.sprite(2000, 0, 'A1T','Avoid Village');
+  caravanStart.anchor.set(0.5);
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Avoid Village');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 }
@@ -679,18 +683,19 @@ function raiderBattle(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//load raider battle
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-  	button1.combatmap = "RaiderBattle";
-  	button1.winFunction = "{INSERT FUNCTION NAME}";
-  	button1.lossFunction = "{INSERT FUNCTION NAME}";
-  	button1.scene = "Act1";
+  button1.combatmap = "RaiderBattle";
+  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
 
 	button2.destroy();
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(750,277, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  	caravanStart.anchor.set(0.5);
-  	narrative.destroy();
-  	narrative = game.add.sprite(2000, 0, 'A1T','Raider Battle');
+  caravanStart.anchor.set(0.5);
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Raider Battle');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
  }
@@ -707,17 +712,18 @@ function BorderBattle(){
 	button1.y = Math.floor(windoww.y + 350);
   	//Addes data to the button to be pulled by LoadCombat
  	 button1.combatmap = "BorderBattle";
-  	button1.winFunction = "{INSERT FUNCTION NAME}";
-  	button1.lossFunction = "{INSERT FUNCTION NAME}";
-  	button1.scene = "Act1";
+   button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+   button1.winFunction = "{INSERT FUNCTION NAME}";
+   button1.lossFunction = "{INSERT FUNCTION NAME}";
+   button1.scene = "Act1";
 
 	button2.destroy();
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(614,58, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  	caravanStart.anchor.set(0.5);
-  	narrative.destroy();
-  	narrative = game.add.sprite(2000, 0, 'A1T','Battle At The Border');
+  caravanStart.anchor.set(0.5);
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Battle At The Border');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 }

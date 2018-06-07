@@ -8,6 +8,7 @@ Combat.prototype = {
 		winFunction = info.winFunction;
 		lossFunction = info.lossFunction;
 		act = info.prevAct;
+		enemyType = info.enemy;
 		actionEnum = "Move"; //Move, Ability, Attack
 		_mapAssetPath = 'assets/imgs/CombatMaps/'  + info.map;
 		console.log(info);
@@ -221,7 +222,6 @@ function EndTurn() {
 		endTurn.inputEnabled = false;
 		enemyActing = true;
 		StartEnemyTurns();
-		console.log(enemyUnits.children.length);
 		game.time.events.repeat(Phaser.Timer.SECOND * 8, enemyUnits.children.length-1, StartEnemyTurns, this);
 	}
 
@@ -420,7 +420,22 @@ function GetUnitToPointDistance(unit1,x2,y2) {
 	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
+function EnemyAnimSetup(){
+	if(enemyType == "Orc"){
+		enemyAtkAnim = "[INSERT FRAM NAME HERE]";
+		enemyMoveAnim = "[INSERT FRAM NAME HERE]";
+	}
+	else if (enemyType == "Knight") {
+		enemyAtkAnim = "[INSERT FRAM NAME HERE]";
+		enemyMoveAnim = "[INSERT FRAM NAME HERE]";
 
+	}
+	else{
+		enemyAtkAnim = "[INSERT FRAM NAME HERE]";
+		enemyMoveAnim = "[INSERT FRAM NAME HERE]";
+	}
+
+}
 function SpawnEnemies(type) {
 	//Checks to make sure tile they will spawn in is open
 	locs = mapp.GetESpawn();
@@ -479,7 +494,7 @@ function SpawnParty() {
 
 }
 function VanguardDied(unit){
-	
+
 	var index = vanguard.children.indexOf(unit);
 	var uInd = units.indexOf(unit);
 
