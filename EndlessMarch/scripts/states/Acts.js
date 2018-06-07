@@ -599,23 +599,62 @@ function rest(){
 function PressOn(){
 	supplies-=6;
 	food-=6;
-	bt1="Take Rest";
-	bt2="Press On";
+	bt1="Start Combat";
+	bt2="";
 	//text image call
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',foothilbandits,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',crossroad,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(644,477, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
     caravanStart.anchor.set(0.5);
     narrative.destroy();
     narrative = game.add.sprite(2000, 0, 'A1T','Press On');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function PressOnWon(){
+	bt1="Venture into the hills";
+	bt2="Coastal Storm";
+	//text image call
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+    caravanStart.anchor.set(0.5);
+    narrative.destroy();
+    narrative = game.add.sprite(2000, 0, 'A1T','Press On Win');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function PressOnLose(){
+	bt1="Venture into the hills";
+	bt2="Coastal Storm";
+	//text image call
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+    caravanStart.anchor.set(0.5);
+    narrative.destroy();
+    narrative = game.add.sprite(2000, 0, 'A1T','Press On Lose');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 }
