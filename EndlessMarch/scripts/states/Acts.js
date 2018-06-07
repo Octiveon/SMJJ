@@ -55,9 +55,9 @@ Act1.prototype = {
 		//code taken from phaser//    https://phaser.io/examples/v2/text/center-text-on-sprite
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true, wordWrapWidth: windoww.width, align: "left"};
 		b1t =game.add.text(0,0,"tempword",style);
-		b1t.anchor.set(0.5);
+		b1t.anchor.set(0);
 		b2t =game.add.text(0,0,"tempword",style);
-		b2t.anchor.set(0.5);
+		b2t.anchor.set(0);
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
 		narrative = game.add.sprite(0, 0);
 
@@ -78,13 +78,13 @@ Act1.prototype = {
 		// window button 1
 		button1.x = Math.floor(windoww.x + 200);
 		button1.y = Math.floor(windoww.y + 350);
-		b1t.x = Math.floor(windoww.x + 310);
-		b1t.y = Math.floor(windoww.y + 370);
+		b1t.x = Math.floor(windoww.x + 250);
+		b1t.y = Math.floor(windoww.y + 355);
 		//window button 2
 		button2.x = Math.floor(windoww.x + 400);
 		button2.y = Math.floor(windoww.y + 350);
-		b2t.x = Math.floor(windoww.x + 490);
-		b2t.y = Math.floor(windoww.y + 370);
+		b2t.x = Math.floor(windoww.x + 450);
+		b2t.y = Math.floor(windoww.y + 355);
 		poptxt.text = 'Population: ' + population;
 		supplytxt.text = 'Supplies: ' + supplies;
 		foodtxt.text = 'Food: ' + food;
