@@ -23,8 +23,6 @@ function Mapp(game, map, layer, spawnLayer) {
       else {
         this.tiles[i][j] = new Tile(j, i, tile.properties.canMove, tile.properties.moveCost, false);
       }
-
-
     }
   }
 }

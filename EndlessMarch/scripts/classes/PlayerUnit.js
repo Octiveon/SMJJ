@@ -17,6 +17,7 @@ function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
   this.baseDmg = baseDmg;
 	this.movement = 7;
 	this.attacked = false;
+	this.isAlive = true;
 
 
 }
@@ -24,6 +25,18 @@ function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
 PlayerUnit.prototype = Object.create(Phaser.Sprite.prototype);
 PlayerUnit.prototype.constructor = PlayerUnit;
 
+PlayerUnit.prototype.update = function() {
+	if(this.isAlive == false)
+	{
+		this.OnDeath();
+	}
+
+}
+
+PlayerUnit.prototype.OnDeath = function() {
+	VanguardDied(this);
+	this.kill();
+}
 PlayerUnit.prototype.NewTurn = function(x,y) {
   this.movement = 7;
 	this.attacked = false;
@@ -36,8 +49,8 @@ PlayerUnit.prototype.Attack = function(target) {
 }
 
 PlayerUnit.prototype.Hit = function(dmg) {
-	health = (Math.min(0,health-dmg));
-	if(health == 0){this.isAlive = false;}
+	this.health = (Math.max(0,this.health-dmg));
+	if(this.health == 0){this.isAlive = false;}
 }
 
 PlayerUnit.prototype.MoveTo = function(x,y, cost) {

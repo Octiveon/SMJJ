@@ -18,10 +18,8 @@ Combat.prototype = {
 		enemyActing = false;
 	},
 	preload: function() {
-		game.load.atlas('Characters', 'assets/imgs/Characters.png','assets/imgs/Characters.json',
-		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
-    	game.load.image('tiles', 'assets/imgs/32X32.png');
+    game.load.image('tiles', 'assets/imgs/32X32.png');
 		game.load.image('64X64', 'assets/imgs/64x64.png');
 
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
@@ -236,23 +234,13 @@ function StartEnemyTurns(){
 }
 
 function EnemyAct() {
-	rnd= getRandomTile();
-	x = dataLayer.getTileX(rnd.xPos + currentUnit.position.x);
-	y = dataLayer.getTileY(rnd.yPos + currentUnit.position.y);
-
-	var prevX = dataLayer.getTileX(currentUnit.position.x);
-	var prevY = dataLayer.getTileY(currentUnit.position.y);
-	d ={x:prevX, y:prevY, toX:x, toY:y}
-	console.log(d);
-
-	if(mapp.isTileOpen(x,y) &&
-	 GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 &&
-	 currentUnit.CanMove(mapp.getTileCost(x,y))){
-		mapp.OccupentLeft(prevX, prevY+1);
-		currentUnit.MoveTo(x * 32, y * 32 - 32, mapp.getTileCost(x,y));
-		playermarker.x = currentUnit.position.x - 32;
-		playermarker.y = currentUnit.position.y;
-		mapp.Occupy(x,y,currentUnit)
+	currentUnit.ChooseTarget();
+	if(currentUnit.InRange())
+	{
+		currentUnit.Attack();
+	}
+	{
+		currentUnit.MoveCloser();
 	}
 
 }
@@ -416,6 +404,23 @@ function GetDistance(x1,y1,x2,y2) {
 	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
+function GetUnitToUnitDistance(unit1,unit2) {
+	var x1 = unit1.position.x;
+	var y1 = unit1.position.y;
+	var x2 = unit2.position.x;
+	var y2 = unit2.position.y;
+
+	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+function GetUnitToPointDistance(unit1,x2,y2) {
+	var x1 = unit1.position.x;
+	var y1 = unit1.position.y;
+
+
+	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
+}
+
+
 function SpawnEnemies(type) {
 	//Checks to make sure tile they will spawn in is open
 	locs = mapp.GetESpawn();
@@ -474,20 +479,20 @@ function SpawnParty() {
 
 }
 function VanguardDied(unit){
+	
 	var index = vanguard.children.indexOf(unit);
 	var uInd = units.indexOf(unit);
 
 	var x = dataLayer.getTileX(currentUnit.position.x);
 	var y = dataLayer.getTileY(currentUnit.position.y);
 
-	console.log(prevX + "---" + prevY);
-
 	mapp.OccupentLeft(x, y+1);
 
-	if(eInd > -1)
+	if(uInd > -1)
 	{
-		enemieCnt--;
-		vanguard.children.splice(eInd, 1);
+		partySize--;
+		partyAlive--;
+		vanguard.children.splice(uInd, 1);
 	}
 
 	if(uInd > -1)
