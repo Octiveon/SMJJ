@@ -57,7 +57,11 @@ Act1.prototype = {
 		b1t =game.add.text(0,0,"tempword",style);
 		b1t.anchor.set(0);
 		b2t =game.add.text(0,0,"tempword",style);
+<<<<<<< HEAD
     b1t.anchor.set(0);
+=======
+		b2t.anchor.set(0);
+>>>>>>> 952cf1b46326a236af8ad0f36f7d1d026e764200
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
 		narrative = game.add.sprite(0, 0);
 
