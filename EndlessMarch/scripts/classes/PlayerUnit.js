@@ -44,11 +44,14 @@ PlayerUnit.prototype.NewTurn = function(x,y) {
 }
 
 PlayerUnit.prototype.Attack = function(target) {
+	var hit = game.add.audio('atk');
+	hit.play();
 	target.Hit(this.baseDmg);
 	this.attacked = true;
 }
 
 PlayerUnit.prototype.Hit = function(dmg) {
+
 	this.health = (Math.max(0,this.health-dmg));
 	if(this.health == 0){this.isAlive = false;}
 }

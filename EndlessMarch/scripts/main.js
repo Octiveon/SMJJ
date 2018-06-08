@@ -19,6 +19,7 @@ window.onload = function(){
     game.state.add('preload', Preload);
     game.state.add('mainMenu', MainMenu);
     game.state.add('load', Load);
+    game.state.add('LoadCampfire', LoadCampfire);
 
 		game.state.add('boot', Boot);
 
@@ -70,7 +71,8 @@ Preload.prototype = {
 var LoadCampfire = function(game) {};
 LoadCampfire.prototype = {
   init: function(loadInfo) {
-   this.loadInfo = loadInfo
+    //			var combatEnd = {scene: act, lost: (partySize / partySize) * 100, scene: act, next: lossFunction}
+   this.info = loadInfo
 
   },
   preload: function() {
@@ -79,7 +81,19 @@ LoadCampfire.prototype = {
 
   },
   create: function() {
-    player = game.add.sprite(camera.width/2 +16, camera.height/2 + 16, 'campfire');
+    player = game.add.sprite(game.camera.width/2 +16, game.camera.height/2 + 16, 'campfire');
+
+    cont = game.add.button(game.camera.width/2, game.camera.height/2 + 100, 'RndButton', LoadScene, this, 'Hover','Up','Down');
+    cont.anchor.set(0.5);
+    cont.next = this.info.next;
+    cont.scene = this.info.scene;
+    cont.keepPreload = true;
+    cont.keepCreate = false;
+
+    if( this.info.lost < 100)
+    {
+      population -= 150 - 150 * (this.info.lost / 100)
+    }
 
   },
   update: function() {
@@ -227,19 +241,21 @@ function HeadDir2(){
 }
 
 function LoadScene(info) {
+  console.log(info);
  if(info.combat != null)
   {
     game.state.start(info.scene, info.keepPreload, info.keepCreate,info.combat);
   }
   else {
-    game.state.start(info.scene, info.keepPreload, info.keepCreate);
+      narrative = {next:info.next}
+      game.state.start(info.scene, info.keepPreload, info.keepCreate, narrative);
   }
 }
 
 //Temp Laod Functions
 
 function LoadCombat(button) {
-  var combat = {map:button.combatmap, prevScene:button.prevScene,
+  var combat = {map:button.combatmap, prevScene:button.scene,
      lossFunction: button.lossFunction,  winFunction: button.winFunction}
   var info = {timer: 3, scene: "combat", keepPreload: true, keepCreate: false, combat:combat}
   game.state.start("load", true, false, info);

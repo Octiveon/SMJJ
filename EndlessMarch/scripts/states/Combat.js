@@ -7,7 +7,7 @@ Combat.prototype = {
 		enemieCnt = 99;
 		winFunction = info.winFunction;
 		lossFunction = info.lossFunction;
-		act = info.prevAct;
+		act = info.prevScene;
 		enemyType = info.enemy;
 		actionEnum = "Move"; //Move, Ability, Attack
 		_mapAssetPath = 'assets/imgs/CombatMaps/'  + info.map;
@@ -22,8 +22,10 @@ Combat.prototype = {
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/imgs/32X32.png');
 		game.load.image('64X64', 'assets/imgs/64x64.png');
-
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
+
+		//Sounds
+		game.load.audio("atk",'assets/snds/atk.ogg');
 	},
 	create: function() {
 
@@ -166,13 +168,13 @@ Combat.prototype = {
 	update: function() {
 		if(partyAlive == 0)
 		{
-			var combatEnd = {scene: act, win:false, lost: (partySize / partySize) * 100, scene: scene, next: lossFunction}
+			var combatEnd = {scene: act, win:false, lost: (partyAlive / partySize) * 100, scene: act, next: lossFunction}
 
-			game.state.start("LoadCampfire", info.keepPreload, info.keepCreate,info.combat, combatEnd);
+			game.state.start("LoadCampfire", true, false, combatEnd);
 
 		}else if (enemieCnt == 0) {
-			var combatEnd = {win:false, lost: (partySize / partySize) * 100, scene: scene, next: winFunction}
-			game.state.start("LoadCampfire", info.keepPreload, info.keepCreate,info.combat, combatEnd);
+			var combatEnd = {win:false, lost: (partyAlive / partySize) * 100, scene: act, next: winFunction}
+			game.state.start("LoadCampfire", true, false,combatEnd);
 
 		}
 
@@ -222,7 +224,10 @@ function EndTurn() {
 		endTurn.inputEnabled = false;
 		enemyActing = true;
 		StartEnemyTurns();
-		game.time.events.repeat(Phaser.Timer.SECOND * 8, enemyUnits.children.length-1, StartEnemyTurns, this);
+		if(enemyUnits.children.length-1 > 0)
+		{
+			game.time.events.repeat(Phaser.Timer.SECOND * 7.2, enemyUnits.children.length-1, StartEnemyTurns, this);
+		}
 	}
 
 }
@@ -234,13 +239,16 @@ function StartEnemyTurns(){
 }
 
 function EnemyAct() {
-	currentUnit.ChooseTarget();
-	if(currentUnit.InRange())
+	if(enemyActing == true)
 	{
-		currentUnit.Attack();
-	}
-	{
-		currentUnit.MoveCloser();
+		currentUnit.ChooseTarget();
+		if(currentUnit.InRange())
+		{
+			currentUnit.Attack();
+		}
+		{
+			currentUnit.MoveCloser();
+		}
 	}
 
 }
@@ -439,16 +447,16 @@ function EnemyAnimSetup(){
 function SpawnEnemies(type) {
 	//Checks to make sure tile they will spawn in is open
 	locs = mapp.GetESpawn();
-	for (var i = 0; i < locs.length; i++) {
+	for (var i = 0; i < 1; i++) {
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		var x = locs[i].x;
 		var y = locs[i].y;
-		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1.5, x * 32, y * 32 - 32, 50, 10);
+		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1.5, x * 32, y * 32 - 32, 50, 100);
 		eUnit.animations.add('eAttack', Phaser.Animation.generateFrameNames('Orc', 1,9), 10, false); // Attack animation for enemies
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
 		mapp.Occupy(x,y,eUnit);
-		enemieCnt++;
+		enemieCnt=i+1;
 	}
 }
 function EnemyDied(unit){

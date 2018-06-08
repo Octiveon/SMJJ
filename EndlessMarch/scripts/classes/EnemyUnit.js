@@ -65,7 +65,7 @@ EnemyUnit.prototype.MoveCloser = function() {
 	var moved = false;
 
 	//Finds tile closest
-	for (var i = -1; i < 2; i++) {
+	for (var i = 0; i < 3; i++) {
 		for (var j = -1; j < 2; j++) {
 
 			oldx = this.position.x +(j * 32);
@@ -109,6 +109,9 @@ EnemyUnit.prototype.update = function() {
 EnemyUnit.prototype.Attack = function() {
 	if(!this.attacked)
 	{
+		this.attacked = true;
+		var hit = game.add.audio('atk');
+		hit.play();
 		this.target.Hit(this.baseDmg);
 	}
 
