@@ -447,7 +447,7 @@ function EnemyAnimSetup(){
 function SpawnEnemies(type) {
 	//Checks to make sure tile they will spawn in is open
 	locs = mapp.GetESpawn();
-	for (var i = 0; i < 1; i++) {
+	for (var i = 0; i < 0; i++) {
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		var x = locs[i].x;
 		var y = locs[i].y;

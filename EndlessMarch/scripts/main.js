@@ -81,7 +81,9 @@ LoadCampfire.prototype = {
 
   },
   create: function() {
-    player = game.add.sprite(game.camera.width/2 +16, game.camera.height/2 + 16, 'campfire');
+    player = game.add.sprite(game.camera.width/2, game.camera.height/2, 'campfire');
+    player.scale.setTo(15,15);
+    pUnit.animations.add('pAttack', Phaser.Animation.generateFrameNames('Knight', 1,9), 10, false); // Attack animation for player unit
 
     cont = game.add.button(game.camera.width/2, game.camera.height/2 + 100, 'RndButton', LoadScene, this, 'Hover','Up','Down');
     cont.anchor.set(0.5);
@@ -113,9 +115,6 @@ Load.prototype = {
   	game.load.image('window','assets/imgs/TextWindow.png');//Replace with UI atlas when its made available
   	treesSprite = ["Tree1","Tree2","Tree3","Tree4","Tree5","Tree6","skull","Skeleton"];
   	dustSprite = ["dust1","dust2","dust3"];
-  	food=75;
-  	resources=75;
-  	population=1250;
   	//replace with global variables
   	startingFood=food;
   	startingResources=supplies;
@@ -131,7 +130,7 @@ Load.prototype = {
   	hills = game.add.tileSprite(0,590,1800,166,'loading','Hills');
   	game.add.sprite(0,672,'loading','Floor');
 
-      	bgtrees = game.add.group();
+    bgtrees = game.add.group();
 
   	bgTreeTimer = game.time.create(false);
   	bgTreeTimer.loop(10000+(Math.random()*1000), createbgTree, this);
@@ -197,9 +196,15 @@ Load.prototype = {
 
   	currentPopulation = game.add.text(285, 170, startingPopulation-population+" People died on this stretch of you journey");
   	currentFood = game.add.text(285, 220, startingFood-food+" Food was consumed or lost");
-  	currentResources = game.add.text(285, 270, startingResources-resources+" resources were consumer or lost");
+  	currentResources = game.add.text(285, 270, startingResources-supplies+" resources were consumer or lost");
     console.log(this.loadInfo);
-    game.time.events.add(Phaser.Timer.SECOND * this.loadInfo.timer, LoadScene, this, this.loadInfo);
+    info = game.add.button(Lwindow.width *0.8, Lwindow.height *0.8, 'RndButton', LoadScene, this, 'Hover','Up','Down');
+    info.anchor.set(0.5);
+    info.scene = this.loadInfo.scene;
+    info.keepPreload = this.loadInfo.keepPreload;
+    info.keepCreate = this.loadInfo.keepCreate;
+    info.combat = this.loadInfo.combat;
+    //game.time.events.add(Phaser.Timer.SECOND * this.loadInfo.timer, LoadScene, this, this.loadInfo);
   },
   update: function() {
     hills.tilePosition.x-=.1;
@@ -268,6 +273,7 @@ function LoadNarrative(button) {
 	//game.state.start("act1", true, false);
 }
 
+//ADD MAIN MENU HERE
 var MainMenu = function(game) {};
 MainMenu.prototype = {
 	preload: function() {
