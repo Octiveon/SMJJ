@@ -109,6 +109,590 @@ Act1.prototype = {
 	}
 }
 
+
+
+////////////////////////act1 functions begin
+function elderbattleEnd(){
+	console.log("elderbattle");
+  caravanStart.destroy();
+	b1t.text="Ascend Mountains";
+	b2t.text="Villager Battle";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',villagerBattle,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	narrative.destroy();
+	narrative = game.add.sprite(2000, 0, 'A1T','Elder Battle');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	moveWindowOnScreen();
+}
+function rockslide(){
+	console.log("rockslide");
+	supplies-=getRandomInt(5);
+	food-=getRandomInt(5)+3;
+	b1t.text="Take Higher Path";
+	b2t.text="Clear Path";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',Orcbattle,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',clearPath,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(185, 276, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Rock Slide');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function clearPath(){
+	console.log("cp");
+	button1.destroy();
+	button2.destroy();
+	supplies-= getRandomInt(5)+10 ;
+	food-=getRandomInt(5)+13;
+	b1t.text="Venture Forward";
+	b2t.text=" ";
+	button1 = game.add.button(2000,0, 'RndButton',weatherDecision,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	narrative.destroy();
+	narrative = game.add.sprite(2000, 0, 'A1T','Clear A Path');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+
+}
+function Orcbattle(){
+	console.log("ob");
+	b1t.text="Start Combat";
+	b2t.text="";
+	button1.destroy();
+	button2.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "OrcBattle";
+  button1.enemy = "Orc";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "Act1";
+	cne=weatherDecision;
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(202,108, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Orc Battle');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function weatherDecision(){
+	console.log("wd");
+	supplies-=getRandomInt(5);
+	food-=getRandomInt(5)+3;
+	b1t.text="Risk Storm";
+	b2t.text="Descend to the coast";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//banditlevel
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+  button2.combatmap = "FootHillM2C";
+  button2.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+  button2.winFunction = "{INSERT FUNCTION NAME}";
+  button2.lossFunction = "{INSERT FUNCTION NAME}";
+  button2.scene = "Act1";
+
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(265,203, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Weather Decision');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function RiskStorm(){
+	console.log("RS");
+	supplies-=getRandomInt(5)+3;
+	food-=getRandomInt(12);
+	if(getRandomInt(1)==1){
+		population-=getRandomInt(100)+12;
+		supplies-=getRandomInt(12)+12;
+		food-=getRandomInt(12);
+	}
+	//texthere;
+	b1t.text="Mountain Descent";
+	b2t.text=" ";
+	button1.destroy();
+	button2.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',mountainDesent,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(468,153, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Mountain Storm');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function mountainDesent(){
+	console.log("MD");
+	b1t.text="Go Fast";
+	b2t.text="Go Slow";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',gofast,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.callback=goSlow;
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',goSlow,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(515,166, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Mountain Descent');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function gofast(){
+	supplies-=getRandomInt(5);
+	var control;
+	control=getRandomInt(1);
+	if (control==1) {
+		supplies-=getRandomInt(8)+8;
+	}
+	b1t.text="Border Battle";
+	b2t.text="";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(791,349, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Go Fast');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function goSlow(){
+	supplies-=getRandomInt(5)+1;
+	food-=getRandomInt(5)+3;
+	Population-=getRandomInt(8)+4;
+	var c=getRandomInt(100);
+	if (c>30){
+		population-=getRandomInt(8)+4;
+		food-=getRandomInt(5)+3;
+		supplies-=getRandomInt(4)+1;
+		//text code here
+	}else{
+		population-=getRandomInt(98)+24;
+		food-=getRandomInt(12)+4;
+		supplies-=getRandomInt(12)+12;
+		//textcode here
+	}
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(791,349, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Go Slow');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function foothilbandits(){
+	b1t="Take Higher Path";
+	b2t="Descend Mountains";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',crossroad,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(338,240, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+}
+function villagerBattle(){
+	//settext
+	button2.destroy();
+	console.log("vb");
+	b1t.text="Start Combat";
+	b2t.text=" ";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "VillageBattle";
+  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+  button1.winFunction = "vbwon";
+  button1.lossFunction = "vblost";
+  button1.scene = "act1";
+
+	//end of this battle nbeeds to have cne set to either vblost or vbwon
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Village Battle');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function vbwon(){
+	console.log("vbw");
+	b1t.text ="Loot Village";
+	b2t.text ="Recruit Villagers";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',lootvillage,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',recruitvillagers,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	narrative = game.add.sprite(2000, 0, 'A1T','Village Battle Win');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	moveWindowOnScreen();
+}
+function vblost(){
+	console.log("vblost");
+	b1t.text="Move On";
+	b2t.text="Avenge";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',avenge,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	narrative = game.add.sprite(2000, 0, 'A1T','Village Battle Lose');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	moveWindowOnScreen();
+}
+function avenge(){
+	cne=rest;
+	b1t.text="Kill Them All";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//avenge combat
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+  	button1.combatmap = "VillageRaid";
+    button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+  	button1.winFunction = "{INSERT FUNCTION NAME}";
+  	button1.lossFunction = "{INSERT FUNCTION NAME}";
+  	button1.scene = "Act1";
+
+	button2.destroy();
+	narrative.destroy();
+	narrative = game.add.sprite(2000, 0, 'A1T','Avenge');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function lootvillage(){
+	supplies+=getRandomInt(10);
+	b1t.text="Rest";
+  b2t.text="";
+	//textimage call
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(700,700, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Loot Village');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function recruitvillagers(){
+	population+=getRandomInt(10);
+  	partySize++;
+	b1t.text = "Rest";
+  b2t.text="";
+
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(565,565,'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Recruit Villagers');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+
+}
+function rest(){
+	food=+3;
+	supplies-=4;
+	b1t.text="Take Rest";
+	b2t.text="Press On";
+	//text image call
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Rest');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+
+}
+function PressOn(){
+	supplies-=6;
+	food-=6;
+	b1t.text="Start Combat";
+	b2t.text="";
+	//text image call
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',foothilbandits,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(644,477, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Press On');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function PressOnWon(){
+	b1t.text="Venture into the hills";
+	b2t.text="Coastal Storm";
+	//text image call
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Press On Win');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function PressOnLose(){
+	b1t.text="Venture into the hills";
+	b2t.text="Coastal Storm";
+	//text image call
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Press On Lose');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function takeRest(){
+	food-=3;
+	//rest image call
+	b1t.text="Mountain Pass";
+	b2t.text="Foothill Bandits";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',crossroad,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',foothilbandits,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Take A Rest');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function crossroad(){
+	food-=3;
+	b1t.text="Raider Battle";
+	b2t.text="Avoid Village";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',raiderBattle,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button2 = game.add.button(2000,0, 'RndButton',avoidVillage,this,'Hover','Up','Down');
+	button2.x = Math.floor(windoww.x + 300);
+	button2.y = Math.floor(windoww.y + 350);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(822,360, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Crossroad');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function avoidVillage(){
+	supplies-=3;
+	food-=3;
+	b1t.text="Border Battle";
+  b2t.text="";
+
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(750,277, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Avoid Village');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+function raiderBattle(){
+ 	cne=BorderBattle;
+ 	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//load raider battle
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "RaiderBattle";
+  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+  button1.winFunction = "{INSERT FUNCTION NAME}";
+  button1.lossFunction = "{INSERT FUNCTION NAME}";
+  button1.scene = "act1";
+
+	button2.destroy();
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(750,277, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Raider Battle');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+ }
+function BorderBattle(){
+ 	console.log("BB");
+ 	b1t.text="FIGHT!";
+ 	b2t.text=" ";
+ 	food -=getRandomInt(5)+3;
+ 	supplies-=getRandomInt(5);
+ 	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//border battle
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+  	//Addes data to the button to be pulled by LoadCombat
+ 	 button1.combatmap = "BorderBattle";
+   button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+   button1.winFunction = "{INSERT FUNCTION NAME}";
+   button1.lossFunction = "{INSERT FUNCTION NAME}";
+   button1.scene = "act1";
+
+	button2.destroy();
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(614,58, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Battle At The Border');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+}
+////////////////////act1 functions end
+
+
 var Act2 = function(game) {};
 var tb;
 var button1;
@@ -1094,7 +1678,9 @@ function wonder(){
 	caravanStart.anchor.set(0.5);
 }
 
-//moves window
+
+
+//moves window for all three acts
 function moveWindow(){
 	windoww.x = 60;
 	windoww.y = 200;
@@ -1111,589 +1697,6 @@ function moveWindowOffScreen(){
 	windoww.y = 2000;
   DrawPath();
 }
-////////////////////////act1 functions begin
-function elderbattleEnd(){
-	console.log("elderbattle");
-  caravanStart.destroy();
-	b1t.text="Ascend Mountains";
-	b2t.text="Villager Battle";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',villagerBattle,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	narrative.destroy();
-	narrative = game.add.sprite(2000, 0, 'A1T','Elder Battle');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOnScreen();
-}
-function rockslide(){
-	console.log("rockslide");
-	supplies-=getRandomInt(5);
-	food-=getRandomInt(5)+3;
-	b1t.text="Take Higher Path";
-	b2t.text="Clear Path";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',Orcbattle,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',clearPath,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(185, 276, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Rock Slide');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function clearPath(){
-	console.log("cp");
-	button1.destroy();
-	button2.destroy();
-	supplies-= getRandomInt(5)+10 ;
-	food-=getRandomInt(5)+13;
-	b1t.text="Venture Forward";
-	b2t.text=" ";
-	button1 = game.add.button(2000,0, 'RndButton',weatherDecision,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	narrative.destroy();
-	narrative = game.add.sprite(2000, 0, 'A1T','Clear A Path');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-
-}
-function Orcbattle(){
-	console.log("ob");
-	b1t.text="Start Combat";
-	b2t.text="";
-	button1.destroy();
-	button2.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-  button1.combatmap = "OrcBattle";
-  button1.enemy = "Orc";
-  button1.winFunction = "{INSERT FUNCTION NAME}";
-  button1.lossFunction = "{INSERT FUNCTION NAME}";
-  button1.scene = "Act1";
-	cne=weatherDecision;
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(202,108, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Orc Battle');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function weatherDecision(){
-	console.log("wd");
-	supplies-=getRandomInt(5);
-	food-=getRandomInt(5)+3;
-	b1t.text="Risk Storm";
-	b2t.text="Descend to the coast";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//banditlevel
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-  button2.combatmap = "FootHillM2C";
-  button2.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
-  button2.winFunction = "{INSERT FUNCTION NAME}";
-  button2.lossFunction = "{INSERT FUNCTION NAME}";
-  button2.scene = "Act1";
-
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(265,203, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Weather Decision');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function RiskStorm(){
-	console.log("RS");
-	supplies-=getRandomInt(5)+3;
-	food-=getRandomInt(12);
-	if(getRandomInt(1)==1){
-		population-=getRandomInt(100)+12;
-		supplies-=getRandomInt(12)+12;
-		food-=getRandomInt(12);
-	}
-	//texthere;
-	b1t.text="Mountain Descent";
-	b2t.text=" ";
-	button1.destroy();
-	button2.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',mountainDesent,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(468,153, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Mountain Storm');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function mountainDesent(){
-	console.log("MD");
-	b1t.text="Go Fast";
-	b2t.text="Go Slow";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',gofast,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.callback=goSlow;
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',goSlow,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(515,166, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Mountain Descent');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function gofast(){
-	supplies-=getRandomInt(5);
-	var control;
-	control=getRandomInt(1);
-	if (control==1) {
-		supplies-=getRandomInt(8)+8;
-	}
-	b1t.text="Border Battle";
-	b2t.text="";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(791,349, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Go Fast');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function goSlow(){
-	supplies-=getRandomInt(5)+1;
-	food-=getRandomInt(5)+3;
-	Population-=getRandomInt(8)+4;
-	var c=getRandomInt(100);
-	if (c>30){
-		population-=getRandomInt(8)+4;
-		food-=getRandomInt(5)+3;
-		supplies-=getRandomInt(4)+1;
-		//text code here
-	}else{
-		population-=getRandomInt(98)+24;
-		food-=getRandomInt(12)+4;
-		supplies-=getRandomInt(12)+12;
-		//textcode here
-	}
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(791,349, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Go Slow');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function foothilbandits(){
-	b1t="Take Higher Path";
-	b2t="Descend Mountains";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',crossroad,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(338,240, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-}
-function villagerBattle(){
-	//settext
-	button2.destroy();
-	console.log("vb");
-	b1t.text="Start Combat";
-	b2t.text=" ";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-  button1.combatmap = "VillageBattle";
-  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
-  button1.winFunction = "vbwon";
-  button1.lossFunction = "vblost";
-  button1.scene = "act1";
-
-	//end of this battle nbeeds to have cne set to either vblost or vbwon
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Village Battle');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function vbwon(){
-	console.log("vbw");
-	b1t.text ="Loot Village";
-	b2t.text ="Recruit Villagers";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',lootvillage,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',recruitvillagers,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	narrative = game.add.sprite(2000, 0, 'A1T','Village Battle Win');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOnScreen();
-}
-function vblost(){
-	console.log("vblost");
-	b1t.text="Move On";
-	b2t.text="Avenge";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',avenge,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	narrative = game.add.sprite(2000, 0, 'A1T','Village Battle Lose');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOnScreen();
-}
-function avenge(){
-	cne=rest;
-	b1t.text="Kill Them All";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//avenge combat
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-  	button1.combatmap = "VillageRaid";
-    button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
-  	button1.winFunction = "{INSERT FUNCTION NAME}";
-  	button1.lossFunction = "{INSERT FUNCTION NAME}";
-  	button1.scene = "Act1";
-
-	button2.destroy();
-	narrative.destroy();
-	narrative = game.add.sprite(2000, 0, 'A1T','Avenge');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function lootvillage(){
-	supplies+=getRandomInt(10);
-	b1t.text="Rest";
-  b2t.text="";
-	//textimage call
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(700,700, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Loot Village');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function recruitvillagers(){
-	population+=getRandomInt(10);
-  	partySize++;
-	b1t.text = "Rest";
-  b2t.text="";
-
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(565,565,'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Recruit Villagers');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-
-}
-function rest(){
-	food=+3;
-	supplies-=4;
-	b1t.text="Take Rest";
-	b2t.text="Press On";
-	//text image call
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Rest');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-
-}
-function PressOn(){
-	supplies-=6;
-	food-=6;
-	b1t.text="Start Combat";
-	b2t.text="";
-	//text image call
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',foothilbandits,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(644,477, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Press On');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function PressOnWon(){
-	b1t.text="Venture into the hills";
-	b2t.text="Coastal Storm";
-	//text image call
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Press On Win');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function PressOnLose(){
-	b1t.text="Venture into the hills";
-	b2t.text="Coastal Storm";
-	//text image call
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Press On Lose');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function takeRest(){
-	food-=3;
-	//rest image call
-	b1t.text="Mountain Pass";
-	b2t.text="Foothill Bandits";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',crossroad,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',foothilbandits,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Take A Rest');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function crossroad(){
-	food-=3;
-	b1t.text="Raider Battle";
-	b2t.text="Avoid Village";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',raiderBattle,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',avoidVillage,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(822,360, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Crossroad');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-function avoidVillage(){
-	supplies-=3;
-	food-=3;
-	b1t.text="Border Battle";
-  b2t.text="";
-
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(750,277, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Avoid Village');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-
-function raiderBattle(){
- 	cne=BorderBattle;
- 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//load raider battle
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-  button1.combatmap = "RaiderBattle";
-  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
-  button1.winFunction = "{INSERT FUNCTION NAME}";
-  button1.lossFunction = "{INSERT FUNCTION NAME}";
-  button1.scene = "act1";
-
-	button2.destroy();
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(750,277, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Raider Battle');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
- }
-
-function BorderBattle(){
- 	console.log("BB");
- 	b1t.text="FIGHT!";
- 	b2t.text=" ";
- 	food -=getRandomInt(5)+3;
- 	supplies-=getRandomInt(5);
- 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//border battle
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-  	//Addes data to the button to be pulled by LoadCombat
- 	 button1.combatmap = "BorderBattle";
-   button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
-   button1.winFunction = "{INSERT FUNCTION NAME}";
-   button1.lossFunction = "{INSERT FUNCTION NAME}";
-   button1.scene = "act1";
-
-	button2.destroy();
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(614,58, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  caravanStart.anchor.set(0.5);
-  AddPath();
-
-  narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Battle At The Border');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-}
-////////////////////act1 functions end
-
 
 //apropriated from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
 function getRandomInt(max) {
