@@ -49,8 +49,9 @@ Preload.prototype = {
 		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
 		game.load.atlas('backgrounds', 'assets/imgs/backgrounds.png','assets/imgs/backgrounds.json'),
 		game.load.atlas('narrativeButtons', 'assets/imgs/narrativeButtons.png','assets/imgs/narrativeButtons.json',
-     Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
-		game.load.atlas('A1T', 'assets/imgs/act_1_text.png', 'assets/imgs/act_1_text.json'),
+     	Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+		game.load.atlas('A1T', 'assets/imgs/NarrativeText/act_1_text.png', 'assets/imgs/NarrativeText/act_1_text.json'), // Act 1 Narrative atlas + .json
+		game.load.atlas('A2T', 'assets/imgs/NarrativeText/act_2_text.png', 'assets/imgs/NarrativeText/act_2_text.json'), // Act 2 Narrative atlas + .json
 
 		//Sprites
 		game.load.atlas('knightL', 'assets/imgs/Sprites/knightLeft.png', 'assets/imgs/Sprites/knightLeft.json'),
