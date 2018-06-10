@@ -845,7 +845,7 @@ function BorderBattle(){
 	caravanStart = game.add.button(884, 70, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
 	AddPath();
-  Path = [];
+	Path = [];
 	narrative.destroy();
 	narrative = game.add.sprite(2000, 0, 'A1T','Battle At The Border');
 	narrative.x = Math.floor(windoww.x + 100);
@@ -900,7 +900,7 @@ Act2.prototype = {
 		//make if statements ass needed here for combat results
 		//caravanStart.destroy();
     if(Path== 0){
-    	caravanStart = game.add.button(765, 740, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+    	caravanStart = game.add.button(765, 740, 'RndButton', bbl, this, 'Hover','Up','Down');
     	caravanStart.anchor.set(0.5);
     }
 
@@ -922,7 +922,7 @@ Act2.prototype = {
       window[nextFunction]();
     }
     else {
-      bbl();
+      passField();
     }
     SpawnOldButtons();
     DrawPath();
@@ -984,7 +984,7 @@ function bbv(){
 	narrative = game.add.sprite(2000, 0, 'A2T','Border Battle Win');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOffScreen();
+	moveWindowOnScreen();
 }
 
 function bbl(){ // border battle lose
@@ -1013,10 +1013,11 @@ function bbl(){ // border battle lose
 	narrative = game.add.sprite(2000, 0, 'A2T','Border Battle Lose');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOffScreen();
+	moveWindowOnScreen();
 }
 function siege(){
 	//mapbuttoncode
+	narrative.destroy();
 	caravanStart.destroy();
 	caravanStart = game.add.button(280, 516, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
@@ -1037,6 +1038,7 @@ function siege(){
 	moveWindowOffScreen();
 }
 function marchOn(){
+	narrative.destroy();
 	console.log("marchOn");
 	b1t.text="Continue on";
 	b2t.text="";
@@ -1054,8 +1056,9 @@ function marchOn(){
 	caravanStart.anchor.set(0.5);
 }
 function starveOut(){
+	narrative.destroy();
 	console.log("starveOut")
-	if(math.getRandomInt(1)<.5){
+	if(getRandomInt(1)<.5){
 		supplies+=100;
 		food+=7;
 		button1.destroy();
@@ -1095,8 +1098,9 @@ function starveOut(){
 }
 //set greater than 1 for win
 function assaultCastle(){
+	narrative.destroy();
 	console.log("assaultCastle");
-	if(assaultCastleFn>1){
+	if(assaultCastleFn==1){
 		population-=getRandomInt(300)+200;
 		supplies+=150;
 		food+=20;
@@ -1109,7 +1113,7 @@ function assaultCastle(){
 		narrative = game.add.sprite(2000, 0, 'A2T','Assault The Castle Win');
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
-		moveWindowOnScreen();
+		moveWindowOffScreen();
 	}
   else{
 		population-=getRandomInt(450)+350;
@@ -1127,7 +1131,7 @@ function assaultCastle(){
 		narrative = game.add.sprite(2000, 0, 'A2T','Assault The Castle Lose');
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
-		moveWindowOnScreen();
+		moveWindowOffScreen();
   }
   caravanStart.destroy();
 	caravanStart = game.add.button(233, 465, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
@@ -1135,6 +1139,7 @@ function assaultCastle(){
 
 }
 function walkEdge(){
+	narrative.destroy();
 	console.log("we");
 	b1t.text="Fight!";
 	b2t.text="";
@@ -1152,12 +1157,13 @@ function walkEdge(){
 	narrative = game.add.sprite(2000, 0, 'A2T','Walk The Edge');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOnScreen();
+	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(758, 306, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
 }
 function walkEdgeW(){
+	narrative.destroy();
   console.log("walkEdgeW");
 	b1t.text ="Head away from forest.";
 	b2t.text ="";
@@ -1171,9 +1177,10 @@ function walkEdgeW(){
 	narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOnScreen();
+	moveWindowOffScreen();
 }
 function walkEdgeL(){
+	narrative.destroy();
   console.log("walkEdgeL");
   b1t.text ="You flee away from the forest edge furthur into the plains.";
   b2t.text ="";
@@ -1187,10 +1194,11 @@ function walkEdgeL(){
   narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains');
   narrative.x = Math.floor(windoww.x + 100);
   narrative.y = Math.floor(windoww.y + 100);
-  moveWindowOnScreen();
+  moveWindowOffScreen();
 }
 //1 first time 2 victory or 3 losst combat
 function forest(){
+	narrative.destroy();
 	supplies+=7;
 	if(forestFn==1){
 		food+=10;
@@ -1273,6 +1281,7 @@ function forest(){
 	caravanStart.anchor.set(0.5);
 }
 function recoupWin(){
+	narrative.destroy();
 	supplies+=100;
 	b1t.text="Journey to river";
 	b2t.text="";
@@ -1292,6 +1301,7 @@ function recoupWin(){
 }
 
 function recoupLose(){
+	narrative.destroy();
 	if(getRandomInt(10)>5){
 		//elves don't come
 		b1t.text="Journey to river";
@@ -1329,6 +1339,7 @@ function recoupLose(){
 }
 
 function enslave(){
+	narrative.destroy();
 	supplies+=120;
 	b1t.text="Journey to river";
 	b2t.text="";
@@ -1349,6 +1360,7 @@ function enslave(){
 	caravanStart.anchor.set(0.5);
 }
 function eat(){
+	narrative.destroy();
 	food+=100;
 	b1t.text="Journey to river";
 	b2t.text="";
@@ -1369,6 +1381,7 @@ function eat(){
 	caravanStart.anchor.set(0.5);
 }
 function execute(){
+	narrative.destroy();
 	supplies+=20;
 	food+=30;
 	b1t.text="Journey to river";
@@ -1390,6 +1403,7 @@ function execute(){
 	caravanStart.anchor.set(0.5);
 }
 function fieldOfGrain(){
+	narrative.destroy();
 	button3.destroy();
 	b3t.text="Pillage fields";
 	b1t.text="Pass fields to river";
@@ -1412,6 +1426,7 @@ function fieldOfGrain(){
 	caravanStart.anchor.set(0.5);
 }
 function pillage(){
+	narrative.destroy();
 	console.log("pillage");
 	b1t.text="Fight the plainsfolk";
 	button1.destroy();
@@ -1429,7 +1444,8 @@ function pillage(){
 	caravanStart.anchor.set(0.5);
 }
 function passField(){
-	b1t.text="";
+	narrative.destroy();
+	b1t.text="carry onward";
 	console.log("passField");
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
@@ -1446,6 +1462,7 @@ function passField(){
 }
 
 function river(){
+	narrative.destroy();
 	console.log("river");
 	b1t.text="Buy passage";
 	b2t.text="Ford the river";
@@ -1466,46 +1483,47 @@ function river(){
 	caravanStart.anchor.set(0.5);
 }
 function buyPassage(){
+	narrative.destroy();
 	supplies-=200;
 	console.log("buyPassage");
+	b1t.text="to the bridge";
+	b2t.text="";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',BridgeTrolls,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',villagerBattle,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
 	narrative = game.add.sprite(2000, 0, 'A2T','Buy Passage');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(300, 141, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
 }
 function fordRiver(){
+	b1t.text="to the bridge";
+	b2t.text="";
+	narrative.destroy();
 	supplies-=getRandomInt(300);
 	food-=getRandomInt(300);
 	population-=getRandomInt(300);
 	console.log("fordRiver");
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',BridgeTrolls,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',villagerBattle,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
 	narrative = game.add.sprite(2000, 0, 'A2T','Ford The River');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(300, 141, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
 }
 function BridgeTrolls(){
+	narrative.destroy();
 	console.log("BridgeTrolls");
 	b1t.text="Slay the trolls";
 	b2t.text="";
@@ -1517,7 +1535,7 @@ function BridgeTrolls(){
 	narrative = game.add.sprite(2000, 0, 'A2T','Bridge Trolls');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOnScreen();
+	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(283, 81, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
