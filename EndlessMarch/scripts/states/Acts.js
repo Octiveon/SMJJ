@@ -935,13 +935,13 @@ Act2.prototype = {
 		// window button 1
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
-		b1t.x = Math.floor(windoww.x + 160);
-		b1t.y = Math.floor(windoww.y + 370);
+		b1t.x = Math.floor(windoww.x + 90);
+		b1t.y = Math.floor(windoww.y + 360);
 		//window button 2
 		button2.x = Math.floor(windoww.x + 300);
 		button2.y = Math.floor(windoww.y + 350);
-		b2t.x = Math.floor(windoww.x + 380);
-		b2t.y = Math.floor(windoww.y + 370);
+		b2t.x = Math.floor(windoww.x + 350);
+		b2t.y = Math.floor(windoww.y + 360);
 		//window button 3
 		button3.x = Math.floor(windoww.x + 500);
 		button3.y = Math.floor(windoww.y + 350);
