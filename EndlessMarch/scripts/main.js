@@ -50,9 +50,10 @@ Preload.prototype = {
 		//Centers the game screen.
     game.load.image('TextWindow','assets/imgs/TextWindow.png')
     game.load.image('LongWindow','assets/imgs/UILongPlain.png')
+    game.load.image('Main','assets/imgs/StartMenu.png')
 
 
-    	game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
+    game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
 		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
@@ -63,6 +64,8 @@ Preload.prototype = {
 		game.load.atlas('A1T', 'assets/imgs/NarrativeText/act_1_text.png', 'assets/imgs/NarrativeText/act_1_text.json'), // Act 1 Narrative atlas + .json
 		game.load.atlas('A2T', 'assets/imgs/NarrativeText/act_2_text.png', 'assets/imgs/NarrativeText/act_2_text.json'), // Act 2 Narrative atlas + .json
 
+    //Buttons
+    game.load.atlas('play', 'assets/imgs/playButton.png', 'assets/imgs/playButton.json'),
 		//Sprites
 		game.load.atlas('knightL', 'assets/imgs/Sprites/knightLeft.png', 'assets/imgs/Sprites/knightLeft.json'),
 		game.load.atlas('knightR', 'assets/imgs/Sprites/knightRight.png', 'assets/imgs/Sprites/knightRight.json'),
@@ -340,8 +343,8 @@ MainMenu.prototype = {
 			currentBGM.play('',0,0.1,true);
 		}
 
-		bg = game.add.sprite(0,0, 'bgimages', 'Loading');
-		bg.scale.setTo(1.2,1.6);
+		bg = game.add.sprite(0,0,'Main');
+	//	bg.scale.setTo(1.2,1.6);
 
     menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2, 'TextWindow');
     menuWindow.anchor.x = menuWindow.anchor.y = 0.5;
@@ -391,34 +394,28 @@ DebugMenu.prototype = {
 			currentBGM = game.add.audio('menuSnd');
 			currentBGM.play('',0,0.1,true);
 		}
+    //adding main menu background
+    bg = game.add.sprite(0,0,'Main');
+    bg.scale.setTo(1.2); // scaling main menu background
 
     style = { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'};
-    menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2, 'TextWindow');
-    menuWindow.anchor.x = menuWindow.anchor.y = 0.5;
-    menuWindow.scale.setTo(0.5,0.5);
 
-		act1 = game.add.button(game.camera.width / 2 - 300,game.camera.height / 2 - 150, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
-		act1.anchor.x = act1.anchor.y = 0.5;
-		act1.scale.setTo(1.2,1);
+    act1 = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 75 , 'play', LoadNarrative, this, 'Play2', 'Play1','Play2');
     act1.scene = "act1";
 
-    act1Txt = game.add.text(game.camera.width / 2 - 250 , game.camera.height / 2 - 150, 'Load Act1',style)
-
-
-    act2 = game.add.button(game.camera.width / 2 -300 ,game.camera.height / 2 -50, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+    act2 = game.add.button(game.camera.width / 2 - 525 ,game.camera.height / 2 + 175, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		act2.anchor.x = act2.anchor.y = 0.5;
 		act2.scale.setTo(1.2,1);
     act2.scene = "act2";
 
-    act2Txt = game.add.text(game.camera.width / 2 - 250 , game.camera.height / 2 - 50, 'Load Act2',style)
+    act2Txt = game.add.text(game.camera.width / 2 -490 , game.camera.height / 2 + 150, 'Load Act2',style)
 
-    act3 = game.add.button(game.camera.width / 2 - 300 , game.camera.height / 2 + 50, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+    act3 = game.add.button(game.camera.width / 2 - 525 , game.camera.height / 2 + 225, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		act3.anchor.x = act3.anchor.y = 0.5;
 		act3.scale.setTo(1.2,1);
     act3.scene = "act3";
 
-    act3Txt = game.add.text(game.camera.width / 2 - 250 , game.camera.height / 2 + 50, 'Load Act3',style)
-
+    act3Txt = game.add.text(game.camera.width / 2 - 490 , game.camera.height / 2 + 200, 'Load Act3',style)
 
 
 	},
