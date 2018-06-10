@@ -368,7 +368,6 @@ function FoothillC2MLose(){
 
 }
 
-
 function RiskStormM(){
 	console.log("RS-M");
   //Update the the players resources (People/Supplies/Food)
@@ -492,15 +491,20 @@ function gofast(){
 }
 function goSlow(){
   UpdateResources(-getRandomInt(8)-4,-getRandomInt(4) -1, -getRandomInt(5)-3);
-
+  b1t.text="Continue to the border";
+  b2t.text="";
+  button1.destroy();
+  button2.destroy();
+  button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
+  button1.x = Math.floor(windoww.x + 40);
+  button1.y = Math.floor(windoww.y + 350);
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(791,349, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  	caravanStart.anchor.set(0.5);
-  	AddPath();
-
-  	narrative.destroy();
-  	narrative = game.add.sprite(2000, 0, 'A1T','Go Slow');
+  caravanStart.anchor.set(0.5);
+  AddPath();
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Go Slow');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 }
@@ -673,16 +677,16 @@ function PressOn(){
 	b1t.text="Venture into the hills";
 	b2t.text="Coastal Storm";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',FootHillC2M,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',FoothillC2M,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
+  button2.destroy();
   button2 = game.add.button(2000,0, 'RndButton',RiskStormC,this,'Hover','Up','Down');
   button2.x = Math.floor(windoww.x + 300);
   button2.y = Math.floor(windoww.y + 350);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(1050,560, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(1080,640, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
  	caravanStart.anchor.set(0.5);
   AddPath();
   narrative.destroy();
@@ -773,8 +777,8 @@ function raiderBattle(){
 	button1.y = Math.floor(windoww.y + 350);
 	button1.combatmap = "RaiderBattle";
 	button1.enemy = "Knight";
-	button1.winFunction = "{INSERT FUNCTION NAME}";
-	button1.lossFunction = "{INSERT FUNCTION NAME}";
+	button1.winFunction = "raiderBattleW";
+	button1.lossFunction = "raiderBattleL";
 	button1.scene = "act1";
 
 	button2.destroy();
@@ -791,22 +795,13 @@ function raiderBattle(){
  }
 function raiderBattleW(){
   console.log("vbL");
-  b1t.text ="Loot Village";
-  b2t.text ="Recruit Villagers";
+  b1t.text ="Continue to the border";
+  b2t.text ="";
   button1.destroy();
-  button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
+  button2.destroy();
+  button1 = game.add.button(2000,0, 'RndButton',BorderBattle,this,'Hover','Up','Down');
   button1.x = Math.floor(windoww.x + 40);
   button1.y = Math.floor(windoww.y + 350);
-  button1.combatmap = "VillageRaid";
-  button1.enemy = "Knight";
-  button1.winFunction = "lootvillage";
-  button1.lossFunction = "vblost";
-  button1.scene = "act1";
-
-  button2.destroy();
-  button2 = game.add.button(2000,0, 'RndButton',recruitvillagers,this,'Hover','Up','Down');
-  button2.x = Math.floor(windoww.x + 300);
-  button2.y = Math.floor(windoww.y + 350);
   narrative = game.add.sprite(2000, 0, 'A1T','Raider Battle Win');
   narrative.x = Math.floor(windoww.x + 100);
   narrative.y = Math.floor(windoww.y + 100);
@@ -857,7 +852,6 @@ function BorderBattle(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 ////////////////////act1 functions end
-
 
 var Act2 = function(game) {};
 var tb;
