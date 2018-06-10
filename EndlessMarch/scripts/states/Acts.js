@@ -1094,9 +1094,9 @@ function starveOut(){
 	caravanStart.anchor.set(0.5);
 }
 //set greater than 1 for win
-function assaultCastle(c){
+function assaultCastle(){
 	console.log("assaultCastle");
-	if(c>1){
+	if(assaultCastleFn>1){
 		population-=getRandomInt(300)+200;
 		supplies+=150;
 		food+=20;
@@ -1121,7 +1121,7 @@ function assaultCastle(c){
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
 		button2.destroy();
-		button2 = game.add.button(2000,0, 'RndButton',forest(1),this,'Hover','Up','Down');
+		button2 = game.add.button(2000,0, 'RndButton',forest,this,'Hover','Up','Down');
 		button2.x = Math.floor(windoww.x + 300);
 		button2.y = Math.floor(windoww.y + 350);
 		narrative = game.add.sprite(2000, 0, 'A2T','Assault The Castle Lose');
