@@ -142,8 +142,9 @@ function elderbattleEnd(){
 }
 function rockslide(){
 	console.log("rockslide");
-	supplies-=getRandomInt(5);
-	food-=getRandomInt(5)+3;
+  //Update the the players resources (People/Supplies/Food)
+  UpdateResources(0,-getRandomInt(5), -getRandomInt(5)-3);
+
 	b1t.text="Take Higher Path";
 	b2t.text="Clear Path";
 	button1.destroy();
@@ -167,10 +168,11 @@ function rockslide(){
 }
 function clearPath(){
 	console.log("cp");
+  //Update the the players resources (People/Supplies/Food)
+  UpdateResources(0,-getRandomInt(5) -10, -getRandomInt(5)-13);
 	button1.destroy();
 	button2.destroy();
-	supplies-= getRandomInt(5)+10 ;
-	food-=getRandomInt(5)+13;
+
 	b1t.text="Venture Forward";
 	b2t.text=" ";
 	button1 = game.add.button(2000,0, 'RndButton',weatherDecision,this,'Hover','Up','Down');
@@ -241,12 +243,14 @@ function OrcbattleL(){
 
 function weatherDecision(){
 	console.log("wd");
-	supplies-=getRandomInt(5);
-	food-=getRandomInt(5)+3;
+
+  //Update the the players resources (People/Supplies/Food)
+  UpdateResources(0,-getRandomInt(5) -10, -getRandomInt(5)-3);
+
 	b1t.text="Risk Storm";
 	b2t.text="Descend to the coast";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',RiskStormM,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
@@ -367,13 +371,11 @@ function FoothillC2MLose(){
 
 function RiskStormM(){
 	console.log("RS-M");
-	supplies-=getRandomInt(5)+3;
-	food-=getRandomInt(12);
-	if(getRandomInt(1)==1){
-		population-=getRandomInt(100)+12;
-		supplies-=getRandomInt(12)+12;
-		food-=getRandomInt(12);
-	}
+  //Update the the players resources (People/Supplies/Food)
+	if(getRandomInt(2)==1){
+    UpdateResources(-getRandomInt(100)-12,-getRandomInt(12)-12, -getRandomInt(12));
+  }
+  else {UpdateResources(0,-getRandomInt(5) -3, -getRandomInt(12));}
 	//texthere;
 	b1t.text="Mountain Descent";
 	b2t.text=" ";
@@ -398,15 +400,13 @@ function RiskStormC(){
 	if(getRandomInt(3)==1){
     b1t.text="...collect whats left and press on.";
     narrative = game.add.sprite(2000, 0, 'A1T','Coastal Storm Ravage');
-		population-=getRandomInt(100)+12;
-		supplies-=getRandomInt(12)+12;
-		food-=getRandomInt(12);
+    UpdateResources(-getRandomInt(100)-12,-getRandomInt(12)-12, -getRandomInt(12));
+
   }
   else {
     b1t.text="Press on!";
     narrative = game.add.sprite(2000, 0, 'A1T','Coastal Storm Minimal');
-    supplies-=getRandomInt(5)+3;
-  	food-=getRandomInt(12);
+    UpdateResources(0,-getRandomInt(5) -3, -getRandomInt(12));
   }
 	//texthere;
 
@@ -423,6 +423,7 @@ function RiskStormC(){
 
 function mountainDesent(){
 	console.log("MD");
+  UpdateResources(0,-getRandomInt(5) -3, -getRandomInt(5));
 	b1t.text="Go Fast";
 	b2t.text="Go Slow";
 	button1.destroy();
@@ -446,12 +447,12 @@ function mountainDesent(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function gofast(){
-	supplies-=getRandomInt(5);
+
 	var control;
 	control=getRandomInt(2);
 	console.log("control = " + control);
 	if (control==1) { // if controlled fast descent
-		supplies-=getRandomInt(8)+8;
+    UpdateResources(-getRandomInt(100)-25, -getRandomInt(26)-8, -getRandomInt(10)-8);
 		b1t.text="Continue to the border";
 		b2t.text="";
 		button1.destroy();
@@ -470,7 +471,7 @@ function gofast(){
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
 	} else { // if not controlled fast descent
-		supplies-=getRandomInt(15)+8;
+		UpdateResources(0,-getRandomInt(20) -5, -getRandomInt(10));
 		b1t.text="Continue to the border";
 		b2t.text="";
 		button1.destroy();
@@ -490,21 +491,8 @@ function gofast(){
 	}
 }
 function goSlow(){
-	supplies-=getRandomInt(5)+1;
-	food-=getRandomInt(5)+3;
-	population-=getRandomInt(8)+4;
-	var c=getRandomInt(100);
-	if (c>30){
-		population-=getRandomInt(8)+4;
-		food-=getRandomInt(5)+3;
-		supplies-=getRandomInt(4)+1;
-		//text code here
-	}else{
-		population-=getRandomInt(98)+24;
-		food-=getRandomInt(12)+4;
-		supplies-=getRandomInt(12)+12;
-		//textcode here
-	}
+  UpdateResources(-getRandomInt(8)-4,-getRandomInt(4) -1, -getRandomInt(5)-3);
+
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(791,349, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
@@ -519,6 +507,8 @@ function goSlow(){
 
 function villagerBattle(){
 	//settext
+  UpdateResources(0,-getRandomInt(5) -3, -getRandomInt(12) - 5);
+
 	button2.destroy();
 	console.log("vb");
 	b1t.text="Send out vanguard!";
@@ -604,6 +594,8 @@ function avenge(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function lootvillage(){
+  UpdateResources(0,getRandomInt(20) +5, getRandomInt(10));
+
 	supplies+=getRandomInt(15);
 	b1t.text="March On...";
   b2t.text="";
@@ -626,9 +618,10 @@ function lootvillage(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function recruitvillagers(){
-	population+=getRandomInt(10);
-  	partySize++;
-	b1t.text = "March On...";
+  UpdateResources(getRandomInt(10) + 15,getRandomInt(5), getRandomInt(5));
+
+  partySize++;
+	b1t.text = "[Vanguard Member Added!] March On...";
   	b2t.text="";
 
 	button1.destroy();
@@ -650,8 +643,8 @@ function recruitvillagers(){
 }
 
 function rest(){
-	food+=3;
-	supplies-=4;
+  UpdateResources(0,-getRandomInt(5), +getRandomInt(5)+3);
+
 	b1t.text="Take Rest";
 	b2t.text="Press On";
 	//text image call
@@ -676,8 +669,8 @@ function rest(){
 
 }
 function PressOn(){
-	supplies-=6;
-	food-=6;
+  UpdateResources(0,-getRandomInt(6), -getRandomInt(5)-3);
+
 	b1t.text="Risk it";
 	b2t.text="Head into mountains.";
 	//text image call
@@ -747,7 +740,7 @@ function PressOnLose(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function takeRest(){
-	food-=3;
+  UpdateResources(0,-getRandomInt(6), -getRandomInt(25)-10);
 	//rest image call
 	b1t.text="Head into mountains.";
 	b2t.text="Risk the storm...";
@@ -772,7 +765,8 @@ function takeRest(){
 }
 
 function crossroad(){
-	food-=3;
+  UpdateResources(0,-getRandomInt(6), -getRandomInt(5)-3);
+
 	b1t.text="Raider Battle";
 	b2t.text="Avoid Village";
 	button1.destroy();
@@ -795,8 +789,8 @@ function crossroad(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function avoidVillage(){
-	supplies-=3;
-	food-=3;
+  UpdateResources(0,-getRandomInt(6), -getRandomInt(5)-3);
+
 	b1t.text="Border Battle";
   	b2t.text="";
 
@@ -925,7 +919,7 @@ var b3t;
 var windoww;
 var ctxt="text has been changed";
 var b1t="";
-var narrative = game.add.sprite(2000, 0, 'A1T','Village Battle Win');;
+var narrative;
 
 Act2.prototype = {
   init: function(info) {
@@ -960,15 +954,17 @@ Act2.prototype = {
 		b3t.anchor.set(0);
 		//make if statements ass needed here for combat results
 		//caravanStart.destroy();
+    if(Path== 0){
+    	caravanStart = game.add.button(765, 740, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+    	caravanStart.anchor.set(0.5);
+    }
 
-		caravanStart = game.add.button(502, 562, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-		caravanStart.anchor.set(0.5);
 
 		button1 = game.add.button(2000,0, 'RndButton',null,this,'Hover','Up','Down');
 		button2 = game.add.button(2000,0,'RndButton',null,this,'Hover','Up','Down');
 		button3 = game.add.button(2000,0,'RndButton',null,this,'Hover','Up','Down');
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
-
+    narrative = game.add.sprite(0, 0);
     statusWindow = game.add.image(0,0,"statusBar");
     statusWindow.scale.setTo(0.5,0.3);
 
@@ -980,12 +976,17 @@ Act2.prototype = {
     {
       window[nextFunction]();
     }
+    else {
+      bbl();
+    }
     SpawnOldButtons();
     DrawPath();
 
 
 	},
 	update: function() {
+
+
 		// window button 1
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
@@ -1004,18 +1005,27 @@ Act2.prototype = {
 		poptxt.text = 'Population: ' + population;
 		supplytxt.text = 'Supplies: ' + supplies;
 		foodtxt.text = 'Food: ' + food;
+
+    narrative.x = Math.floor(windoww.x + 100);
+		narrative.y = Math.floor(windoww.y + 100);
+
+    DebugPos();
 	}
 }
 
 ///////////////////// act2 functions begin
 //won border battle
 function bbv(){
+  AddPath();
+
 	button1.destroy();
 	button2.destroy();
 	button3.destroy();
 	console.log("bbv");
 	population-=population/12;
+  population=population.toFixed(0)
 	supplies+=100;
+
 	b1t.text="Siege";
 	b2t.text="March On";
 	// window button 1
@@ -1031,22 +1041,28 @@ function bbv(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 }
+
 function bbl(){ // border battle lose
+  caravanStart.position.setTo(1100,645)
+  AddPath();
+
 	button1.destroy();
 	button2.destroy();
 	button3.destroy();
 	console.log("bbl");
-	population-=population/6;
+	//population-=population/6;
+  //population=population.toFixed(0)
+
 	supplies-=100;
 	food-=100;
 	b1t.text="Go Through Forest";
 	b2t.text="Walk The Edge";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',walkEdge,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',forest,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',forest,this,'Hover','Up','Down');
+	button2 = game.add.button(2000,0, 'RndButton',walkEdge,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
 	narrative = game.add.sprite(2000, 0, 'A2T','Border Battle Lose');
@@ -1181,7 +1197,13 @@ function walkEdge(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest edge battle
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "forrestBattle";
+	button1.enemy = "Knight";
+	button1.winFunction = "bbv";
+	button1.lossFunction = "bbl";
+	button1.scene = "act2";
 	button2.destroy();
+  narrative.destroy();
 	narrative = game.add.sprite(2000, 0, 'A2T','Walk The Edge');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
@@ -1189,6 +1211,38 @@ function walkEdge(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(758, 306, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+}
+function walkEdgeW(){
+  console.log("walkEdgeW");
+	b1t.text ="Head away from forest.";
+	b2t.text ="";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+
+	button2.destroy();
+
+	narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	moveWindowOnScreen();
+}
+function walkEdgeL(){
+  console.log("walkEdgeL");
+  b1t.text ="You flee away from the forest edge furthur into the plains.";
+  b2t.text ="";
+  button1.destroy();
+  button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
+  button1.x = Math.floor(windoww.x + 40);
+  button1.y = Math.floor(windoww.y + 350);
+
+  button2.destroy();
+
+  narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains');
+  narrative.x = Math.floor(windoww.x + 100);
+  narrative.y = Math.floor(windoww.y + 100);
+  moveWindowOnScreen();
 }
 //1 first time 2 victory or 3 losst combat
 function forest(c){
@@ -2019,6 +2073,64 @@ function moveWindowOffScreen(){
 	windoww.x = 60;
 	windoww.y = 2000;
   DrawPath();
+}
+
+//+ or minus resources in here!
+function UpdateResources(p, s, f){
+  var Neg = { fontSize: '24px', fill: '#ea0000' };
+  var Pos = { fontSize: '24px', fill: '#0edb11' }
+  var tweenSpd = 1500;
+
+  population += p;
+  supplies += s;
+  food += f;
+
+  if(p > 0){
+    popTxtP = game.add.text(game.camera.width/2, game.camera.height/2, 'Population + ' + p, Pos );
+    popTxtP.alpha = 1;
+    popTxtP.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+
+    game.add.tween(popTxtP).to({y: game.camera.height/2 - 200, alpha:0}, tweenSpd, null, true);
+  }else if (p < 0){
+    popTxtP = game.add.text(game.camera.width/2, game.camera.height/2, 'Population ' + p, Neg );
+    popTxtP.alpha = 1;
+    popTxtP.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+
+    game.add.tween(popTxtP).to({y: game.camera.height/2 - 200, alpha:0}, tweenSpd, null, true);
+  }
+
+  if(s > 0){
+    popTxtS = game.add.text(game.camera.width/2, game.camera.height/2 +50, 'Supplies + ' + s, Pos );
+    popTxtS.alpha = 1;
+    popTxtS.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+
+    game.add.tween(popTxtS).to({y: game.camera.height/2 - 200, alpha:0}, tweenSpd, null, true);
+
+  }
+  else if (s < 0){
+    popTxtS = game.add.text(game.camera.width/2, game.camera.height/2 + 50, 'Supplies ' + s, Neg );
+    popTxtS.alpha = 1;
+    popTxtS.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+
+    game.add.tween(popTxtS).to({y: game.camera.height/2 - 200, alpha:0}, tweenSpd, null, true);
+  }
+
+  if(f > 0){
+    popTxtF = game.add.text(game.camera.width/2, game.camera.height/2 +100, 'Food + ' + f, Pos );
+    popTxtF.alpha = 1;
+    popTxtF.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+
+    game.add.tween(popTxtF).to({y: game.camera.height/2 - 200, alpha:0}, tweenSpd, null, true);
+
+  }
+  else if (f < 0){
+    popTxtF = game.add.text(game.camera.width/2, game.camera.height/2 + 100, 'Food ' + f, Neg );
+    popTxtF.alpha = 1;
+    popTxtF.setShadow(0, 0, 'rgba(0, 0, 0, 0.5)', 0);
+
+    game.add.tween(popTxtF).to({y: game.camera.height/2 - 200, alpha:0}, tweenSpd, null, true);
+  }
+
 }
 
 //apropriated from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random

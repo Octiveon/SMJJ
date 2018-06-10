@@ -172,7 +172,7 @@ Combat.prototype = {
 			game.state.start("LoadCampfire", true, false, combatEnd);
 
 		}else if (enemieCnt == 0) {
-			var combatEnd = {win:false, lost: (partyAlive / partySize) * 100, scene: act, next: winFunction}
+			var combatEnd = {win:true, lost: (partyAlive / partySize) * 100, scene: act, next: winFunction}
 			game.state.start("LoadCampfire", true, false,combatEnd);
 
 		}

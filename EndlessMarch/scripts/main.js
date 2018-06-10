@@ -5,9 +5,9 @@
 var partySize = 4;
 var population =1000;
 var startingPopulation = population;
-var food = 1000;
+var food = 100;
 var startingFood = food;
-var supplies=1000;
+var supplies=150;
 var startingResources = supplies;
 var currentBGM;
 var currentAct = "act1";
@@ -47,6 +47,7 @@ Preload.prototype = {
 		//Preload menu assets and music here!
 		//Centers the game screen.
     game.load.image('TextWindow','assets/imgs/TextWindow.png')
+    game.load.image('LongWindow','assets/imgs/UILongPlain.png')
 
 
     	game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
@@ -84,13 +85,12 @@ LoadCampfire.prototype = {
 
   },
   create: function() {
-
-
-
-    if( this.info.lost < 100)
-    {
-      population -= 150 - 150 * (this.info.lost / 100)
+    if(this.info.win){
+      UpdateResources(-(200 - 170 * (this.info.lost / 100)),+getRandomInt(50), 0);}
+    else {
+      UpdateResources(-(200 - 170 * (this.info.lost / 100)),0, 0);
     }
+
 
     if(currentAct != this.info.scene)
     {
@@ -192,17 +192,51 @@ Load.prototype = {
   	dust.maxRotation = 0;
   	dust.flow(10000,500,5,-1);
 
-  	Lwindow = game.add.sprite(225,30,'window');
-  	Lwindow.scale.setTo(.4,.4)
+  	Lwindow = game.add.sprite(game.camera.width/2,game.camera.height/2 - 100,'window');
+  	Lwindow.scale.setTo(.55,.4)
+    Lwindow.anchor.setTo(0.5,0.5)
   	Lwindow.alpha = 0;
   	game.add.tween(Lwindow).to( { alpha: .8 }, 5000, "Linear", true);
 
-  	currentPopulation = game.add.text(285, 170, startingPopulation-population+" People died on this stretch of you journey");
-  	currentFood = game.add.text(285, 220, startingFood-food+" Food was consumed or lost");
-  	currentResources = game.add.text(285, 270, startingResources-supplies+" resources were consumer or lost");
+    if(startingFood - food > 0)
+    {
+      currentFood = game.add.text(285, 220, startingFood-food+" extra food was scavanged this round");
+
+    }
+    else {
+      currentFood = game.add.text(285, 220, startingFood-food+" Food was consumed or lost");
+
+    }
+
+    if(startingPopulation-population > 0)
+    {
+      currentPopulation = game.add.text(285, 170, startingPopulation-population+" People joined you on this stretch of your march");
+
+    }
+    else {
+      currentPopulation = game.add.text(285, 170, startingPopulation-population+" People died on this stretch of your journey");
+    }
+
+    if(startingResources-supplies > 0)
+    {
+      currentResources = game.add.text(285, 270, startingResources-supplies+" Resources were 'acquired' this round");
+
+    }
+    else {
+      currentResources = game.add.text(285, 270, startingResources-supplies+" Resources were consumed or lost");
+
+    }
+
+
+
     console.log(this.loadInfo);
-    info = game.add.button(Lwindow.width *0.8, Lwindow.height *0.8, 'RndButton', LoadScene, this, 'Hover','Up','Down');
+    info = game.add.button(game.camera.width/2,game.camera.height/2 + 0, 'LongWindow', LoadScene, this);
+    infoTxt = game.add.text(game.camera.width/2 - 50,game.camera.height/2 - 10, "March!");
     info.anchor.set(0.5);
+    info.scale.setTo(0.2,0.2)
+    var tween = game.add.tween(info.scale).to( { x:0.21, y:0.21 }, 500, "Linear", true, 0, -1);
+    tween.yoyo(true, 400);
+
     info.scene = this.loadInfo.scene;
     info.keepPreload = this.loadInfo.keepPreload;
     info.keepCreate = this.loadInfo.keepCreate;
