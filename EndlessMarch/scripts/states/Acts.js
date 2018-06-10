@@ -581,11 +581,11 @@ function avenge(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//avenge combat
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-  	button1.combatmap = "VillageRaid";
-    button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
-  	button1.winFunction = "{INSERT FUNCTION NAME}";
-  	button1.lossFunction = "{INSERT FUNCTION NAME}";
-  	button1.scene = "act1";
+	button1.combatmap = "VillageRaid";
+  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+	button1.winFunction = "{INSERT FUNCTION NAME}";
+	button1.lossFunction = "{INSERT FUNCTION NAME}";
+	button1.scene = "act1";
 
 	button2.destroy();
 	narrative.destroy();
@@ -622,7 +622,7 @@ function recruitvillagers(){
 
   partySize++;
 	b1t.text = "[Vanguard Member Added!] March On...";
-  	b2t.text="";
+  b2t.text="";
 
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',rest,this,'Hover','Up','Down');
@@ -671,17 +671,18 @@ function rest(){
 function PressOn(){
   UpdateResources(0,-getRandomInt(6), -getRandomInt(5)-3);
 
-	b1t.text="Risk it";
-	b2t.text="Head into mountains.";
+	b1t.text="Fight!";
+	b2t.text="";
 	//text image call
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',RiskStormC,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-  button2 = game.add.button(2000,0, 'RndButton',FoothillC2M,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "VillageRaid";
+  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
+  button1.winFunction = "PressOnWon";
+  button1.lossFunction = "PressOnLose";
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(1050,560, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
@@ -689,7 +690,7 @@ function PressOn(){
   AddPath();
 
   narrative.destroy();
-  narrative = game.add.sprite(2000, 0, 'A1T','Press On Lose');
+  narrative = game.add.sprite(2000, 0, 'A1T','Press On');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 }
@@ -698,21 +699,21 @@ function PressOnWon(){
 	b2t.text="Coastal Storm";
 	//text image call
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',FootHillC2M,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2 = game.add.button(2000,0, 'RndButton',RiskStormC,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
 	moveWindowOffScreen();
 	caravanStart.destroy();
 	caravanStart = game.add.button(548,576, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-  	caravanStart.anchor.set(0.5);
-  	AddPath();
+  caravanStart.anchor.set(0.5);
+  AddPath();
 
-  	narrative.destroy();
-  	narrative = game.add.sprite(2000, 0, 'A1T','Press On Win');
+  narrative.destroy();
+  narrative = game.add.sprite(2000, 0, 'A1T','Press On Win');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 }
@@ -721,11 +722,11 @@ function PressOnLose(){
 	b2t.text="Coastal Storm";
 	//text image call
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',takeRest,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',FootHillC2M,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',PressOn,this,'Hover','Up','Down');
+	button2 = game.add.button(2000,0, 'RndButton',RiskStormC,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
 	moveWindowOffScreen();
