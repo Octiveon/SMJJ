@@ -118,9 +118,10 @@ Act2.prototype = {
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
 		game.load.image('descend','assets/imgs/descend.png');
+		game.load.image('map2','assets/imgs/Map2.png');
 	},
 	create: function() {
-		bg = game.add.sprite(0,0, 'backgrounds', 'Act1');
+		bg = game.add.sprite(0,0, 'map2');
 		bg.scale.setTo(1.2,1.2);
 		windoww = game.add.sprite(487,320,'window');
 		windoww.scale.set(.4,.4);
@@ -377,7 +378,7 @@ function forest(c){
 		console.log("forest");
 		b1t.text="enslave";
 		b2t.text="eat";
-		b3t.text"execute";
+		b3t.text="execute";
 		button1.destroy();
 		button1 = game.add.button(2000,0, 'RndButton',enslave,this,'Hover','Up','Down');//forest battle
 		button1.x = Math.floor(windoww.x + 40);
@@ -591,7 +592,7 @@ function river(){
 }
 function buyPassage(){
 	supplies-=200;
-	console.log("buyPassage"):
+	console.log("buyPassage");
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
@@ -966,7 +967,7 @@ function interceptVictory(){
 	console.log("interceptVictory");
 	b1t.text="Enslave";
 	b2t.text="Execute";
-	b3t.text"Conscript";
+	b3t.text="Conscript";
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',enslave2,this,'Hover','Up','Down');//forest battle
 	button1.x = Math.floor(windoww.x + 40);
