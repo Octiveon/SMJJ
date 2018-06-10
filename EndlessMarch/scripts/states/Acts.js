@@ -4,7 +4,6 @@ cnt = 0;
 var poptxt;
 var foodtxt;
 var supplytext;
-var forestFn;
 
 Acts.prototype = {
     preload: function () {
@@ -1191,9 +1190,9 @@ function walkEdgeL(){
   moveWindowOnScreen();
 }
 //1 first time 2 victory or 3 losst combat
-function forest(){
+function forest(c){
 	supplies+=7;
-	if(forestFn==1){
+	if(c==1){
 		food+=10;
 		console.log("forest");
 		b1t.text="Fight!";
@@ -1209,7 +1208,7 @@ function forest(){
 		moveWindowOffScreen();
 	}
 	//win combat
-	if (forestFn==2) {
+	if (c==2) {
 		console.log("forest");
 		b1t.text="Enslave";
 		b2t.text="Eat";
@@ -1232,7 +1231,7 @@ function forest(){
 		moveWindowOffScreen();
 	}
 	//lose combat
-	if (forestFn==3) {
+	if (c==3) {
 		supplies-=100;
 		if(getRandomInt(10)>5){
 			//elves don't come
