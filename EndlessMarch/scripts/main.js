@@ -48,6 +48,7 @@ Preload.prototype = {
 
 		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
 		game.load.atlas('backgrounds', 'assets/imgs/backgrounds.png','assets/imgs/backgrounds.json'),
+		game.load.atlas('bgimages', 'assets/imgs/bgimages.png','assets/imgs/bgimages.json'),
 		game.load.atlas('narrativeButtons', 'assets/imgs/narrativeButtons.png','assets/imgs/narrativeButtons.json',
      	Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 		game.load.atlas('A1T', 'assets/imgs/NarrativeText/act_1_text.png', 'assets/imgs/NarrativeText/act_1_text.json'), // Act 1 Narrative atlas + .json
@@ -291,7 +292,7 @@ MainMenu.prototype = {
 			currentBGM.play('',0,0.1,true);
 		}
 
-		bg = game.add.sprite(0,0, 'backgrounds', 'MainMenu');
+		bg = game.add.sprite(0,0, 'bgimages', 'Loading');
 		bg.scale.setTo(1.2,1.6);
 
     menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2, 'TextWindow');

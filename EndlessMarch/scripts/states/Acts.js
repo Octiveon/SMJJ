@@ -45,7 +45,7 @@ Act1.prototype = {
 	},
 	create: function() {
 		//background
-		bg = game.add.sprite(0,0, 'backgrounds', 'Act1');
+		bg = game.add.sprite(0,0, 'bgimages', 'Act1');
 		bg.scale.setTo(1.2,1.2);
 
     line = game.add.graphics(0,0);
@@ -759,6 +759,8 @@ var button1;
 var b1t;
 var button2;
 var b2t;
+var button3;
+var b3t;
 var windoww;
 var ctxt="text has been changed";
 var b1t="";
@@ -772,8 +774,6 @@ Act2.prototype = {
 
 		game.load.image('window', 'assets/imgs/TextWindow.png');
 		game.load.image('tb', 'assets/imgs/tempButton.png');
-		game.load.image('hold','assets/imgs/hold.png');
-		game.load.image('descend','assets/imgs/descend.png');
 	},
 	create: function() {
 		bg = game.add.sprite(0,0, 'backgrounds', 'Act1');
@@ -801,8 +801,6 @@ Act2.prototype = {
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
 	},
 	update: function() {
-		//text.x = Math.floor(windoww.x + windoww.width / 2 );
-		//text.y = Math.floor(windoww.y + windoww.height / 2 - 50);
 		// window button 1
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
@@ -824,10 +822,7 @@ Act2.prototype = {
 	}
 }
 
-
-
 ///////////////////// act2 functions begin
-
 //won border battle
 function bbv(){
 	button1.destroy();
@@ -1403,10 +1398,10 @@ Act3.prototype = {
 		game.load.image('window', 'assets/imgs/TextWindow.png');
 		game.load.image('tb', 'assets/imgs/tempButton.png');
 		game.load.image('hold','assets/imgs/hold.png');
-		game.load.image('descend','assets/imgs/descend.png');
+		game.load.image('Act2','assets/imgs/Map2.png');
 	},
 	create: function() {
-		bg = game.add.sprite(0,0, 'backgrounds', 'Act1');
+		bg = game.add.sprite(0,0, 'backgrounds', 'Act2');
 		bg.scale.setTo(1.2,1.2);
 		windoww = game.add.sprite(487,320,'window');
 		windoww.scale.set(.4,.4);
@@ -1431,8 +1426,6 @@ Act3.prototype = {
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
 	},
 	update: function() {
-		//text.x = Math.floor(windoww.x + windoww.width / 2 );
-		//text.y = Math.floor(windoww.y + windoww.height / 2 - 50);
 		// window button 1
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
@@ -1815,8 +1808,6 @@ function wonder(){
 	caravanStart = game.add.button(2255, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
 }
-
-
 
 //moves window for all three acts
 function moveWindow(){
