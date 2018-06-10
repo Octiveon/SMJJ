@@ -96,6 +96,11 @@ LoadCampfire.prototype = {
 
     if(currentAct != this.info.scene)
     {
+      currentAct = this.info.scene;
+      Path.splice(0,Path.length);
+      cnt =0;
+      this.info.keepPreload = true;
+      this.info.keepCreate =false;
       game.state.start("load", true, false, this.info);
     }
     else {
@@ -243,6 +248,8 @@ Load.prototype = {
     info.keepPreload = this.loadInfo.keepPreload;
     info.keepCreate = this.loadInfo.keepCreate;
     info.combat = this.loadInfo.combat;
+    info.next = this.loadInfo.next;
+
 
     startingFood=food;
     startingResources=supplies;
