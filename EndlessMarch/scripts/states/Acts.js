@@ -4,7 +4,6 @@ cnt = 0;
 var poptxt;
 var foodtxt;
 var supplytext;
-var forestFn;
 
 Acts.prototype = {
     preload: function () {
