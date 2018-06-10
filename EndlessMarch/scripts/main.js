@@ -4,9 +4,13 @@
 //\\_____________________//\\
 var partySize = 4;
 var population =1000;
+var startingPopulation = population;
 var food = 1000;
+var startingFood = food;
 var supplies=1000;
+var startingResources = supplies;
 var currentBGM;
+var currentAct = "act1";
 var cne;//curent narative event
 //\\_____________________//\\
 //\\ Global variables    //\\
@@ -25,10 +29,12 @@ window.onload = function(){
 
 		game.state.add('combat', Combat);
 
-		game.state.add('acts', Acts);
 		game.state.add('act1', Act1);
 		game.state.add('act2', Act2);
 		game.state.add('act3', Act3);
+
+    game.state.add('DebugMenu', DebugMenu);
+
 
 		game.state.start('boot');
 
@@ -64,7 +70,7 @@ Preload.prototype = {
 
 	},
 	create: function() {
-    var info = {timer: 3, scene: "mainMenu", keepPreload: true, keepCreate: false, combat: null}
+    var info = {timer: 3, scene: "DebugMenu", keepPreload: true, keepCreate: false, combat: null}
     LoadScene(info);
 
 	}
@@ -77,33 +83,30 @@ LoadCampfire.prototype = {
    this.info = loadInfo
 
   },
-  preload: function() {
-    game.load.spritesheet('campfire', 'assets/imgs/campfire_16x16.png', 16, 16);
-
-
-  },
   create: function() {
-    player = game.add.sprite(game.camera.width/2, game.camera.height/2, 'campfire');
-    player.scale.setTo(15,15);
-    pUnit.animations.add('pAttack', Phaser.Animation.generateFrameNames('Knight', 1,9), 10, false); // Attack animation for player unit
 
-    cont = game.add.button(game.camera.width/2, game.camera.height/2 + 100, 'RndButton', LoadScene, this, 'Hover','Up','Down');
-    cont.anchor.set(0.5);
-    cont.next = this.info.next;
-    cont.scene = this.info.scene;
-    cont.keepPreload = true;
-    cont.keepCreate = false;
+
 
     if( this.info.lost < 100)
     {
       population -= 150 - 150 * (this.info.lost / 100)
     }
 
-  },
-  update: function() {
-
- }
+    if(currentAct != this.info.scene)
+    {
+      game.state.start("load", true, false, this.info);
+    }
+    else {
+      cont = game.add.button(game.camera.width/2, game.camera.height/2 + 100, 'RndButton', LoadScene, this, 'Hover','Up','Down');
+      cont.anchor.set(0.5);
+      cont.next = this.info.next;
+      cont.scene = this.info.scene;
+      cont.keepPreload = true;
+      cont.keepCreate = false;
+    }
+  }
 }
+
 
 var Load = function(game) {};
 Load.prototype = {
@@ -118,9 +121,7 @@ Load.prototype = {
   	treesSprite = ["Tree1","Tree2","Tree3","Tree4","Tree5","Tree6","skull","Skeleton"];
   	dustSprite = ["dust1","dust2","dust3"];
   	//replace with global variables
-  	startingFood=food;
-  	startingResources=supplies;
-  	startingPopulation=population;
+
   	//replace with global variables
   	//if variable names change check the bottom of create at ~line 90
   },
@@ -206,6 +207,10 @@ Load.prototype = {
     info.keepPreload = this.loadInfo.keepPreload;
     info.keepCreate = this.loadInfo.keepCreate;
     info.combat = this.loadInfo.combat;
+
+    startingFood=food;
+    startingResources=supplies;
+    startingPopulation=population;
     //game.time.events.add(Phaser.Timer.SECOND * this.loadInfo.timer, LoadScene, this, this.loadInfo);
   },
   update: function() {
@@ -226,7 +231,7 @@ Load.prototype = {
  }
 }
 
-
+//Loadscreen Functions!
 function createbgTree() {
 	var bgtree = bgtrees.create(1300,705+(Math.random()*15),'loading',treesSprite[Math.round(Math.random()*7)])
 	bgtree.scale.setTo(.2+(Math.random()*.2),.2+(Math.random()*.2));
@@ -249,7 +254,7 @@ function HeadDir2(){
 
 function LoadScene(info) {
   console.log(info);
- if(info.combat != null)
+ if(info.scene == "combat")
   {
     game.state.start(info.scene, info.keepPreload, info.keepCreate,info.combat);
   }
@@ -270,7 +275,7 @@ function LoadCombat(button) {
 
 function LoadNarrative(button) {
   var combat;
-  var info = {timer: 3, scene: "act1", keepPreload: true, keepCreate: false, combat:combat}
+  var info = {timer: 3, scene: button.scene, keepPreload: true, keepCreate: false, combat:combat}
   game.state.start("load", true, false, info);
 	//game.state.start("act1", true, false);
 }
@@ -314,6 +319,63 @@ MainMenu.prototype = {
 		bNarrativeTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 + 150, 'Load Narrative',
      { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'})
 		bNarrativeTxt.anchor.x = bNarrativeTxt.anchor.y = 0.5;
+
+
+	},
+	update: function() {
+		//game.state.start('GamePlay', true, false);
+
+	}
+}
+
+
+/////////////////////////////
+
+/////////////////////////////
+
+var DebugMenu = function(game) {};
+DebugMenu.prototype = {
+	preload: function() {
+	},
+	create: function() {
+		if(currentBGM != 0)
+		{
+			game.sound.stopAll();
+			currentBGM = game.add.audio('menuSnd');
+			currentBGM.play('',0,0.1,true);
+		}
+		else {
+			currentBGM = game.add.audio('menuSnd');
+			currentBGM.play('',0,0.1,true);
+		}
+
+    style = { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'};
+    menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2, 'TextWindow');
+    menuWindow.anchor.x = menuWindow.anchor.y = 0.5;
+    menuWindow.scale.setTo(0.5,0.5);
+
+		act1 = game.add.button(game.camera.width / 2 - 300,game.camera.height / 2 - 150, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+		act1.anchor.x = act1.anchor.y = 0.5;
+		act1.scale.setTo(1.2,1);
+    act1.scene = "act1";
+
+    act1Txt = game.add.text(game.camera.width / 2 - 250 , game.camera.height / 2 - 150, 'Load Act1',style)
+
+
+    act2 = game.add.button(game.camera.width / 2 -300 ,game.camera.height / 2 -50, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+		act2.anchor.x = act2.anchor.y = 0.5;
+		act2.scale.setTo(1.2,1);
+    act2.scene = "act2";
+
+    act2Txt = game.add.text(game.camera.width / 2 - 250 , game.camera.height / 2 - 50, 'Load Act2',style)
+
+    act3 = game.add.button(game.camera.width / 2 - 300 , game.camera.height / 2 + 50, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+		act3.anchor.x = act3.anchor.y = 0.5;
+		act3.scale.setTo(1.2,1);
+    act3.scene = "act3";
+
+    act3Txt = game.add.text(game.camera.width / 2 - 250 , game.camera.height / 2 + 50, 'Load Act3',style)
+
 
 
 	},

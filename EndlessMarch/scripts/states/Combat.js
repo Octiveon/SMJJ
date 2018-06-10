@@ -4,7 +4,7 @@ var Combat = function(game) {};
 Combat.prototype = {
 	init: function(info) {
 		partyAlive = partySize;
-		enemieCnt = 99;
+		enemieCnt = 0;
 		winFunction = info.winFunction;
 		lossFunction = info.lossFunction;
 		act = info.prevScene;
@@ -29,8 +29,7 @@ Combat.prototype = {
 	},
 	create: function() {
 
-		if(currentBGM != 0)
-		{
+		if(currentBGM != 0){
 			game.sound.stopAll();
 			currentBGM = game.add.audio('battleSnd');
 			currentBGM.play('',0,0.1,true);
