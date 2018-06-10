@@ -12,6 +12,8 @@ var startingResources = supplies;
 var currentBGM;
 var currentAct = "act1";
 var cne;//curent narative event
+var forestFn;//forest function number
+var assaultCastleFn;//assault castle function number
 //\\_____________________//\\
 //\\ Global variables    //\\
 //\\_____________________//\\
