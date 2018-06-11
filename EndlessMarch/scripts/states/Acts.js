@@ -1,20 +1,10 @@
-var Acts = function(game) {};
+//Gloabal Var
 Path = [];
 cnt = 0;
 var poptxt;
 var foodtxt;
 var supplytext;
 
-Acts.prototype = {
-    preload: function () {
-    },
-
-    create: function () {
-    },
-
-    update: function () {
-    }
-};
 
 var Act1 = function(game) {};
 var text;
@@ -106,7 +96,12 @@ Act1.prototype = {
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
 
-    DebugPos();
+    if(population <= 0)
+    {
+      game.state.start('GameOver');
+    }
+    else if (supplies <= 0) {SupDrop();}
+    else if(food <= 0){FoodDrop();}
 
 	}
 }
@@ -195,7 +190,7 @@ function Orcbattle(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-  	button1.combatmap = "Bridgebattle";
+  	button1.combatmap = "OrcBattle";
   	button1.enemy = "Orc";
   	button1.winFunction = "OrcbattleW";
   	button1.lossFunction = "OrcbattleL";
@@ -357,7 +352,7 @@ function FoothillC2MLose(){
 	button2.destroy();
 	b1t.text="Retreat back to the coast";
 	b2t.text=" ";
-	button1 = game.add.button(2000,0, 'RndButton',RiskStorm,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',RiskStormC,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	narrative.destroy();
@@ -582,15 +577,9 @@ function avenge(){
 	cne=rest;
 	b1t.text="Kill Them All";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//avenge combat
+	button1 = game.add.button(2000,0, 'RndButton',lootvillage,this,'Hover','Up','Down');//avenge combat
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-	button1.combatmap = "VillageRaid";
-  button1.enemy = "{Insert ENEMY TYPE HERE IE Orc/Knight}";
-	button1.winFunction = "{INSERT FUNCTION NAME}";
-	button1.lossFunction = "{INSERT FUNCTION NAME}";
-	button1.scene = "act1";
-
 	button2.destroy();
 	narrative.destroy();
 	narrative = game.add.sprite(2000, 0, 'A1T','Avenge');
@@ -955,7 +944,12 @@ Act2.prototype = {
     narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
 
-    DebugPos();
+    if(population <= 0)
+    {
+      game.state.start('GameOver');
+    }
+    else if (supplies <= 0) {SupDrop();}
+    else if(food <= 0){FoodDrop();}
 	}
 }
 
@@ -968,9 +962,8 @@ function bbv(){
 	button2.destroy();
 	button3.destroy();
 	console.log("bbv");
-	population-=population/12;
-  population=population.toFixed(0)
-	supplies+=100;
+  //Update the the players resources (People/Supplies/Food)
+  UpdateResources(0,getRandomInt(50) + 50, -getRandomInt(5)-3);
 
 	b1t.text="Siege";
 	b2t.text="March On";
@@ -995,11 +988,7 @@ function bbl(){ // border battle lose
 	button2.destroy();
 	button3.destroy();
 	console.log("bbl");
-	//population-=population/6;
-  //population=population.toFixed(0)
 
-	supplies-=100;
-	food-=100;
 	b1t.text="Go Through Forest";
 	b2t.text="Walk The Edge";
 	button1.destroy();
@@ -1018,6 +1007,8 @@ function bbl(){ // border battle lose
 
 function siege(){
 	//mapbuttoncode
+  UpdateResources(0,-getRandomInt(5) - 5, -getRandomInt(5)-3);
+
 	narrative.destroy();
 	console.log("siege");
 	b1t.text="Starve Out";
@@ -1047,6 +1038,8 @@ function siege(){
 }
 function marchOn(){
 	narrative.destroy();
+  UpdateResources(0,-getRandomInt(30) - 10, -getRandomInt(10)-10);
+
 	console.log("marchOn");
 	b1t.text="Continue on";
 	b2t.text="";
@@ -1086,9 +1079,7 @@ function starveOut(){
 	}
   else{
 		//starvation fail
-		food-=10;
-		supplies-=12;
-		population-=getRandomInt(12)+12;
+    UpdateResources(-getRandomInt(10)-12,-getRandomInt(10) - 10, -getRandomInt(5)-10);
 		b1t.text="Continue siege";
 		b2t.text ="Assualt castle";
 		button1.destroy();
@@ -1113,10 +1104,8 @@ function starveOut(){
 
 function assaultCastleW(){
   narrative.destroy();
+  UpdateResources(-getRandomInt(150),getRandomInt(150) +100, getRandomInt(25)+25);
 
-  population-=getRandomInt(300)+200;
-  supplies+=150;
-  food+=20;
   b1t.text="Continue On";
   button1.destroy();
   button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
@@ -1135,9 +1124,8 @@ function assaultCastleW(){
 }
 function assaultCastleL(){
   narrative.destroy();
+  UpdateResources(-getRandomInt(150) - 300,-getRandomInt(150) -100, -getRandomInt(25));
 
-  population-=getRandomInt(450)+350;
-  supplies-=150;
   b1t.text="Go through forest";
   b2t.text="Walk the edge";
   button1.destroy();
@@ -1160,6 +1148,8 @@ function assaultCastleL(){
 
 function walkEdge(){
 	narrative.destroy();
+  UpdateResources(0,-getRandomInt(10) +5, getRandomInt(10)+5);
+
 	console.log("we");
 	b1t.text="Fight!";
 	b2t.text="";
@@ -1225,8 +1215,8 @@ function walkEdgeL(){
 //1 first time 2 victory or 3 losst combat
 function forest(){
 	narrative.destroy();
-	supplies+=7;
-	food+=10;
+  UpdateResources(0,getRandomInt(30) +5, getRandomInt(25)+10);
+
 
 	console.log("forest");
 	b1t.text="Fight!";
@@ -1276,25 +1266,18 @@ function forestW(){
 }
 function forestL(){
   console.log("forestL");
-  supplies-=100;
-  if(getRandomInt(10)>5){
+  if(getRandomInt(100)<25){
     //elves don't come
     b1t.text="Journey to river";
     button1.destroy();
     button2.destroy();
     button3.destroy();
-    b2t.text="Recoup Supplies";
+    b2t.text="";
     b3t.text="";
     button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
     button1.x = Math.floor(windoww.x + 40);
     button1.y = Math.floor(windoww.y + 350);
-    button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
 
-    button2.combatmap = "forrestBattle";
-    button2.enemy = "Knight";
-    button2.winFunction = "recoupWin";
-    button2.lossFunction = "recoupLose";
-    button2.scene = "act2";
     //add text here
     narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Lose');
     narrative.x = Math.floor(windoww.x + 100);
@@ -1329,7 +1312,8 @@ function forestL(){
 
 function recoupWin(){
 	narrative.destroy();
-	supplies+=100;
+  UpdateResources(0,getRandomInt(30) +5, getRandomInt(10)+10);
+
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
@@ -1348,6 +1332,7 @@ function recoupWin(){
   AddPath();
 }
 function recoupLose(){
+  moveWindowOnScreen();
 	narrative.destroy();
 	if(getRandomInt(10)>5){
 		//elves don't come
@@ -1361,20 +1346,12 @@ function recoupLose(){
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
 		button2 = game.add.button(2000,0, 'RndButton',recoupWin,this,'Hover','Up','Down');//forest battle
-    button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
-
-    button2.combatmap = "forrestBattle";
-    button2.enemy = "Knight";
-    button2.winFunction = "recoupWin";
-    button2.lossFunction = "recoupLose";
-    button2.scene = "act2";
 
 		narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Lose');
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
 	}else{
 		//elves do come
-		supplies+=100;
 		b1t.text="Journey to river";
 		button1.destroy();
 		button2.destroy();
@@ -1394,8 +1371,8 @@ function recoupLose(){
 
 function executeEdge(){
 	narrative.destroy();
-	supplies+=20;
-	food+=30;
+  UpdateResources(0,getRandomInt(30) +10,getRandomInt(15) +10);
+
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
@@ -1418,7 +1395,8 @@ function executeEdge(){
 
 function enslave(){
 	narrative.destroy();
-	supplies+=120;
+  UpdateResources(0,getRandomInt(150) +100, 0);
+
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
@@ -1440,7 +1418,8 @@ function enslave(){
 }
 function eat(){
 	narrative.destroy();
-	food+=100;
+  UpdateResources(0,0,getRandomInt(150) +100);
+
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
@@ -1462,8 +1441,8 @@ function eat(){
 }
 function executeForest(){
 	narrative.destroy();
-	supplies+=20;
-	food+=30;
+  UpdateResources(0,getRandomInt(30) +10,getRandomInt(15) +10);
+
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
@@ -1485,6 +1464,8 @@ function executeForest(){
 }
 
 function fieldOfGrain(){
+  UpdateResources(0,-getRandomInt(15) -10,-getRandomInt(15) -10);
+
 	narrative.destroy();
 	button2.destroy();
 	b3t.text="Pillage fields";
@@ -1538,7 +1519,8 @@ function pillage(){
 }
 function pillageW(){
   narrative.destroy();
-	supplies+=100;
+  UpdateResources(0,getRandomInt(30) +10,getRandomInt(150) +150);
+
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
@@ -1601,6 +1583,8 @@ function passField(){
 
 function river(){
 	narrative.destroy();
+  UpdateResources(0,-getRandomInt(30) -10,-getRandomInt(15) -10);
+
 	console.log("river");
 	b1t.text="Buy passage";
 	b2t.text="Ford the river";
@@ -1623,7 +1607,8 @@ function river(){
 }
 function buyPassage(){
 	narrative.destroy();
-	supplies-=200;
+  UpdateResources(0,-getRandomInt(50) -150,-getRandomInt(30) -10);
+
 	console.log("buyPassage");
 	b1t.text="to the bridge";
 	b2t.text="";
@@ -1645,9 +1630,7 @@ function fordRiver(){
 	b1t.text="to the bridge";
 	b2t.text="";
 	narrative.destroy();
-	supplies-=getRandomInt(300);
-	food-=getRandomInt(300);
-	population-=getRandomInt(300);
+  UpdateResources(-getRandomInt(150) -100,-getRandomInt(150) -100,-getRandomInt(150) -100);
 	console.log("fordRiver");
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',BridgeTrolls,this,'Hover','Up','Down');
@@ -1666,6 +1649,8 @@ function fordRiver(){
 
 function BridgeTrolls(){
 	narrative.destroy();
+  UpdateResources(0,-getRandomInt(10) -10,-getRandomInt(10) -10);
+
 	console.log("BridgeTrolls");
 	b1t.text="Slay the trolls";
 	b2t.text="";
@@ -1718,6 +1703,8 @@ function BridgeTrollsWin(){
 }
 function BridgeTrollsLose(){
 	console.log("BridgeTrolls Lose");
+  UpdateResources(-getRandomInt(50) -50,-getRandomInt(50) -50,-getRandomInt(50) -50);
+
 	b1t.text="Begin final leg";
 	b2t.text="";
 	button1.destroy();
@@ -1762,12 +1749,11 @@ Act3.prototype = {
     nextFunction = info.next;
   },
 	preload: function() {
-
-		game.load.image('window', 'assets/imgs/TextWindow.png');
-    game.load.image('statusBar', 'assets/imgs/UIHalfWindow.png');
-
 	},
 	create: function() {
+    game.state.start('GameOver', true, false, true);
+
+    /*
     if(currentAct != "act3")
     {
       Path = [];
@@ -1822,7 +1808,7 @@ Act3.prototype = {
       villageSpring();
     }
 
-
+*/
 	},
 	update: function() {
 		// window button 1
@@ -1843,9 +1829,16 @@ Act3.prototype = {
 		poptxt.text = 'Population: ' + population;
 		supplytxt.text = 'Supplies: ' + supplies;
 		foodtxt.text = 'Food: ' + food;
+
+    if(population <= 0)
+    {
+      game.state.start('GameOver');
+    }
+    else if (supplies <= 0) {SupDrop();}
+    else if(food <= 0){FoodDrop();}
 	}
 }
-///////////////////////act3 functions begin
+///////////////////////act3 functions begin UNIMPLEMNTED
 function villageSpring(){
 	console.log("villageSpring");
 	b1t.text="Take the spring";
@@ -2301,6 +2294,17 @@ function UpdateResources(p, s, f){
     game.add.tween(popTxtF).to({y: game.camera.height/2 - 200, alpha:0}, tweenSpd, null, true);
   }
 
+}
+
+function SupDrop(){
+  var amt = getRandomInt(population/4);
+  UpdateResources(-amt,amt,0)
+}
+
+function FoodDrop()
+{
+  var amt = getRandomInt(population/3);
+  UpdateResources(-amt,0,amt)
 }
 
 //apropriated from https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random

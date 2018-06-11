@@ -23,7 +23,6 @@ window.onload = function(){
 
 		// add states to StateManager and start MainMenu
     game.state.add('preload', Preload);
-    game.state.add('mainMenu', MainMenu);
     game.state.add('load', Load);
     game.state.add('LoadCampfire', LoadCampfire);
 
@@ -37,6 +36,7 @@ window.onload = function(){
   //  game.state.add('credits', Credits);
 
     game.state.add('DebugMenu', DebugMenu);
+    game.state.add('GameOver', GameOver);
 
 
 		game.state.start('boot');
@@ -60,8 +60,7 @@ Preload.prototype = {
 		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
 		game.load.atlas('backgrounds', 'assets/imgs/backgrounds.png','assets/imgs/backgrounds.json'),
 		game.load.atlas('bgimages', 'assets/imgs/bgimages.png','assets/imgs/bgimages.json'),
-		game.load.atlas('narrativeButtons', 'assets/imgs/narrativeButtons.png','assets/imgs/narrativeButtons.json',
-     	Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
+
 		game.load.atlas('A1T', 'assets/imgs/NarrativeText/act_1_text.png', 'assets/imgs/NarrativeText/act_1_text.json'), // Act 1 Narrative atlas + .json
 		game.load.atlas('A2T', 'assets/imgs/NarrativeText/act_2_text.png', 'assets/imgs/NarrativeText/act_2_text.json'), // Act 2 Narrative atlas + .json
 
@@ -93,7 +92,7 @@ LoadCampfire.prototype = {
   },
   create: function() {
     if(this.info.win){
-      UpdateResources(-(200 - 170 * (this.info.lost / 100)),+getRandomInt(50), 0);}
+      UpdateResources(-(200 - 170 * (this.info.lost / 100)),getRandomInt(50)+10, 0);}
     else {
       UpdateResources(-(200 - 170 * (this.info.lost / 100)),0, 0);
     }
@@ -220,7 +219,7 @@ Load.prototype = {
 
     }
 
-    if(startingPopulation-population > 0)
+    if(startingPopulation-population < 0)
     {
       currentPopulation = game.add.text(285, 170, startingPopulation-population+" People joined you on this stretch of your march");
 
@@ -328,9 +327,12 @@ function LoadNarrative(button) {
 	//game.state.start("act1", true, false);
 }
 
-//ADD MAIN MENU HERE
-var MainMenu = function(game) {};
-MainMenu.prototype = {
+var GameOver = function(game) {};
+GameOver.prototype = {
+  init: function(win) {
+    this.win = win;//variables used for stuff
+    if(win == null){this.win = false;}
+  },
 	preload: function() {
 	},
 	create: function() {
@@ -346,37 +348,54 @@ MainMenu.prototype = {
 		}
 
 		bg = game.add.sprite(0,0,'Main');
-	//	bg.scale.setTo(1.2,1.6);
+		bg.scale.setTo(1.2,1.6);
 
-    menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2, 'TextWindow');
+    menuWindow = game.add.sprite(game.camera.width / 2,game.camera.height / 2 - 200, 'TextWindow');
     menuWindow.anchor.x = menuWindow.anchor.y = 0.5;
-    menuWindow.scale.setTo(0.5,0.5);
+    menuWindow.scale.setTo(0.5,0.3);
 
-		bCombat = game.add.button(game.camera.width / 2,game.camera.height / 2, 'RndButton', LoadCombat, this, 'Hover', 'Up','Down');
+    if(this.win == true)
+    {
+      string = "And there your caravans journey begins, far from your home"+
+      " having already faced many trials. Watching your friends loose their lives," +
+      " as they themselves took the lives of others. The journey stretches on ever onward into a barran landscape and already" +
+      " your resources dwindle, will the caravan ever make it to Wonder?"
+      gameOverTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 - 250, string,
+       { fontSize: '18px',wordWrap: true, wordWrapWidth: (menuWindow.width - 100), fill: '#000000', boundsAlignH: 'center'})
+      gameOverTxt.anchor.x = gameOverTxt.anchor.y = 0.5;
+    }
+    else {
+
+      gameOverTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 - 200, 'Everyone has died on your endless march...',
+       { fontSize: '26px',wordWrap: true, wordWrapWidth: menuWindow.width, fill: '#000000', boundsAlignH: 'center'})
+      gameOverTxt.anchor.x = gameOverTxt.anchor.y = 0.5;
+    }
+
+
+		bCombat = game.add.button(game.camera.width / 2,game.camera.height / 2 - 150, 'RndButton', Restart, this, 'Hover', 'Up','Down');
 		bCombat.anchor.x = bCombat.anchor.y = 0.5;
     bCombat.scale.setTo(1.2,1);
 		//new Text(game, x, y, text [, style])
-	  bCombatTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 + 50, 'Load Combat',
+	  bCombatTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 - 120, 'Restart',
      { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'})
 		bCombatTxt.anchor.x = bCombatTxt.anchor.y = 0.5;
-
-		bNarrative = game.add.button(game.camera.width / 2,game.camera.height / 2 + 100, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
-		bNarrative.anchor.x = bNarrative.anchor.y = 0.5;
-		bNarrative.scale.setTo(1.2,1);
-
-		bNarrativeTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 + 150, 'Load Narrative',
-     { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'})
-		bNarrativeTxt.anchor.x = bNarrativeTxt.anchor.y = 0.5;
-
-
-	},
-	update: function() {
-		//game.state.start('GamePlay', true, false);
 
 	}
 }
 
-
+function Restart()
+{
+  //Resets all var for game to continue
+  game.state.start('boot');
+  Path = [];
+  cnt = 0;
+  food = 100;
+  supplies = 1000;
+  population = 1000;
+  startingFood=food;
+  startingResources=supplies;
+  startingPopulation=population;
+}
 /////////////////////////////
 
 /////////////////////////////

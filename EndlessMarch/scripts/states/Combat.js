@@ -1,17 +1,15 @@
 var Combat = function(game) {};
-
-
 Combat.prototype = {
 	init: function(info) {
+		//Var needed
 		partyAlive = partySize;
-		enemieCnt = 0;
+		enemieCnt = 1;
 		winFunction = info.winFunction;
 		lossFunction = info.lossFunction;
 		act = info.prevScene;
 		enemyType = info.enemy;
 		actionEnum = "Move"; //Move, Ability, Attack
 		_mapAssetPath = 'assets/imgs/CombatMaps/'  + info.map;
-		console.log(info);
 
 		mapWidth = -1;
 		mapHeight = -1;
@@ -19,6 +17,7 @@ Combat.prototype = {
 		enemyActing = false;
 	},
 	preload: function() {
+		//Loading in dynamic combat maps
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
     game.load.image('tiles', 'assets/imgs/32X32.png');
 		game.load.image('64X64', 'assets/imgs/64x64.png');
@@ -28,6 +27,7 @@ Combat.prototype = {
 		game.load.audio("atk",'assets/snds/atk.ogg');
 	},
 	create: function() {
+		//Stoping and playing combat audi
 
 		if(currentBGM != 0){
 			game.sound.stopAll();
@@ -38,9 +38,12 @@ Combat.prototype = {
 			currentBGM.play('',0,0.1,true);
 		}
 
+		//Turn tracking vars
 		units = [];
 		currentUnit = 0;
 		unitNum = 0;
+
+		//Set up for maps
 		//function Mapp(game, csvKey, csvSrc, imgSrc) {
 		//map = new Mapp(game, 'map', 'tiles', 'spritesheet(2)')
 		map = game.add.tilemap('map');
@@ -50,7 +53,6 @@ Combat.prototype = {
 		mapWidth = map.layers[0].width;
 		mapHeight = map.layers[0].height;
 
-		//spawnLayer = map.createLayer(3);
 		spawnLayer = map.createLayer(3);
 		dataLayer = map.createLayer(2);
 		map.createLayer(0);
@@ -59,6 +61,7 @@ Combat.prototype = {
 		dataLayer.resizeWorld();
 		mapp = new Mapp(game, map, dataLayer, spawnLayer);
 
+		//For bringing to front
 		uiGrp = game.add.group();
 		uiGrp.enableBody = true;
 
@@ -79,8 +82,6 @@ Combat.prototype = {
 		style = { font: "16px Arial", fill: "#000000", wordWrap: true,
 		  wordWrapWidth: unitWindow.width, align: "center", fontWeight: "bold" };
 
-
-
 		unitWindowtext = game.add.text(unitWindow.width * 0.5 ,game.height - unitWindow.height * 0.7, "Health: \n Move:", style);
 		unitWindowtext.fixedToCamera = true;
 
@@ -97,16 +98,6 @@ Combat.prototype = {
 		endTurntext = game.add.text(unitWindow.width * 0.85 ,game.height - unitWindow.height * 0.25, "End Turn", style);
 		endTurntext.fixedToCamera = true;
 
-		exitBtn = game.add.button(50 ,50, 'RndButton', Exit, this, 'Hover', 'Up','Down');
-		exitBtn.anchor.x = exitBtn.anchor.y = 0.5;
-		exitBtn.fixedToCamera = true;
-    exitBtn.scale.setTo(1,1);
-		exitBtn.enableBody = true;
-
-		var style = { font: "14px Arial", fill: "#000000", wordWrap: true,
-		 align: "center", fontWeight: "bold" };
-		exitBtntext = game.add.text(40 ,40, "Exit", style);
-		exitBtntext.fixedToCamera = true;
 
 		// add instructions in the bottom right corner
 		combatInstructions = game.add.sprite(850, 600, 'instructions','combatInstructions');
@@ -115,8 +106,7 @@ Combat.prototype = {
 		uiGrp.add(endTurn);
 		tileText = game.add.text(game.camera.width * 0.70 , 80, "", style);
 
-
-
+		//Current tile selected
 		////////////////////////////////////////////////////////////////////
 		marker = game.add.graphics();
 		marker.lineStyle(2, 0xffffff, 1);
@@ -128,6 +118,7 @@ Combat.prototype = {
 		SpawnEnemies('Enemy');
 		SpawnParty();
 
+		//Addding Groups
 
 		var i;
 		for (var i = 0; i < uiGrp.children.length; i++) {
@@ -178,11 +169,6 @@ Combat.prototype = {
 		}
 
 	},
-	render: function(){
-		//game.debug.body(unitWindow);
-		//game.debug.body(wind);
-
-	}
 };
 
 //Functions for UI Detection
@@ -234,10 +220,10 @@ function EndTurn() {
 function StartEnemyTurns(){
 	game.time.events.repeat(Phaser.Timer.SECOND * 0.5, 7, EnemyAct, this);
 	game.time.events.add((Phaser.Timer.SECOND * 0.5) * 7, EndTurn, this);
-
 }
 
 function EnemyAct() {
+	//Basic AI
 	if(enemyActing == true)
 	{
 		currentUnit.ChooseTarget();
@@ -286,6 +272,7 @@ function UpdateUI() {
 
 }
 
+//Updates tile selected
 function updateMarker() {
 	var x = game.input.activePointer.worldX;
 	var y = game.input.activePointer.worldY;
@@ -335,6 +322,7 @@ function updateMarker() {
   marker.y = y * 32;
 }
 
+//Does soemthign upon mouse click
 function TileSelect() {
 	var x = game.input.activePointer.worldX;
 	var y = game.input.activePointer.worldY;
@@ -366,6 +354,7 @@ function TileSelect() {
 
 }
 
+//Moves Player
 function Move(x,y) {
 		//Gets tile location in order to move the player
 		x = dataLayer.getTileX(game.input.activePointer.worldX);
@@ -387,10 +376,11 @@ function Move(x,y) {
 }
 
 function Ability(x,y) {
-	x = dataLayer.getTileX(game.input.activePointer.worldX);
-	y = dataLayer.getTileY(game.input.activePointer.worldY);
+	//unimplemnted
+
 }
 
+//Attacks
 function Attack(x,y) {
 	if(!mapp.isTileOpen(x,y) && GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60){
 		var flag = mapp.getTileStatus(x,y);
@@ -407,10 +397,10 @@ function Attack(x,y) {
 	}
 }
 
+//Distance calculations
 function GetDistance(x1,y1,x2,y2) {
 	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
-
 function GetUnitToUnitDistance(unit1,unit2) {
 	var x1 = unit1.position.x;
 	var y1 = unit1.position.y;
@@ -427,6 +417,7 @@ function GetUnitToPointDistance(unit1,x2,y2) {
 	return Math.sqrt( Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2));
 }
 
+//Enemy type spawn
 function EnemyAnimSetup(){
 	if(enemyType == "Orc"){
 		enemyAtkAnim = "[INSERT FRAM NAME HERE]";
@@ -482,6 +473,7 @@ function EnemyDied(unit){
 
 }
 
+//Manages Party Life and death
 function SpawnParty() {
 	locs = mapp.GetVSpawn();
 
