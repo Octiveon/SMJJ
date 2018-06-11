@@ -1,0 +1,634 @@
+{
+  "frames": {
+    "Buy Passage": {
+      "frame": {
+        "x": 501,
+        "y": 320,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Eat": {
+      "frame": {
+        "x": 0,
+        "y": 1209,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Enslave": {
+      "frame": {
+        "x": 501,
+        "y": 429,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Execute Edge": {
+      "frame": {
+        "x": 0,
+        "y": 402,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Execute Forest": {
+      "frame": {
+        "x": 1002,
+        "y": 187,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Field Of Grains": {
+      "frame": {
+        "x": 1002,
+        "y": 732,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Ford The River": {
+      "frame": {
+        "x": 501,
+        "y": 102,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Go Through The Forest Lose": {
+      "frame": {
+        "x": 501,
+        "y": 211,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Go Through The Forest Win": {
+      "frame": {
+        "x": 0,
+        "y": 293,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Go Through The Forest": {
+      "frame": {
+        "x": 501,
+        "y": 0,
+        "w": 500,
+        "h": 101
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 101
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 101
+      }
+    },
+    "March On": {
+      "frame": {
+        "x": 0,
+        "y": 729,
+        "w": 500,
+        "h": 84
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 84
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 84
+      }
+    },
+    "Pass": {
+      "frame": {
+        "x": 1002,
+        "y": 623,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Pillage Grains Lose": {
+      "frame": {
+        "x": 1002,
+        "y": 841,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Pillage Grains Win": {
+      "frame": {
+        "x": 0,
+        "y": 1100,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Pillage Grains": {
+      "frame": {
+        "x": 501,
+        "y": 1209,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Recoup Supplies Lose": {
+      "frame": {
+        "x": 0,
+        "y": 85,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Recoup Supplies Win": {
+      "frame": {
+        "x": 501,
+        "y": 1100,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "River": {
+      "frame": {
+        "x": 1002,
+        "y": 405,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Siege": {
+      "frame": {
+        "x": 0,
+        "y": 814,
+        "w": 500,
+        "h": 186
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 186
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 186
+      }
+    },
+    "Starve Them Out Failure": {
+      "frame": {
+        "x": 501,
+        "y": 1001,
+        "w": 500,
+        "h": 98
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 98
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 98
+      }
+    },
+    "Starve Them Out Success": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 84
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 84
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 84
+      }
+    },
+    "Walk The Edge Lose": {
+      "frame": {
+        "x": 0,
+        "y": 511,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Walk The Edge Win": {
+      "frame": {
+        "x": 501,
+        "y": 849,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Walk The Edge": {
+      "frame": {
+        "x": 501,
+        "y": 703,
+        "w": 500,
+        "h": 145
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 145
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 145
+      }
+    },
+    "Assault The Castle Lose": {
+      "frame": {
+        "x": 0,
+        "y": 194,
+        "w": 500,
+        "h": 98
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 98
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 98
+      }
+    },
+    "Assault The Castle Win": {
+      "frame": {
+        "x": 0,
+        "y": 1001,
+        "w": 500,
+        "h": 98
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 98
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 98
+      }
+    },
+    "Border Battle Lose": {
+      "frame": {
+        "x": 1002,
+        "y": 0,
+        "w": 500,
+        "h": 186
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 186
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 186
+      }
+    },
+    "Border Battle Win": {
+      "frame": {
+        "x": 501,
+        "y": 538,
+        "w": 500,
+        "h": 164
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 164
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 164
+      }
+    },
+    "Bridge Trolls Lose": {
+      "frame": {
+        "x": 0,
+        "y": 620,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Bridge Trolls Win": {
+      "frame": {
+        "x": 1002,
+        "y": 514,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Bridge Trolls": {
+      "frame": {
+        "x": 1002,
+        "y": 296,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    }
+  },
+  "meta": {
+    "app": "https://www.leshylabs.com/apps/sstool/",
+    "version": "Leshy SpriteSheet Tool v0.8.4",
+    "image": "act_2_text.png",
+    "size": {
+      "w": 1502,
+      "h": 1317
+    },
+    "scale": 1
+  }
+}

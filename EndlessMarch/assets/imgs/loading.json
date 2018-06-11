@@ -1,0 +1,514 @@
+{
+  "frames": {
+    "dust3": {
+      "frame": {
+        "x": 1201,
+        "y": 756,
+        "w": 124,
+        "h": 124
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 124,
+        "h": 124
+      },
+      "sourceSize": {
+        "w": 124,
+        "h": 124
+      }
+    },
+    "Flag-0": {
+      "frame": {
+        "x": 1318,
+        "y": 1131,
+        "w": 50,
+        "h": 200
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 50,
+        "h": 200
+      },
+      "sourceSize": {
+        "w": 50,
+        "h": 200
+      }
+    },
+    "Flag-1": {
+      "frame": {
+        "x": 1369,
+        "y": 0,
+        "w": 50,
+        "h": 200
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 50,
+        "h": 200
+      },
+      "sourceSize": {
+        "w": 50,
+        "h": 200
+      }
+    },
+    "Flag-2": {
+      "frame": {
+        "x": 1369,
+        "y": 201,
+        "w": 50,
+        "h": 200
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 50,
+        "h": 200
+      },
+      "sourceSize": {
+        "w": 50,
+        "h": 200
+      }
+    },
+    "Flag-3": {
+      "frame": {
+        "x": 1369,
+        "y": 402,
+        "w": 50,
+        "h": 200
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 50,
+        "h": 200
+      },
+      "sourceSize": {
+        "w": 50,
+        "h": 200
+      }
+    },
+    "Floor": {
+      "frame": {
+        "x": 0,
+        "y": 1232,
+        "w": 1200,
+        "h": 124
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1200,
+        "h": 124
+      },
+      "sourceSize": {
+        "w": 1200,
+        "h": 124
+      }
+    },
+    "Heads1": {
+      "frame": {
+        "x": 0,
+        "y": 1534,
+        "w": 680,
+        "h": 41
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 680,
+        "h": 41
+      },
+      "sourceSize": {
+        "w": 680,
+        "h": 41
+      }
+    },
+    "Heads2": {
+      "frame": {
+        "x": 0,
+        "y": 1576,
+        "w": 680,
+        "h": 41
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 680,
+        "h": 41
+      },
+      "sourceSize": {
+        "w": 680,
+        "h": 41
+      }
+    },
+    "Hills": {
+      "frame": {
+        "x": 0,
+        "y": 1065,
+        "w": 1200,
+        "h": 166
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1200,
+        "h": 166
+      },
+      "sourceSize": {
+        "w": 1200,
+        "h": 166
+      }
+    },
+    "Skeleton": {
+      "frame": {
+        "x": 681,
+        "y": 1576,
+        "w": 86,
+        "h": 19
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 86,
+        "h": 19
+      },
+      "sourceSize": {
+        "w": 86,
+        "h": 19
+      }
+    },
+    "skull": {
+      "frame": {
+        "x": 1201,
+        "y": 1515,
+        "w": 64,
+        "h": 64
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 64,
+        "h": 64
+      },
+      "sourceSize": {
+        "w": 64,
+        "h": 64
+      }
+    },
+    "Sun": {
+      "frame": {
+        "x": 1201,
+        "y": 289,
+        "w": 165,
+        "h": 165
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 165,
+        "h": 165
+      },
+      "sourceSize": {
+        "w": 165,
+        "h": 165
+      }
+    },
+    "Tree1": {
+      "frame": {
+        "x": 1201,
+        "y": 455,
+        "w": 128,
+        "h": 300
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 128,
+        "h": 300
+      },
+      "sourceSize": {
+        "w": 128,
+        "h": 300
+      }
+    },
+    "Tree2": {
+      "frame": {
+        "x": 1201,
+        "y": 0,
+        "w": 167,
+        "h": 288
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 167,
+        "h": 288
+      },
+      "sourceSize": {
+        "w": 167,
+        "h": 288
+      }
+    },
+    "Tree3": {
+      "frame": {
+        "x": 1201,
+        "y": 1332,
+        "w": 87,
+        "h": 182
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 87,
+        "h": 182
+      },
+      "sourceSize": {
+        "w": 87,
+        "h": 182
+      }
+    },
+    "Tree4": {
+      "frame": {
+        "x": 1289,
+        "y": 1332,
+        "w": 44,
+        "h": 81
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 44,
+        "h": 81
+      },
+      "sourceSize": {
+        "w": 44,
+        "h": 81
+      }
+    },
+    "Tree5": {
+      "frame": {
+        "x": 1201,
+        "y": 1131,
+        "w": 116,
+        "h": 200
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 116,
+        "h": 200
+      },
+      "sourceSize": {
+        "w": 116,
+        "h": 200
+      }
+    },
+    "Tree6": {
+      "frame": {
+        "x": 786,
+        "y": 1475,
+        "w": 76,
+        "h": 56
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 76,
+        "h": 56
+      },
+      "sourceSize": {
+        "w": 76,
+        "h": 56
+      }
+    },
+    "Mountains": {
+      "frame": {
+        "x": 0,
+        "y": 801,
+        "w": 1200,
+        "h": 263
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1200,
+        "h": 263
+      },
+      "sourceSize": {
+        "w": 1200,
+        "h": 263
+      }
+    },
+    "Army-1": {
+      "frame": {
+        "x": 0,
+        "y": 1357,
+        "w": 785,
+        "h": 58
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 785,
+        "h": 58
+      },
+      "sourceSize": {
+        "w": 785,
+        "h": 58
+      }
+    },
+    "Army-2": {
+      "frame": {
+        "x": 0,
+        "y": 1416,
+        "w": 785,
+        "h": 58
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 785,
+        "h": 58
+      },
+      "sourceSize": {
+        "w": 785,
+        "h": 58
+      }
+    },
+    "Army-3": {
+      "frame": {
+        "x": 0,
+        "y": 1475,
+        "w": 785,
+        "h": 58
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 785,
+        "h": 58
+      },
+      "sourceSize": {
+        "w": 785,
+        "h": 58
+      }
+    },
+    "dust1": {
+      "frame": {
+        "x": 1201,
+        "y": 881,
+        "w": 124,
+        "h": 124
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 124,
+        "h": 124
+      },
+      "sourceSize": {
+        "w": 124,
+        "h": 124
+      }
+    },
+    "dust2": {
+      "frame": {
+        "x": 1201,
+        "y": 1006,
+        "w": 124,
+        "h": 124
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 124,
+        "h": 124
+      },
+      "sourceSize": {
+        "w": 124,
+        "h": 124
+      }
+    },
+    "Gradient": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 1200,
+        "h": 800
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1200,
+        "h": 800
+      },
+      "sourceSize": {
+        "w": 1200,
+        "h": 800
+      }
+    }
+  },
+  "meta": {
+    "app": "https://www.leshylabs.com/apps/sstool/",
+    "version": "Leshy SpriteSheet Tool v0.8.4",
+    "image": "loadingAtlas.png",
+    "size": {
+      "w": 1419,
+      "h": 1617
+    },
+    "scale": 1
+  }
+}

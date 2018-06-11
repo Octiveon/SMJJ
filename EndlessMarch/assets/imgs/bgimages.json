@@ -1,0 +1,94 @@
+{
+  "frames": {
+    "Loading": {
+      "frame": {
+        "x": 2030,
+        "y": 677,
+        "w": 1008,
+        "h": 506
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1008,
+        "h": 506
+      },
+      "sourceSize": {
+        "w": 1008,
+        "h": 506
+      }
+    },
+    "Act2": {
+      "frame": {
+        "x": 0,
+        "y": 677,
+        "w": 1014,
+        "h": 676
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1014,
+        "h": 676
+      },
+      "sourceSize": {
+        "w": 1014,
+        "h": 676
+      }
+    },
+    "Act1": {
+      "frame": {
+        "x": 1015,
+        "y": 677,
+        "w": 1014,
+        "h": 676
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1014,
+        "h": 676
+      },
+      "sourceSize": {
+        "w": 1014,
+        "h": 676
+      }
+    },
+    "Act3": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 3042,
+        "h": 676
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 3042,
+        "h": 676
+      },
+      "sourceSize": {
+        "w": 3042,
+        "h": 676
+      }
+    }
+  },
+  "meta": {
+    "app": "https://www.leshylabs.com/apps/sstool/",
+    "version": "Leshy SpriteSheet Tool v0.8.4",
+    "image": "bgimages.png",
+    "size": {
+      "w": 3042,
+      "h": 1353
+    },
+    "scale": 1
+  }
+}

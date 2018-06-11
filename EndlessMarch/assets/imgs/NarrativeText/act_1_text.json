@@ -1,0 +1,854 @@
+{
+  "frames": {
+    "Clear A Path": {
+      "frame": {
+        "x": 0,
+        "y": 1163,
+        "w": 500,
+        "h": 107
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 107
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 107
+      }
+    },
+    "Coastal Storm Minimal": {
+      "frame": {
+        "x": 0,
+        "y": 945,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Coastal Storm Ravage": {
+      "frame": {
+        "x": 0,
+        "y": 1054,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Coastal Storm": {
+      "frame": {
+        "x": 501,
+        "y": 1271,
+        "w": 500,
+        "h": 99
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 99
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 99
+      }
+    },
+    "Crossroad": {
+      "frame": {
+        "x": 0,
+        "y": 1379,
+        "w": 500,
+        "h": 99
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 99
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 99
+      }
+    },
+    "Elder Battle Lose": {
+      "frame": {
+        "x": 501,
+        "y": 945,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Elder Battle Win": {
+      "frame": {
+        "x": 501,
+        "y": 682,
+        "w": 500,
+        "h": 110
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 110
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 110
+      }
+    },
+    "Elder Battle": {
+      "frame": {
+        "x": 0,
+        "y": 225,
+        "w": 500,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 224
+      }
+    },
+    "Foothill Bandits CtoM Lose": {
+      "frame": {
+        "x": 1002,
+        "y": 1303,
+        "w": 500,
+        "h": 76
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 76
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 76
+      }
+    },
+    "Foothill Bandits CtoM Win": {
+      "frame": {
+        "x": 1002,
+        "y": 1226,
+        "w": 500,
+        "h": 76
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 76
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 76
+      }
+    },
+    "Foothill Bandits CtoM": {
+      "frame": {
+        "x": 1002,
+        "y": 1149,
+        "w": 500,
+        "h": 76
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 76
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 76
+      }
+    },
+    "Foothill Bandits MtoC Lose": {
+      "frame": {
+        "x": 1002,
+        "y": 621,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Foothill Bandits MtoC Win": {
+      "frame": {
+        "x": 1002,
+        "y": 709,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Foothill Bandits MtoC": {
+      "frame": {
+        "x": 1002,
+        "y": 973,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Go Fast Lose": {
+      "frame": {
+        "x": 1002,
+        "y": 93,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Go Fast Win": {
+      "frame": {
+        "x": 1002,
+        "y": 797,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Go Fast": {
+      "frame": {
+        "x": 1002,
+        "y": 445,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Go Slow": {
+      "frame": {
+        "x": 1002,
+        "y": 357,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Loot Village": {
+      "frame": {
+        "x": 501,
+        "y": 562,
+        "w": 500,
+        "h": 119
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 119
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 119
+      }
+    },
+    "Mountain Descent": {
+      "frame": {
+        "x": 1002,
+        "y": 269,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Mountain Storm Lose": {
+      "frame": {
+        "x": 1002,
+        "y": 885,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Mountain Storm Win": {
+      "frame": {
+        "x": 1002,
+        "y": 1061,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Mountain Storm": {
+      "frame": {
+        "x": 1002,
+        "y": 181,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Move On": {
+      "frame": {
+        "x": 501,
+        "y": 442,
+        "w": 500,
+        "h": 119
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 119
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 119
+      }
+    },
+    "Orc Battle Lose": {
+      "frame": {
+        "x": 501,
+        "y": 1054,
+        "w": 500,
+        "h": 107
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 107
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 107
+      }
+    },
+    "Orc Battle Win": {
+      "frame": {
+        "x": 501,
+        "y": 1163,
+        "w": 500,
+        "h": 107
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 107
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 107
+      }
+    },
+    "Orc Battle": {
+      "frame": {
+        "x": 0,
+        "y": 1271,
+        "w": 500,
+        "h": 107
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 107
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 107
+      }
+    },
+    "Press On": {
+      "frame": {
+        "x": 0,
+        "y": 450,
+        "w": 500,
+        "h": 164
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 164
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 164
+      }
+    },
+    "Raider Battle Lose": {
+      "frame": {
+        "x": 501,
+        "y": 1479,
+        "w": 500,
+        "h": 68
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 68
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 68
+      }
+    },
+    "Raider Battle Win": {
+      "frame": {
+        "x": 0,
+        "y": 1479,
+        "w": 500,
+        "h": 68
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 68
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 68
+      }
+    },
+    "Raider Battle": {
+      "frame": {
+        "x": 1002,
+        "y": 1380,
+        "w": 500,
+        "h": 68
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 68
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 68
+      }
+    },
+    "Recruit Villagers": {
+      "frame": {
+        "x": 501,
+        "y": 161,
+        "w": 500,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 160
+      }
+    },
+    "Rest": {
+      "frame": {
+        "x": 501,
+        "y": 1379,
+        "w": 500,
+        "h": 97
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 97
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 97
+      }
+    },
+    "Rock Slide": {
+      "frame": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 224
+      }
+    },
+    "Take A Rest": {
+      "frame": {
+        "x": 501,
+        "y": 0,
+        "w": 500,
+        "h": 160
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 160
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 160
+      }
+    },
+    "Village Battle Lose": {
+      "frame": {
+        "x": 0,
+        "y": 615,
+        "w": 500,
+        "h": 164
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 164
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 164
+      }
+    },
+    "Village Battle Win": {
+      "frame": {
+        "x": 0,
+        "y": 780,
+        "w": 500,
+        "h": 164
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 164
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 164
+      }
+    },
+    "Village Battle": {
+      "frame": {
+        "x": 501,
+        "y": 793,
+        "w": 500,
+        "h": 108
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 108
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 108
+      }
+    },
+    "Weather Decision": {
+      "frame": {
+        "x": 1002,
+        "y": 533,
+        "w": 500,
+        "h": 87
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 87
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 87
+      }
+    },
+    "Avenge": {
+      "frame": {
+        "x": 501,
+        "y": 322,
+        "w": 500,
+        "h": 119
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 119
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 119
+      }
+    },
+    "Avoid Village": {
+      "frame": {
+        "x": 1002,
+        "y": 1479,
+        "w": 500,
+        "h": 68
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 68
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 68
+      }
+    },
+    "Battle At The Border": {
+      "frame": {
+        "x": 1002,
+        "y": 0,
+        "w": 500,
+        "h": 92
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 500,
+        "h": 92
+      },
+      "sourceSize": {
+        "w": 500,
+        "h": 92
+      }
+    }
+  },
+  "meta": {
+    "app": "https://www.leshylabs.com/apps/sstool/",
+    "version": "Leshy SpriteSheet Tool v0.8.4",
+    "image": "act_1_text.png",
+    "size": {
+      "w": 1502,
+      "h": 1547
+    },
+    "scale": 1
+  }
+}
