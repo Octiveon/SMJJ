@@ -19,8 +19,7 @@ Combat.prototype = {
 	preload: function() {
 		//Loading in dynamic combat maps
 		game.load.tilemap('map', _mapAssetPath + '.json', null, Phaser.Tilemap.TILED_JSON);
-    game.load.image('tiles', 'assets/imgs/32X32.png');
-		game.load.image('64X64', 'assets/imgs/64x64.png');
+  
 		game.load.image('UIHalfWindow', 'assets/imgs/UIWindow3.png');
 
 		//Sounds
