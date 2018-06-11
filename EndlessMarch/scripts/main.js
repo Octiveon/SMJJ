@@ -53,6 +53,7 @@ Preload.prototype = {
     game.load.image('LongWindow','assets/imgs/UILongPlain.png')
     game.load.image('Main','assets/imgs/StartMenu.png')
     game.load.image('Instructions','assets/imgs/Instructions.png')
+    game.load.image('Credits','assets/imgs/Credits.png')
 
 
     game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
@@ -428,7 +429,7 @@ DebugMenu.prototype = {
 
     instructions = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 150 , 'menu', Instructions, this, 'Instructions2', 'Instructions1','Instructions2');
     //credits.scene = "act1";
-    credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 225 , 'menu', LoadNarrative, this, 'Credits2', 'Credits1','Credits2');
+    credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 225 , 'menu', Credits, this, 'Credits2', 'Credits1','Credits2');
 
     act2 = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 250, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		act2.anchor.x = act2.anchor.y = 0.5;
@@ -461,4 +462,15 @@ function CloseInstructions(){
   instructions.destroy();
   close.destroy();
   closeTxt.destroy();
+}
+
+function Credits(){
+  credits = game.add.sprite(100,50,'Credits');
+  closeCredits = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 325, 'RndButton', CloseCredits, this, 'Hover', 'Up','Down');
+  closeCreditsTxt = game.add.text(game.camera.width / 2 -150 , game.camera.height / 2 + 325, 'Close Credits',style);
+}
+function CloseCredits(){
+  credits.destroy();
+  closeCredits.destroy();
+  closeCreditsTxtTxt.destroy();
 }
