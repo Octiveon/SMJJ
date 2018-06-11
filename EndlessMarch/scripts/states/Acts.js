@@ -1128,8 +1128,9 @@ function assaultCastleW(){
   narrative.y = Math.floor(windoww.y + 100);
   moveWindowOffScreen();
   caravanStart.destroy();
-	caravanStart = game.add.button(516, 400, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(700, 523, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 
 }
 function assaultCastleL(){
