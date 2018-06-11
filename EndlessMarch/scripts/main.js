@@ -34,6 +34,7 @@ window.onload = function(){
 		game.state.add('act1', Act1);
 		game.state.add('act2', Act2);
 		game.state.add('act3', Act3);
+  //  game.state.add('credits', Credits);
 
     game.state.add('DebugMenu', DebugMenu);
 
@@ -65,7 +66,8 @@ Preload.prototype = {
 		game.load.atlas('A2T', 'assets/imgs/NarrativeText/act_2_text.png', 'assets/imgs/NarrativeText/act_2_text.json'), // Act 2 Narrative atlas + .json
 
     //Buttons
-    game.load.atlas('play', 'assets/imgs/playButton.png', 'assets/imgs/playButton.json'),
+    game.load.atlas('menu', 'assets/imgs/menuButtons.png', 'assets/imgs/menuButtons.json'), // Menu + Credits Buttons
+
 		//Sprites
 		game.load.atlas('knightL', 'assets/imgs/Sprites/knightLeft.png', 'assets/imgs/Sprites/knightLeft.json'),
 		game.load.atlas('knightR', 'assets/imgs/Sprites/knightRight.png', 'assets/imgs/Sprites/knightRight.json'),
@@ -400,22 +402,26 @@ DebugMenu.prototype = {
 
     style = { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'};
 
-    act1 = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 75 , 'play', LoadNarrative, this, 'Play2', 'Play1','Play2');
+    act1 = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 75 , 'menu', LoadNarrative, this, 'Play2', 'Play1','Play2');
     act1.scene = "act1";
 
-    act2 = game.add.button(game.camera.width / 2 - 525 ,game.camera.height / 2 + 175, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+    instructions = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 150 , 'menu', LoadNarrative, this, 'Instructions2', 'Instructions1','Instructions2');
+    //credits.scene = "act1";
+    credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 225 , 'menu', LoadNarrative, this, 'Credits2', 'Credits1','Credits2');
+
+    act2 = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 250, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		act2.anchor.x = act2.anchor.y = 0.5;
 		act2.scale.setTo(1.2,1);
     act2.scene = "act2";
 
-    act2Txt = game.add.text(game.camera.width / 2 -490 , game.camera.height / 2 + 150, 'Load Act2',style)
+    act2Txt = game.add.text(game.camera.width / 2 -175 , game.camera.height / 2 + 225, 'Load Act2',style)
 
-    act3 = game.add.button(game.camera.width / 2 - 525 , game.camera.height / 2 + 225, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+    act3 = game.add.button(game.camera.width / 2 - 200 , game.camera.height / 2 + 300, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		act3.anchor.x = act3.anchor.y = 0.5;
 		act3.scale.setTo(1.2,1);
     act3.scene = "act3";
 
-    act3Txt = game.add.text(game.camera.width / 2 - 490 , game.camera.height / 2 + 200, 'Load Act3',style)
+    act3Txt = game.add.text(game.camera.width / 2 - 175 , game.camera.height / 2 + 275, 'Load Act3',style)
 
 
 	},
