@@ -49,22 +49,20 @@ Preload.prototype = {
 		//Centers the game screen.
     game.load.image('TextWindow','assets/imgs/TextWindow.png')
     game.load.image('LongWindow','assets/imgs/UILongPlain.png')
-    game.load.image('Main','assets/imgs/StartMenu.png')
-    game.load.image('Instructions','assets/imgs/Instructions.png')
-    game.load.image('Credits','assets/imgs/Credits.png')
+    game.load.image('Main','assets/imgs/Backgrounds/StartMenu.png')
+    game.load.image('Instructions','assets/imgs/Backgrounds/Instructions.png')
+    game.load.image('Credits','assets/imgs/Backgrounds/Credits.png')
 
-
-    game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
+    game.load.atlas('RndButton', 'assets/imgs/Buttons/RndButton.png','assets/imgs/Buttons/RndButton.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
-		game.load.atlas('backgrounds', 'assets/imgs/backgrounds.png','assets/imgs/backgrounds.json'),
-		game.load.atlas('bgimages', 'assets/imgs/bgimages.png','assets/imgs/bgimages.json'),
+		game.load.atlas('bgimages', 'assets/imgs/Backgrounds/bgimages.png','assets/imgs/Backgrounds/bgimages.json'), // Narrative Backgrounds
 
 		game.load.atlas('A1T', 'assets/imgs/NarrativeText/act_1_text.png', 'assets/imgs/NarrativeText/act_1_text.json'), // Act 1 Narrative atlas + .json
 		game.load.atlas('A2T', 'assets/imgs/NarrativeText/act_2_text.png', 'assets/imgs/NarrativeText/act_2_text.json'), // Act 2 Narrative atlas + .json
 
     //Buttons
-    game.load.atlas('menu', 'assets/imgs/menuButtons.png', 'assets/imgs/menuButtons.json'), // Menu + Credits Buttons
+    game.load.atlas('menu', 'assets/imgs/Buttons/menuButtons.png', 'assets/imgs/Buttons/menuButtons.json'), // Menu + Credits Buttons
 
 		//Sprites
 		game.load.atlas('knightL', 'assets/imgs/Sprites/knightLeft.png', 'assets/imgs/Sprites/knightLeft.json'),
