@@ -53,6 +53,9 @@ Preload.prototype = {
     game.load.image('Instructions','assets/imgs/Backgrounds/Instructions.png')
     game.load.image('Credits','assets/imgs/Backgrounds/Credits.png')
 
+    game.load.image('tiles', 'assets/imgs/Tiles32.png');
+    game.load.image('64X64', 'assets/imgs/Tiles64.png');
+
     game.load.atlas('RndButton', 'assets/imgs/Buttons/RndButton.png','assets/imgs/Buttons/RndButton.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
