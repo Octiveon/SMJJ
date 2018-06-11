@@ -915,8 +915,6 @@ Act2.prototype = {
 
 	},
 	update: function() {
-
-
 		// window button 1
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
@@ -952,7 +950,7 @@ Act2.prototype = {
 //won border battle
 function bbv(){
   AddPath();
-
+  partySize++;
 	button1.destroy();
 	button2.destroy();
 	button3.destroy();
@@ -1058,8 +1056,8 @@ function starveOut(){
   starve = getRandomInt(100);
   //Console.log(starve);
 	if(starve<10){
-		supplies+=100;
-		food+=7;
+    UpdateResources(getRandomInt(25),getRandomInt(100) + 100,0);
+    partySize++;
 		button1.destroy();
 		button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
 		button1.x = Math.floor(windoww.x + 40);
@@ -1653,7 +1651,7 @@ function BridgeTrolls(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//bridgetrolls
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-  button1.combatmap = "GrainBattle";
+  button1.combatmap = "Bridgebattle";
 	button1.enemy = "Knight";
 	button1.winFunction = "BridgeTrollsWin";
 	button1.lossFunction = "BridgeTrollsLose";

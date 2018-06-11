@@ -107,12 +107,10 @@ LoadCampfire.prototype = {
       game.state.start("load", true, false, this.info);
     }
     else {
-      cont = game.add.button(game.camera.width/2, game.camera.height/2 + 100, 'RndButton', LoadScene, this, 'Hover','Up','Down');
-      cont.anchor.set(0.5);
-      cont.next = this.info.next;
-      cont.scene = this.info.scene;
-      cont.keepPreload = true;
-      cont.keepCreate = false;
+      currentAct = this.info.scene;
+      this.info.keepPreload = true;
+      this.info.keepCreate =false;
+      game.state.start("load", true, false, this.info);
     }
   }
 }
@@ -370,7 +368,7 @@ GameOver.prototype = {
     //Changes based on getting to act 3 or not
 
 		Restart = game.add.button(game.camera.width / 2,game.camera.height / 2 - 150, 'RndButton', Restart, this, 'Hover', 'Up','Down');
-		Restart.anchor.x = bCombat.Restart.y = 0.5;
+		Restart.anchor.x = Restart.anchor.y = 0.5;
     Restart.scale.setTo(1.2,1);
 		//new Text(game, x, y, text [, style])
 	  RestartTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 - 120, 'Restart',
@@ -380,8 +378,7 @@ GameOver.prototype = {
 	}
 }
 
-function Restart()
-{
+function Restart(){
   //Resets all var for game to continue
   game.state.start('boot');
   Path = [];
