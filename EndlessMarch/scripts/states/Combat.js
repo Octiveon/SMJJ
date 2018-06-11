@@ -193,9 +193,6 @@ function EndTurn() {
 	currentUnit.NewTurn();
 	UpdateUI();
 
-
-	console.log("UNIT:" + unitNum);
-
 	for (var i = uiGrp.children.length; i < uiGrp.children.length; i++) {
 		uiGrp.children[i].bringToTop();
 	}
@@ -258,7 +255,6 @@ function getRandomTile(){
 		y = -31;
 	}
 	var r = {xPos:x,yPos:y};
-	//console.log(r);
 	return r
 }
 
@@ -335,7 +331,6 @@ function TileSelect() {
 	//Gets tile location in order to move the player
 	x = dataLayer.getTileX(game.input.activePointer.worldX);
 	y = dataLayer.getTileY(game.input.activePointer.worldY);
-	console.log(x + "====" + y);
 
 	switch (actionEnum) {
 		case "Move":
@@ -363,7 +358,6 @@ function Move(x,y) {
 		var prevX = dataLayer.getTileX(currentUnit.position.x);
 		var prevY = dataLayer.getTileY(currentUnit.position.y);
 
-		//console.log(tile);
 		if(mapp.isTileOpen(x,y) &&
 		 GetDistance(x * 32, y * 32 - 32, currentUnit.position.x,currentUnit.position.y) < 60 &&
 		 currentUnit.CanMove(mapp.getTileCost(x,y))){
@@ -388,10 +382,8 @@ function Attack(x,y) {
 		if(flag != 0 && currentUnit.attacked == false){
 			occup = mapp.getTileOccupant(x,y);
 			if(enemyUnits.children.indexOf(occup) > -1) {
-				 console.log("Attack");
 				 currentUnit.animations.play('pAttack');
 				 currentUnit.Attack(occup);
-				 console.log(occup.health);
 			}
 		}
 	}
@@ -437,11 +429,11 @@ function EnemyAnimSetup(){
 function SpawnEnemies(type) {
 	//Checks to make sure tile they will spawn in is open
 	locs = mapp.GetESpawn();
-	for (var i = 0; i < 0; i++) {
+	for (var i = 0; i < locs.length; i++) {
 		//function EnemyUnit(game, key, frame, scale, x, y, health, baseDmg) {
 		var x = locs[i].x;
 		var y = locs[i].y;
-		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1.5, x * 32, y * 32 - 32, 50, 100);
+		eUnit = new EnemyUnit(game, 'orcL','Orc1', 1.5, x * 32, y * 32 - 32, 50, 25);
 		eUnit.animations.add('eAttack', Phaser.Animation.generateFrameNames('Orc', 1,9), 10, false); // Attack animation for enemies
 		game.add.existing(eUnit);
 		enemyUnits.add(eUnit);
@@ -455,7 +447,6 @@ function EnemyDied(unit){
 
 	var x = dataLayer.getTileX(currentUnit.position.x);
 	var y = dataLayer.getTileY(currentUnit.position.y);
-	console.log(x + "---" + y);
 
 	mapp.OccupentLeft(x + 1, y + 1);
 
@@ -483,7 +474,7 @@ function SpawnParty() {
 		var y = locs[i].y;
 
 		//function PlayerUnit(game, key, frame, scale, x, y, health, baseDmg) {
-		pUnit = new PlayerUnit(game, 'knightR','Knight1', 1.5, x * 32, y * 32, 100, 50);
+		pUnit = new PlayerUnit(game, 'knightR','Knight1', 1.5, x * 32, y * 32, 100, 25);
 		pUnit.animations.add('pAttack', Phaser.Animation.generateFrameNames('Knight', 1,9), 10, false); // Attack animation for player unit
 		game.add.existing(pUnit);
 		vanguard.add(pUnit);

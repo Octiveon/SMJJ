@@ -240,7 +240,7 @@ Load.prototype = {
 
 
 
-    console.log(this.loadInfo);
+    //Console.log(this.loadInfo);
     info = game.add.button(game.camera.width/2,game.camera.height/2 + 0, 'LongWindow', LoadScene, this);
     infoTxt = game.add.text(game.camera.width/2 - 50,game.camera.height/2 - 10, "March!");
     info.anchor.set(0.5);
@@ -300,7 +300,7 @@ function HeadDir2(){
 }
 
 function LoadScene(info) {
-  console.log(info);
+  //Console.log(info);
  if(info.scene == "combat")
   {
     game.state.start(info.scene, info.keepPreload, info.keepCreate,info.combat);
@@ -354,6 +354,7 @@ GameOver.prototype = {
     menuWindow.anchor.x = menuWindow.anchor.y = 0.5;
     menuWindow.scale.setTo(0.5,0.3);
 
+    //Changes based on getting to act 3 or not
     if(this.win == true)
     {
       string = "And there your caravans journey begins, far from your home"+
@@ -371,14 +372,15 @@ GameOver.prototype = {
       gameOverTxt.anchor.x = gameOverTxt.anchor.y = 0.5;
     }
 
+    //Changes based on getting to act 3 or not
 
-		bCombat = game.add.button(game.camera.width / 2,game.camera.height / 2 - 150, 'RndButton', Restart, this, 'Hover', 'Up','Down');
-		bCombat.anchor.x = bCombat.anchor.y = 0.5;
-    bCombat.scale.setTo(1.2,1);
+		Restart = game.add.button(game.camera.width / 2,game.camera.height / 2 - 150, 'RndButton', Restart, this, 'Hover', 'Up','Down');
+		Restart.anchor.x = bCombat.Restart.y = 0.5;
+    Restart.scale.setTo(1.2,1);
 		//new Text(game, x, y, text [, style])
-	  bCombatTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 - 120, 'Restart',
+	  RestartTxt = game.add.text(game.camera.width / 2, game.camera.height / 2 - 120, 'Restart',
      { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'})
-		bCombatTxt.anchor.x = bCombatTxt.anchor.y = 0.5;
+		RestartTxt.anchor.x = RestartTxt.anchor.y = 0.5;
 
 	}
 }

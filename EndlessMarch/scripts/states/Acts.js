@@ -117,7 +117,6 @@ function DebugPos() {
 
 ////////////////////////act1 functions begin
 function elderbattleEnd(){
-	console.log("elderbattle");
   caravanStart.destroy();
 	b1t.text="Ascend Mountains";
 	b2t.text="Villager Battle";
@@ -136,7 +135,6 @@ function elderbattleEnd(){
 	moveWindowOnScreen();
 }
 function rockslide(){
-	console.log("rockslide");
   //Update the the players resources (People/Supplies/Food)
   UpdateResources(0,-getRandomInt(5), -getRandomInt(5)-3);
 
@@ -162,7 +160,6 @@ function rockslide(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function clearPath(){
-	console.log("cp");
   //Update the the players resources (People/Supplies/Food)
   UpdateResources(0,-getRandomInt(5) -10, -getRandomInt(5)-13);
 	button1.destroy();
@@ -182,7 +179,7 @@ function clearPath(){
 
 //Battle
 function Orcbattle(){
-	console.log("ob");
+	//Console.log("ob");
 	b1t.text="Start Combat";
 	b2t.text="";
 	button1.destroy();
@@ -237,7 +234,6 @@ function OrcbattleL(){
 } //Loss
 
 function weatherDecision(){
-	console.log("wd");
 
   //Update the the players resources (People/Supplies/Food)
   UpdateResources(0,-getRandomInt(5) -10, -getRandomInt(5)-3);
@@ -364,7 +360,6 @@ function FoothillC2MLose(){
 }
 
 function RiskStormM(){
-	console.log("RS-M");
   //Update the the players resources (People/Supplies/Food)
 	if(getRandomInt(2)==1){
     UpdateResources(-getRandomInt(100)-12,-getRandomInt(12)-12, -getRandomInt(12));
@@ -389,7 +384,7 @@ function RiskStormM(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function RiskStormC(){
-	console.log("RS-C");
+	//Console.log("RS-C");
   narrative.destroy();
   button1.destroy();
   button2.destroy();
@@ -416,7 +411,7 @@ function RiskStormC(){
 }
 
 function mountainDesent(){
-	console.log("MD");
+	//Console.log("MD");
   UpdateResources(0,-getRandomInt(5) -3, -getRandomInt(5));
 	b1t.text="Go Fast";
 	b2t.text="Go Slow";
@@ -444,7 +439,7 @@ function gofast(){
 
 	var control;
 	control=getRandomInt(2);
-	console.log("control = " + control);
+	//Console.log("control = " + control);
 	if (control==1) { // if controlled fast descent
     UpdateResources(-getRandomInt(100)-25, -getRandomInt(26)-8, -getRandomInt(10)-8);
 		b1t.text="Continue to the border";
@@ -509,7 +504,7 @@ function villagerBattle(){
   UpdateResources(0,-getRandomInt(5) -3, -getRandomInt(12) - 5);
 
 	button2.destroy();
-	console.log("vb");
+	//Console.log("vb");
 	b1t.text="Send out vanguard!";
 	b2t.text=" ";
 	button1.destroy();
@@ -534,7 +529,7 @@ function villagerBattle(){
 	narrative.y = Math.floor(windoww.y + 100);
 }
 function vbwon(){
-	console.log("vbw");
+	//Console.log("vbw");
 	b1t.text ="Loot Village";
 	b2t.text ="Recruit Villagers";
 	button1.destroy();
@@ -557,7 +552,7 @@ function vbwon(){
 	moveWindowOnScreen();
 }
 function vblost(){
-	console.log("vblost");
+	//Console.log("vblost");
 	b1t.text="Move On";
 	b2t.text="Avenge";
 	button1.destroy();
@@ -783,7 +778,7 @@ function raiderBattle(){
 	narrative.y = Math.floor(windoww.y + 100);
  }
 function raiderBattleW(){
-  console.log("vbL");
+  //Console.log("vbL");
   b1t.text ="Continue to the border";
   b2t.text ="";
   button1.destroy();
@@ -797,7 +792,7 @@ function raiderBattleW(){
   moveWindowOnScreen();
 }
 function raiderBattleL(){
-  console.log("rbL");
+  //Console.log("rbL");
   b1t.text ="Retreat and head towards border...";
   b2t.text ="";
   button1.destroy();
@@ -812,7 +807,7 @@ function raiderBattleL(){
   moveWindowOnScreen();
 }
 function BorderBattle(){
- 	console.log("BB");
+ 	//Console.log("BB");
  	b1t.text="FIGHT!";
  	b2t.text=" ";
  	food -=getRandomInt(5)+3;
@@ -961,7 +956,7 @@ function bbv(){
 	button1.destroy();
 	button2.destroy();
 	button3.destroy();
-	console.log("bbv");
+	//Console.log("bbv");
   //Update the the players resources (People/Supplies/Food)
   UpdateResources(0,getRandomInt(50) + 50, -getRandomInt(5)-3);
 
@@ -987,7 +982,7 @@ function bbl(){ // border battle lose
 	button1.destroy();
 	button2.destroy();
 	button3.destroy();
-	console.log("bbl");
+	//Console.log("bbl");
 
 	b1t.text="Go Through Forest";
 	b2t.text="Walk The Edge";
@@ -1010,7 +1005,7 @@ function siege(){
   UpdateResources(0,-getRandomInt(5) - 5, -getRandomInt(5)-3);
 
 	narrative.destroy();
-	console.log("siege");
+	//Console.log("siege");
 	b1t.text="Starve Out";
 	b2t.text="Assualt";
 	button1.destroy();
@@ -1040,7 +1035,7 @@ function marchOn(){
 	narrative.destroy();
   UpdateResources(0,-getRandomInt(30) - 10, -getRandomInt(10)-10);
 
-	console.log("marchOn");
+	//Console.log("marchOn");
 	b1t.text="Continue on";
 	b2t.text="";
 	button1.destroy();
@@ -1059,9 +1054,9 @@ function marchOn(){
 }
 function starveOut(){
 	narrative.destroy();
-	console.log("starveOut")
+	//Console.log("starveOut")
   starve = getRandomInt(100);
-  console.log(starve);
+  //Console.log(starve);
 	if(starve<10){
 		supplies+=100;
 		food+=7;
@@ -1150,7 +1145,7 @@ function walkEdge(){
 	narrative.destroy();
   UpdateResources(0,-getRandomInt(10) +5, getRandomInt(10)+5);
 
-	console.log("we");
+	//Console.log("we");
 	b1t.text="Fight!";
 	b2t.text="";
 	button1.destroy();
@@ -1174,7 +1169,7 @@ function walkEdge(){
   AddPath();
 }
 function walkEdgeW(){
-  console.log("forestW");
+  //Console.log("forestW");
   b1t.text="Enslave";
   b2t.text="Eat";
   b3t.text="Execute";
@@ -1197,7 +1192,7 @@ function walkEdgeW(){
 }
 function walkEdgeL(){
 	narrative.destroy();
-  console.log("walkEdgeL");
+  //Console.log("walkEdgeL");
   b1t.text ="You flee away from the forest edge furthur into the plains.";
   b2t.text ="";
   button1.destroy();
@@ -1218,7 +1213,7 @@ function forest(){
   UpdateResources(0,getRandomInt(30) +5, getRandomInt(25)+10);
 
 
-	console.log("forest");
+	//Console.log("forest");
 	b1t.text="Fight!";
 	b2t.text="";
 	button1.destroy();
@@ -1243,7 +1238,7 @@ function forest(){
   AddPath();
 }
 function forestW(){
-  console.log("forestW");
+  //Console.log("forestW");
   b1t.text="Enslave";
   b2t.text="Eat";
   b3t.text="Execute";
@@ -1265,7 +1260,7 @@ function forestW(){
   moveWindowOnScreen();
 }
 function forestL(){
-  console.log("forestL");
+  //Console.log("forestL");
   if(getRandomInt(100)<25){
     //elves don't come
     b1t.text="Journey to river";
@@ -1376,7 +1371,7 @@ function executeEdge(){
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
-	console.log("execute");
+	//Console.log("execute");
 	button3.destroy();
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
@@ -1400,7 +1395,7 @@ function enslave(){
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
-	console.log("enslave");
+	//Console.log("enslave");
 	button3.destroy();
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
@@ -1423,7 +1418,7 @@ function eat(){
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
-	console.log("eat");
+	//Console.log("eat");
 	button3.destroy();
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
@@ -1446,7 +1441,7 @@ function executeForest(){
 	b1t.text="Journey to river";
 	b2t.text="";
 	b3t.text="";
-	console.log("execute");
+	//Console.log("execute");
 	button3.destroy();
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
@@ -1471,7 +1466,7 @@ function fieldOfGrain(){
 	b3t.text="Pillage fields";
 	b1t.text="Pass fields to river";
 	b2t.text="";
-	console.log("fieldOfGrain");
+	//Console.log("fieldOfGrain");
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',passField,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
@@ -1491,7 +1486,7 @@ function fieldOfGrain(){
 }
 function pillage(){
 	narrative.destroy();
-	console.log("pillage");
+	//Console.log("pillage");
 	b1t.text="Fight the plainsfolk";
   b2t.text="";
   b3t.text="";
@@ -1565,7 +1560,7 @@ function passField(){
   b2t.text="";
   b3t.text="";
 
-	console.log("passField");
+	//Console.log("passField");
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
@@ -1585,7 +1580,7 @@ function river(){
 	narrative.destroy();
   UpdateResources(0,-getRandomInt(30) -10,-getRandomInt(15) -10);
 
-	console.log("river");
+	//Console.log("river");
 	b1t.text="Buy passage";
 	b2t.text="Ford the river";
 	button1.destroy();
@@ -1609,7 +1604,7 @@ function buyPassage(){
 	narrative.destroy();
   UpdateResources(0,-getRandomInt(50) -150,-getRandomInt(30) -10);
 
-	console.log("buyPassage");
+	//Console.log("buyPassage");
 	b1t.text="to the bridge";
 	b2t.text="";
 	button1.destroy();
@@ -1631,7 +1626,7 @@ function fordRiver(){
 	b2t.text="";
 	narrative.destroy();
   UpdateResources(-getRandomInt(150) -100,-getRandomInt(150) -100,-getRandomInt(150) -100);
-	console.log("fordRiver");
+	//Console.log("fordRiver");
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',BridgeTrolls,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
@@ -1651,7 +1646,7 @@ function BridgeTrolls(){
 	narrative.destroy();
   UpdateResources(0,-getRandomInt(10) -10,-getRandomInt(10) -10);
 
-	console.log("BridgeTrolls");
+	//Console.log("BridgeTrolls");
 	b1t.text="Slay the trolls";
 	b2t.text="";
 	button1.destroy();
@@ -1676,7 +1671,7 @@ function BridgeTrolls(){
 
 }
 function BridgeTrollsWin(){
-	console.log("BridgeTrolls Win");
+	//Console.log("BridgeTrolls Win");
 	b1t.text="Begin final leg";
 	b2t.text="";
 	button1.destroy();
@@ -1702,7 +1697,7 @@ function BridgeTrollsWin(){
 
 }
 function BridgeTrollsLose(){
-	console.log("BridgeTrolls Lose");
+	//Console.log("BridgeTrolls Lose");
   UpdateResources(-getRandomInt(50) -50,-getRandomInt(50) -50,-getRandomInt(50) -50);
 
 	b1t.text="Begin final leg";
@@ -1840,7 +1835,6 @@ Act3.prototype = {
 }
 ///////////////////////act3 functions begin UNIMPLEMNTED
 function villageSpring(){
-	console.log("villageSpring");
 	b1t.text="Take the spring";
 	b2t.text="Leave the spring";
 	button1.destroy();
@@ -1861,7 +1855,6 @@ function villageSpring(){
 AddPath();
 }
 function takeSpring(){
-	console.log("takeSpring");
 	b1t.text="Fight";
 	b2t.text="";
 	button1.destroy();
@@ -1880,7 +1873,7 @@ AddPath();
 }
 function springv(){
 	population-=10;
-	console.log("villageSpring");
+	//Console.log("villageSpring");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -1900,7 +1893,6 @@ AddPath();
 }
 function springL(){
 	population-=40;
-	console.log("villageSpring");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -1919,7 +1911,7 @@ AddPath();
 }
 function leaveSpring(){
 	population-=80;
-	console.log("leaveSpring");
+	//Console.log("leaveSpring");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -1938,7 +1930,7 @@ AddPath();
 
 }
 function ruins(){
-	console.log("ruins");
+	//Console.log("ruins");
 	b1t.text="Delve the ruins";
 	b2t.text="Leave the ruins";
 	button1.destroy();
@@ -1960,7 +1952,7 @@ AddPath();
 }
 function leaveRuins(){
 	supplies+=20;
-	console.log("leaveRuins");
+	//Console.log("leaveRuins");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -1979,7 +1971,7 @@ AddPath();
 
 }
 function delveRuins(){
-	console.log("delveRuins");
+	//Console.log("delveRuins");
 	b1t.text="Fight";
 	b2t.text="";
 	button1.destroy();
@@ -1998,7 +1990,7 @@ AddPath();
 }
 function ruinsWin(){
 	food+=50;
-	console.log("ruinsWin");
+	//Console.log("ruinsWin");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -2017,7 +2009,7 @@ AddPath();
 }
 function ruinsLoss(){
 	population-=10;
-	console.log("ruinsLoss");
+	//Console.log("ruinsLoss");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -2035,7 +2027,7 @@ function ruinsLoss(){
 AddPath();
 }
 function kindredPeople(){
-	console.log("leaveRuins");
+	//Console.log("leaveRuins");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -2058,7 +2050,7 @@ AddPath();
 }
 function marchAway(){
 	population-=10;
-	console.log("ruinsLoss");
+	//Console.log("ruinsLoss");
 	b1t.text="Trench onward";
 	b2t.text="";
 	button1.destroy();
@@ -2077,7 +2069,7 @@ AddPath();
 
 }
 function intercept(){
-	console.log("intercept");
+	//Console.log("intercept");
 	b1t.text="Fight";
 	b2t.text="";
 	button1.destroy();
@@ -2096,7 +2088,7 @@ AddPath();
 
 }
 function interceptVictory(){
-	console.log("interceptVictory");
+	//Console.log("interceptVictory");
 	b1t.text="Enslave";
 	b2t.text="Execute";
 	b3t.text="Conscript";
@@ -2123,7 +2115,7 @@ AddPath();
 }
 function interceptLoss(){
 	population=0;
-	console.log("intercept");
+	//Console.log("intercept");
 	b1t.text=" let go";
 	b2t.text="";
 	button1.destroy();
@@ -2143,7 +2135,7 @@ AddPath();
 }
 function enslave2(){
 	supplies+=130;
-	console.log("enslave2");
+	//Console.log("enslave2");
 	b1t.text="Trench on";
 	b2t.text="";
 	button1.destroy();
@@ -2163,7 +2155,7 @@ AddPath();
 }
 function execute2(){
 	food+=20;
-	console.log("execute2");
+	//Console.log("execute2");
 	b1t.text="Trench on";
 	b2t.text="";
 	button1.destroy();
@@ -2183,7 +2175,7 @@ AddPath();
 }
 function conscript(){
 	population+=50;
-	console.log("conscript");
+	//Console.log("conscript");
 	b1t.text="Trench on";
 	b2t.text="";
 	button1.destroy();
@@ -2202,7 +2194,7 @@ AddPath();
 
 }
 function wonder(){
-	console.log("intercept");
+	//Console.log("intercept");
 	b1t.text="Fight";
 	b2t.text="";
 	button1.destroy();
@@ -2353,11 +2345,11 @@ function DrawPath(){
     {
       line.moveTo(Path[i].x-1, Path[i].y-1);
       line.lineTo(Path[i].x, Path[i].y);
-      console.log(Path[i].x +"---"+ Path[i].y);
+      //Console.log(Path[i].x +"---"+ Path[i].y);
 
     }
     else {
-      console.log(Path[i].x +"---"+ Path[i].y);
+      //Console.log(Path[i].x +"---"+ Path[i].y);
       line.lineTo(Path[i].x, Path[i].y);
     }
   }
