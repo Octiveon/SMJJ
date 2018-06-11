@@ -34,6 +34,7 @@ window.onload = function(){
 		game.state.add('act1', Act1);
 		game.state.add('act2', Act2);
 		game.state.add('act3', Act3);
+  //  game.state.add('credits', Credits);
 
     game.state.add('DebugMenu', DebugMenu);
 
@@ -397,22 +398,23 @@ DebugMenu.prototype = {
     act1 = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 75 , 'menu', LoadNarrative, this, 'Play2', 'Play1','Play2');
     act1.scene = "act1";
 
-    credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 150 , 'menu', LoadNarrative, this, 'Credits2', 'Credits1','Credits2');
+    instructions = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 150 , 'menu', LoadNarrative, this, 'Instructions2', 'Instructions1','Instructions2');
     //credits.scene = "act1";
+    credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 225 , 'menu', LoadNarrative, this, 'Credits2', 'Credits1','Credits2');
 
-    act2 = game.add.button(game.camera.width / 2 - 525 ,game.camera.height / 2 + 250, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+    act2 = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 250, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		act2.anchor.x = act2.anchor.y = 0.5;
 		act2.scale.setTo(1.2,1);
     act2.scene = "act2";
 
-    act2Txt = game.add.text(game.camera.width / 2 -490 , game.camera.height / 2 + 225, 'Load Act2',style)
+    act2Txt = game.add.text(game.camera.width / 2 -175 , game.camera.height / 2 + 225, 'Load Act2',style)
 
-    act3 = game.add.button(game.camera.width / 2 - 525 , game.camera.height / 2 + 300, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
+    act3 = game.add.button(game.camera.width / 2 - 200 , game.camera.height / 2 + 300, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
 		act3.anchor.x = act3.anchor.y = 0.5;
 		act3.scale.setTo(1.2,1);
     act3.scene = "act3";
 
-    act3Txt = game.add.text(game.camera.width / 2 - 490 , game.camera.height / 2 + 275, 'Load Act3',style)
+    act3Txt = game.add.text(game.camera.width / 2 - 175 , game.camera.height / 2 + 275, 'Load Act3',style)
 
 
 	},
