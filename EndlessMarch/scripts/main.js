@@ -52,12 +52,12 @@ Preload.prototype = {
     game.load.image('TextWindow','assets/imgs/TextWindow.png')
     game.load.image('LongWindow','assets/imgs/UILongPlain.png')
     game.load.image('Main','assets/imgs/StartMenu.png')
+    game.load.image('Instructions','assets/imgs/Instructions.png')
 
 
     game.load.atlas('RndButton', 'assets/imgs/RndButton.png','assets/imgs/RndButton.json',
 		Phaser.Loader.TEXTURE_ATLAS_JSON_HASH);
 
-		game.load.atlas('instructions', 'assets/imgs/instructions.png','assets/imgs/instructions.json'),
 		game.load.atlas('backgrounds', 'assets/imgs/backgrounds.png','assets/imgs/backgrounds.json'),
 		game.load.atlas('bgimages', 'assets/imgs/bgimages.png','assets/imgs/bgimages.json'),
 
@@ -426,7 +426,7 @@ DebugMenu.prototype = {
     act1 = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 75 , 'menu', LoadNarrative, this, 'Play2', 'Play1','Play2');
     act1.scene = "act1";
 
-    instructions = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 150 , 'menu', LoadNarrative, this, 'Instructions2', 'Instructions1','Instructions2');
+    instructions = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 150 , 'menu', Instructions, this, 'Instructions2', 'Instructions1','Instructions2');
     //credits.scene = "act1";
     credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 225 , 'menu', LoadNarrative, this, 'Credits2', 'Credits1','Credits2');
 
@@ -450,4 +450,15 @@ DebugMenu.prototype = {
 		//game.state.start('GamePlay', true, false);
 
 	}
+}
+
+function Instructions(){
+  instructions = game.add.sprite(100,50,'Instructions');
+  close = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 325, 'RndButton', CloseInstructions, this, 'Hover', 'Up','Down');
+  closeTxt = game.add.text(game.camera.width / 2 -150 , game.camera.height / 2 + 325, 'Close Instructions',style);
+}
+function CloseInstructions(){
+  instructions.destroy();
+  close.destroy();
+  closeTxt.destroy();
 }
