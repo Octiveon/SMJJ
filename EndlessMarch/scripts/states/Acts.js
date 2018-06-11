@@ -878,6 +878,7 @@ Act2.prototype = {
 
 	},
 	create: function() {
+    currentAct = "act2";
 		bg = game.add.sprite(0,0, 'bgimages', 'Act2');
 		bg.scale.setTo(1.2,1.2);
 		windoww = game.add.sprite(487,320,'window');
@@ -910,19 +911,19 @@ Act2.prototype = {
 		button3 = game.add.button(2000,0,'RndButton',null,this,'Hover','Up','Down');
 		var style = { font: "16px Arial", fill: "#000000", wordWrap: true,  };
     narrative = game.add.sprite(0, 0);
-    statusWindow = game.add.image(0,0,"statusBar");
+    statusWindow = game.add.image(0,game.camera.height - 150,"statusBar");
     statusWindow.scale.setTo(0.5,0.3);
 
-    poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '24px', fill: '#00000' });
-		supplytxt = game.add.text(250, 16, 'Supplies: 1000', { fontSize: '24px', fill: '#00000' });
-		foodtxt = game.add.text(155, 45, 'Food: 1000', { fontSize: '24px', fill: '#00000' });
+    poptxt = game.add.text(24,game.camera.height -125, 'Population: 1000', { fontSize: '24px', fill: '#00000' });
+		supplytxt = game.add.text(235,game.camera.height - 125, 'Supplies: 1000', { fontSize: '24px', fill: '#00000' });
+		foodtxt = game.add.text(190,game.camera.height -80, 'Food: 1000', { fontSize: '24px', fill: '#00000' });
 
     if(nextFunction!= null)
     {
       window[nextFunction]();
     }
     else {
-      passField();
+      bbv();
     }
     SpawnOldButtons();
     DrawPath();
@@ -986,7 +987,6 @@ function bbv(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOnScreen();
 }
-
 function bbl(){ // border battle lose
   caravanStart.position.setTo(1100,645)
   AddPath();
@@ -1015,26 +1015,34 @@ function bbl(){ // border battle lose
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOnScreen();
 }
+
 function siege(){
 	//mapbuttoncode
 	narrative.destroy();
-	caravanStart.destroy();
-	caravanStart = game.add.button(280, 516, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-	caravanStart.anchor.set(0.5);
 	console.log("siege");
 	b1t.text="Starve Out";
-	b2t.text="March On";
+	b2t.text="Assualt";
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',starveOut,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',assaultCastle,this,'Hover','Up','Down');
+	button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
 	button2.x = Math.floor(windoww.x + 300);
 	button2.y = Math.floor(windoww.y + 350);
+  button2.combatmap = "AssaultTheCastle";
+  button2.enemy = "Knight";
+  button2.winFunction = "assaultCastleW";
+  button2.lossFunction = "assaultCastleL";
+  button2.scene = "act2";
 	narrative = game.add.sprite(2000, 0, 'A2T','Siege');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
+
+  caravanStart.destroy();
+  caravanStart = game.add.button(637, 674, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+  caravanStart.anchor.set(0.5);
+  AddPath();
 	moveWindowOffScreen();
 }
 function marchOn(){
@@ -1043,7 +1051,7 @@ function marchOn(){
 	b1t.text="Continue on";
 	b2t.text="";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',pillage,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
@@ -1052,13 +1060,16 @@ function marchOn(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(233, 462, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(700, 610, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
 function starveOut(){
 	narrative.destroy();
 	console.log("starveOut")
-	if(getRandomInt(1)<.5){
+  starve = getRandomInt(100);
+  console.log(starve);
+	if(starve<10){
 		supplies+=100;
 		food+=7;
 		button1.destroy();
@@ -1066,19 +1077,20 @@ function starveOut(){
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
 		button2.destroy();
-		b1t.text="continue on";
+		b1t.text="Continue on";
 		b2t.text=""
 		//starvation succesfull
 		narrative = game.add.sprite(2000, 0, 'A2T','Starve Them Out Success');
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
-	}else{
+	}
+  else{
 		//starvation fail
 		food-=10;
 		supplies-=12;
 		population-=getRandomInt(12)+12;
-		b1t.text="contiue siege";
-		b2t.text ="assult castle";
+		b1t.text="Continue siege";
+		b2t.text ="Assualt castle";
 		button1.destroy();
 		button1 = game.add.button(2000,0, 'RndButton',starveOut,this,'Hover','Up','Down');
 		button1.x = Math.floor(windoww.x + 40);
@@ -1087,57 +1099,64 @@ function starveOut(){
 		button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//castle assult level
 		button2.x = Math.floor(windoww.x + 300);
 		button2.y = Math.floor(windoww.y + 350);
+    button2.combatmap = "AssaultTheCastle";
+    button2.enemy = "Knight";
+    button2.winFunction = "assaultCastleW";
+    button2.lossFunction = "assaultCastleL";
+    button2.scene = "act2";
 		narrative = game.add.sprite(2000, 0, 'A2T','Starve Them Out Failure');
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
 	}
-	moveWindowOffScreen();
-	caravanStart.destroy();
-	caravanStart = game.add.button(233, 465, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
-	caravanStart.anchor.set(0.5);
+	moveWindowOnScreen();
 }
-//set greater than 1 for win
-function assaultCastle(){
-	narrative.destroy();
-	console.log("assaultCastle");
-	if(assaultCastleFn==1){
-		population-=getRandomInt(300)+200;
-		supplies+=150;
-		food+=20;
-		b1t.text="Continue On";
-		button1.destroy();
-		button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
-		button1.x = Math.floor(windoww.x + 40);
-		button1.y = Math.floor(windoww.y + 350);
-		button2.destroy();
-		narrative = game.add.sprite(2000, 0, 'A2T','Assault The Castle Win');
-		narrative.x = Math.floor(windoww.x + 100);
-		narrative.y = Math.floor(windoww.y + 100);
-		moveWindowOffScreen();
-	}
-  else{
-		population-=getRandomInt(450)+350;
-		supplies-=150;
-		b1t.text="Go through forest";
-		b2t.text="Walk the edge";
-		button1.destroy();
-		button1 = game.add.button(2000,0, 'RndButton',walkEdge,this,'Hover','Up','Down');
-		button1.x = Math.floor(windoww.x + 40);
-		button1.y = Math.floor(windoww.y + 350);
-		button2.destroy();
-		button2 = game.add.button(2000,0, 'RndButton',forest,this,'Hover','Up','Down');
-		button2.x = Math.floor(windoww.x + 300);
-		button2.y = Math.floor(windoww.y + 350);
-		narrative = game.add.sprite(2000, 0, 'A2T','Assault The Castle Lose');
-		narrative.x = Math.floor(windoww.x + 100);
-		narrative.y = Math.floor(windoww.y + 100);
-		moveWindowOffScreen();
-  }
+
+function assaultCastleW(){
+  narrative.destroy();
+
+  population-=getRandomInt(300)+200;
+  supplies+=150;
+  food+=20;
+  b1t.text="Continue On";
+  button1.destroy();
+  button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
+  button1.x = Math.floor(windoww.x + 40);
+  button1.y = Math.floor(windoww.y + 350);
+  button2.destroy();
+  narrative = game.add.sprite(2000, 0, 'A2T','Assault The Castle Win');
+  narrative.x = Math.floor(windoww.x + 100);
+  narrative.y = Math.floor(windoww.y + 100);
+  moveWindowOffScreen();
   caravanStart.destroy();
-	caravanStart = game.add.button(233, 465, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(516, 400, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
 
 }
+function assaultCastleL(){
+  narrative.destroy();
+
+  population-=getRandomInt(450)+350;
+  supplies-=150;
+  b1t.text="Go through forest";
+  b2t.text="Walk the edge";
+  button1.destroy();
+  button1 = game.add.button(2000,0, 'RndButton',walkEdge,this,'Hover','Up','Down');
+  button1.x = Math.floor(windoww.x + 40);
+  button1.y = Math.floor(windoww.y + 350);
+  button2.destroy();
+  button2 = game.add.button(2000,0, 'RndButton',forest,this,'Hover','Up','Down');
+  button2.x = Math.floor(windoww.x + 300);
+  button2.y = Math.floor(windoww.y + 350);
+  narrative = game.add.sprite(2000, 0, 'A2T','Assault The Castle Lose');
+  narrative.x = Math.floor(windoww.x + 100);
+  narrative.y = Math.floor(windoww.y + 100);
+  moveWindowOffScreen();
+  caravanStart.destroy();
+	caravanStart = game.add.button(233, 465, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart.anchor.set(0.5);
+  AddPath();
+}
+
 function walkEdge(){
 	narrative.destroy();
 	console.log("we");
@@ -1149,8 +1168,8 @@ function walkEdge(){
 	button1.y = Math.floor(windoww.y + 350);
   button1.combatmap = "forrestBattle";
 	button1.enemy = "Knight";
-	button1.winFunction = "bbv";
-	button1.lossFunction = "bbl";
+	button1.winFunction = "walkEdgeW";
+	button1.lossFunction = "walkEdgeL";
 	button1.scene = "act2";
 	button2.destroy();
   narrative.destroy();
@@ -1159,25 +1178,31 @@ function walkEdge(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(758, 306, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(963, 400, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
 function walkEdgeW(){
-	narrative.destroy();
-  console.log("walkEdgeW");
-	b1t.text ="Head away from forest.";
-	b2t.text ="";
-	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');
-	button1.x = Math.floor(windoww.x + 40);
-	button1.y = Math.floor(windoww.y + 350);
-
-	button2.destroy();
-
-	narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains');
-	narrative.x = Math.floor(windoww.x + 100);
-	narrative.y = Math.floor(windoww.y + 100);
-	moveWindowOffScreen();
+  console.log("forestW");
+  b1t.text="Enslave";
+  b2t.text="Eat";
+  b3t.text="Execute";
+  button1.destroy();
+  button1 = game.add.button(2000,0, 'RndButton',enslave,this,'Hover','Up','Down');//forest battle
+  button1.x = Math.floor(windoww.x + 40);
+  button1.y = Math.floor(windoww.y + 350);
+  button2.destroy();
+  button2 = game.add.button(2000,0, 'RndButton',eat,this,'Hover','Up','Down');
+  button2.x = Math.floor(windoww.x + 300);
+  button2.y = Math.floor(windoww.y + 350);
+  button3.destroy();
+  button3 = game.add.button(2000,0, 'RndButton',executeEdge,this,'Hover','Up','Down');
+  button3.x = Math.floor(windoww.x + 300);
+  button3.y = Math.floor(windoww.y + 350);
+  narrative = game.add.sprite(2000, 0, 'A2T','Walk The Edge Win');
+  narrative.x = Math.floor(windoww.x + 100);
+  narrative.y = Math.floor(windoww.y + 100);
+  moveWindowOnScreen();
 }
 function walkEdgeL(){
 	narrative.destroy();
@@ -1191,95 +1216,116 @@ function walkEdgeL(){
 
   button2.destroy();
 
-  narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains');
+  narrative = game.add.sprite(2000, 0, 'A2T','Walk The Edge Lose');
   narrative.x = Math.floor(windoww.x + 100);
   narrative.y = Math.floor(windoww.y + 100);
-  moveWindowOffScreen();
+  moveWindowOnScreen();
 }
 //1 first time 2 victory or 3 losst combat
 function forest(){
 	narrative.destroy();
 	supplies+=7;
-	if(forestFn==1){
-		food+=10;
-		console.log("forest");
-		b1t.text="Fight!";
-		b2t.text="";
-		button1.destroy();
-		button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
-		button1.x = Math.floor(windoww.x + 40);
-		button1.y = Math.floor(windoww.y + 350);
-		button2.destroy();
-		narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest');
-		narrative.x = Math.floor(windoww.x + 100);
-		narrative.y = Math.floor(windoww.y + 100);
-		moveWindowOffScreen();
-	}
-	//win combat
-	if (forestFn==2) {
-		console.log("forest");
-		b1t.text="Enslave";
-		b2t.text="Eat";
-		b3t.text="Execute";
-		button1.destroy();
-		button1 = game.add.button(2000,0, 'RndButton',enslave,this,'Hover','Up','Down');//forest battle
-		button1.x = Math.floor(windoww.x + 40);
-		button1.y = Math.floor(windoww.y + 350);
-		button2.destroy();
-		button2 = game.add.button(2000,0, 'RndButton',eat,this,'Hover','Up','Down');
-		button2.x = Math.floor(windoww.x + 300);
-		button2.y = Math.floor(windoww.y + 350);
-		button3.destroy();
-		button3 = game.add.button(2000,0, 'RndButton',execute,this,'Hover','Up','Down');
-		button3.x = Math.floor(windoww.x + 300);
-		button3.y = Math.floor(windoww.y + 350);
-		narrative = game.add.sprite(2000, 0, 'A1T','Go Through The Forest Win');
-		narrative.x = Math.floor(windoww.x + 100);
-		narrative.y = Math.floor(windoww.y + 100);
-		moveWindowOffScreen();
-	}
-	//lose combat
-	if (forestFn==3) {
-		supplies-=100;
-		if(getRandomInt(10)>5){
-			//elves don't come
-			b1t.text="Journey to river";
-			button1.destroy();
-			button2.destroy();
-			button3.destroy();
-			b2t.text="Recoup Supplies";
-			b3t.text="";
-			button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
-			button1.x = Math.floor(windoww.x + 40);
-			button1.y = Math.floor(windoww.y + 350);
-			button2 = game.add.button(2000,0, 'RndButton',recoupWin,this,'Hover','Up','Down');//forest battle
-			//add text here
-			narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Lose');
-			narrative.x = Math.floor(windoww.x + 100);
-			narrative.y = Math.floor(windoww.y + 100);
-		}else{
-			//elves do come
-			supplies+=100;
-			b1t.text="Journey to river";
-			button1.destroy();
-			button2.destroy();
-			button3.destroy();
-			b2t.text="Recoup Supplies";
-			b3t.text="";
-			button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
-			button1.x = Math.floor(windoww.x + 40);
-			button1.y = Math.floor(windoww.y + 350);
-			button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
-			//addtext here
-			narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Lose');
-			narrative.x = Math.floor(windoww.x + 100);
-			narrative.y = Math.floor(windoww.y + 100);
-		}
-	}
+	food+=10;
+
+	console.log("forest");
+	b1t.text="Fight!";
+	b2t.text="";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "forrestBattle";
+	button1.enemy = "Knight";
+	button1.winFunction = "forestW";
+	button1.lossFunction = "forestL";
+	button1.scene = "act2";
+
+	button2.destroy();
+	narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	moveWindowOffScreen();
+
 	caravanStart.destroy();
-	caravanStart = game.add.button(903, 289, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(1100, 420, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
+function forestW(){
+  console.log("forestW");
+  b1t.text="Enslave";
+  b2t.text="Eat";
+  b3t.text="Execute";
+  button1.destroy();
+  button1 = game.add.button(2000,0, 'RndButton',enslave,this,'Hover','Up','Down');//forest battle
+  button1.x = Math.floor(windoww.x + 40);
+  button1.y = Math.floor(windoww.y + 350);
+  button2.destroy();
+  button2 = game.add.button(2000,0, 'RndButton',eat,this,'Hover','Up','Down');
+  button2.x = Math.floor(windoww.x + 300);
+  button2.y = Math.floor(windoww.y + 350);
+  button3.destroy();
+  button3 = game.add.button(2000,0, 'RndButton',executeForest,this,'Hover','Up','Down');
+  button3.x = Math.floor(windoww.x + 300);
+  button3.y = Math.floor(windoww.y + 350);
+  narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Win');
+  narrative.x = Math.floor(windoww.x + 100);
+  narrative.y = Math.floor(windoww.y + 100);
+  moveWindowOnScreen();
+}
+function forestL(){
+  console.log("forestL");
+  supplies-=100;
+  if(getRandomInt(10)>5){
+    //elves don't come
+    b1t.text="Journey to river";
+    button1.destroy();
+    button2.destroy();
+    button3.destroy();
+    b2t.text="Recoup Supplies";
+    b3t.text="";
+    button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
+    button1.x = Math.floor(windoww.x + 40);
+    button1.y = Math.floor(windoww.y + 350);
+    button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
+
+    button2.combatmap = "forrestBattle";
+    button2.enemy = "Knight";
+    button2.winFunction = "recoupWin";
+    button2.lossFunction = "recoupLose";
+    button2.scene = "act2";
+    //add text here
+    narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Lose');
+    narrative.x = Math.floor(windoww.x + 100);
+    narrative.y = Math.floor(windoww.y + 100);
+
+  }
+  else{
+		//elves do come
+		supplies+=100;
+		b1t.text="Journey to river";
+		button1.destroy();
+		button2.destroy();
+		button3.destroy();
+		b2t.text="Recoup Supplies";
+		b3t.text="";
+		button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
+		button1.x = Math.floor(windoww.x + 40);
+		button1.y = Math.floor(windoww.y + 350);
+		button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
+    button2.combatmap = "forrestBattle";
+    button2.enemy = "Knight";
+    button2.winFunction = "recoupWin";
+    button2.lossFunction = "recoupLose";
+    button2.scene = "act2";
+		narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Lose');
+		narrative.x = Math.floor(windoww.x + 100);
+		narrative.y = Math.floor(windoww.y + 100);
+		}
+    moveWindowOnScreen();
+
+}
+
 function recoupWin(){
 	narrative.destroy();
 	supplies+=100;
@@ -1298,8 +1344,8 @@ function recoupWin(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(903, 289, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
-
 function recoupLose(){
 	narrative.destroy();
 	if(getRandomInt(10)>5){
@@ -1314,7 +1360,14 @@ function recoupLose(){
 		button1.x = Math.floor(windoww.x + 40);
 		button1.y = Math.floor(windoww.y + 350);
 		button2 = game.add.button(2000,0, 'RndButton',recoupWin,this,'Hover','Up','Down');//forest battle
-		//add text here
+    button2 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//forest battle
+
+    button2.combatmap = "forrestBattle";
+    button2.enemy = "Knight";
+    button2.winFunction = "recoupWin";
+    button2.lossFunction = "recoupLose";
+    button2.scene = "act2";
+
 		narrative = game.add.sprite(2000, 0, 'A2T','Go Through The Forest Lose');
 		narrative.x = Math.floor(windoww.x + 100);
 		narrative.y = Math.floor(windoww.y + 100);
@@ -1338,6 +1391,30 @@ function recoupLose(){
 	}
 }
 
+function executeEdge(){
+	narrative.destroy();
+	supplies+=20;
+	food+=30;
+	b1t.text="Journey to river";
+	b2t.text="";
+	b3t.text="";
+	console.log("execute");
+	button3.destroy();
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	narrative = game.add.sprite(2000, 0, 'A2T','Execute Edge');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	moveWindowOffScreen();
+	caravanStart.destroy();
+	caravanStart = game.add.button(960, 324, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart.anchor.set(0.5);
+  AddPath();
+}
+
 function enslave(){
 	narrative.destroy();
 	supplies+=120;
@@ -1347,7 +1424,7 @@ function enslave(){
 	console.log("enslave");
 	button3.destroy();
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
@@ -1356,8 +1433,9 @@ function enslave(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(903, 289, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(1140, 345, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
 function eat(){
 	narrative.destroy();
@@ -1368,7 +1446,7 @@ function eat(){
 	console.log("eat");
 	button3.destroy();
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
@@ -1377,10 +1455,11 @@ function eat(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(903, 289, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(1140, 345, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
-function execute(){
+function executeForest(){
 	narrative.destroy();
 	supplies+=20;
 	food+=30;
@@ -1390,49 +1469,61 @@ function execute(){
 	console.log("execute");
 	button3.destroy();
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',rockslide,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',fieldOfGrain,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	narrative = game.add.sprite(2000, 0, 'A2T','Execute');
+	narrative = game.add.sprite(2000, 0, 'A2T','Execute Forest');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(903, 289, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(1140, 345, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
+
 function fieldOfGrain(){
 	narrative.destroy();
-	button3.destroy();
+	button2.destroy();
 	b3t.text="Pillage fields";
 	b1t.text="Pass fields to river";
 	b2t.text="";
 	console.log("fieldOfGrain");
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',pillage,this,'Hover','Up','Down');
+	button1 = game.add.button(2000,0, 'RndButton',passField,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
 	button2.destroy();
-	button2 = game.add.button(2000,0, 'RndButton',passField,this,'Hover','Up','Down');
-	button2.x = Math.floor(windoww.x + 300);
-	button2.y = Math.floor(windoww.y + 350);
+	button3 = game.add.button(2000,0, 'RndButton',pillage,this,'Hover','Up','Down');
+	button3.x = Math.floor(windoww.x + 300);
+	button3.y = Math.floor(windoww.y + 350);
 	narrative = game.add.sprite(2000, 0, 'A2T','Field Of Grains');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(630, 295, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(830, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
 function pillage(){
 	narrative.destroy();
 	console.log("pillage");
 	b1t.text="Fight the plainsfolk";
+  b2t.text="";
+  b3t.text="";
+
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//plains combat
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "GrainBattle";
+	button1.enemy = "Knight";
+	button1.winFunction = "pillageW";
+	button1.lossFunction = "pillageL";
+	button1.scene = "act2";
+
 	button2.destroy();
 	b2t.text="";
 	narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains');
@@ -1440,18 +1531,63 @@ function pillage(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(542, 222, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(696, 286, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
+}
+function pillageW(){
+  narrative.destroy();
+	supplies+=100;
+	b1t.text="Journey to river";
+	b2t.text="";
+	b3t.text="";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');//forest battle
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button3.destroy();
+	narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains Win');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	caravanStart.destroy();
+	caravanStart = game.add.button(630, 295, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart.anchor.set(0.5);
+  AddPath();
+
+}
+function pillageL(){
+  narrative.destroy();
+	b1t.text="Journey to river";
+	b2t.text="";
+	b3t.text="";
+	button1.destroy();
+	button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');//forest battle
+	button1.x = Math.floor(windoww.x + 40);
+	button1.y = Math.floor(windoww.y + 350);
+	button2.destroy();
+	button3.destroy();
+	narrative = game.add.sprite(2000, 0, 'A2T','Pillage Grains Lose');
+	narrative.x = Math.floor(windoww.x + 100);
+	narrative.y = Math.floor(windoww.y + 100);
+	caravanStart.destroy();
+	caravanStart = game.add.button(630, 295, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart.anchor.set(0.5);
+  AddPath();
+
 }
 function passField(){
 	narrative.destroy();
-	b1t.text="carry onward";
+	b1t.text="Carry onward";
+  b2t.text="";
+  b3t.text="";
+
 	console.log("passField");
 	button1.destroy();
 	button1 = game.add.button(2000,0, 'RndButton',river,this,'Hover','Up','Down');
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
-	button2.destroy();
+	button3.destroy();
 	narrative = game.add.sprite(2000, 0, 'A2T','Pass');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
@@ -1459,6 +1595,7 @@ function passField(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(630, 295, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
 
 function river(){
@@ -1479,8 +1616,9 @@ function river(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(528, 173, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
 function buyPassage(){
 	narrative.destroy();
@@ -1498,8 +1636,9 @@ function buyPassage(){
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOffScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(300, 141, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(455, 216, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
 function fordRiver(){
 	b1t.text="to the bridge";
@@ -1521,7 +1660,9 @@ function fordRiver(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(300, 141, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 }
+
 function BridgeTrolls(){
 	narrative.destroy();
 	console.log("BridgeTrolls");
@@ -1531,6 +1672,12 @@ function BridgeTrolls(){
 	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//bridgetrolls
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
+  button1.combatmap = "GrainBattle";
+	button1.enemy = "Knight";
+	button1.winFunction = "BridgeTrollsWin";
+	button1.lossFunction = "BridgeTrollsLose";
+	button1.scene = "act2";
+
 	button2.destroy();
 	narrative = game.add.sprite(2000, 0, 'A2T','Bridge Trolls');
 	narrative.x = Math.floor(windoww.x + 100);
@@ -1539,25 +1686,33 @@ function BridgeTrolls(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(283, 81, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
 
 }
-
 function BridgeTrollsWin(){
 	console.log("BridgeTrolls Win");
 	b1t.text="Begin final leg";
 	b2t.text="";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//bridgetrolls
+
+	button1 = game.add.button(2000,0, 'RndButton',LoadNarrative,this,'Hover','Up','Down');//bridgetrolls
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
+  button1.narrative = {next:info.next}
+  button1.scene = "act3";
+  button1.keepPreload = true;
+  button1.keepCreate = false;
+
 	button2.destroy();
 	narrative = game.add.sprite(2000, 0, 'A2T','Bridge Trolls Win');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOnScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(283, 81, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(186, 40, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
+
 
 }
 function BridgeTrollsLose(){
@@ -1565,17 +1720,24 @@ function BridgeTrollsLose(){
 	b1t.text="Begin final leg";
 	b2t.text="";
 	button1.destroy();
-	button1 = game.add.button(2000,0, 'RndButton',LoadCombat,this,'Hover','Up','Down');//bridgetrolls
+	button1 = game.add.button(2000,0, 'RndButton',LoadNarrative,this,'Hover','Up','Down');//bridgetrolls
 	button1.x = Math.floor(windoww.x + 40);
 	button1.y = Math.floor(windoww.y + 350);
+  button1.narrative = {next:info.next}
+  button1.scene = "act3";
+  button1.keepPreload = true;
+  button1.keepCreate = false;
+
 	button2.destroy();
 	narrative = game.add.sprite(2000, 0, 'A2T','Bridge Trolls Lose');
 	narrative.x = Math.floor(windoww.x + 100);
 	narrative.y = Math.floor(windoww.y + 100);
 	moveWindowOnScreen();
 	caravanStart.destroy();
-	caravanStart = game.add.button(283, 81, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
+	caravanStart = game.add.button(110, 11, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+  AddPath();
+
 
 }
 
@@ -1605,6 +1767,12 @@ Act3.prototype = {
 
 	},
 	create: function() {
+    if(currentAct != "act3")
+    {
+      Path = [];
+      cnt = 0;
+      currentAct = "act3";
+    }
     bg = game.add.sprite(0,0, 'bgimages', 'Act3');
 		bg.scale.setTo(1.2,1.2);
 		windoww = game.add.sprite(487,320,'window');
@@ -1635,6 +1803,25 @@ Act3.prototype = {
     poptxt = game.add.text(16, 16, 'Population: 1000', { fontSize: '24px', fill: '#00000' });
 		supplytxt = game.add.text(250, 16, 'Supplies: 1000', { fontSize: '24px', fill: '#00000' });
 		foodtxt = game.add.text(155, 45, 'Food: 1000', { fontSize: '24px', fill: '#00000' });
+
+    if(Path.length == 0)
+    {
+      Path[cnt++] =
+      {
+        x:50,
+        y:750
+      };
+    }
+
+    if(nextFunction!= null)
+    {
+      window[nextFunction]();
+    }
+    else {
+      villageSpring();
+    }
+
+
 	},
 	update: function() {
 		// window button 1
@@ -1677,6 +1864,7 @@ function villageSpring(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function takeSpring(){
 	console.log("takeSpring");
@@ -1694,6 +1882,7 @@ function takeSpring(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function springv(){
 	population-=10;
@@ -1712,6 +1901,7 @@ function springv(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function springL(){
@@ -1731,6 +1921,7 @@ function springL(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function leaveSpring(){
 	population-=80;
@@ -1749,6 +1940,7 @@ function leaveSpring(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(384, 171, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function ruins(){
@@ -1770,6 +1962,7 @@ function ruins(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1081, 337, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function leaveRuins(){
 	supplies+=20;
@@ -1788,6 +1981,7 @@ function leaveRuins(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1081, 337, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function delveRuins(){
@@ -1806,6 +2000,7 @@ function delveRuins(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1081, 337, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function ruinsWin(){
 	food+=50;
@@ -1824,6 +2019,7 @@ function ruinsWin(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1081, 337, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function ruinsLoss(){
 	population-=10;
@@ -1842,6 +2038,7 @@ function ruinsLoss(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1081, 337, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function kindredPeople(){
 	console.log("leaveRuins");
@@ -1862,6 +2059,7 @@ function kindredPeople(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1775, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function marchAway(){
@@ -1881,6 +2079,7 @@ function marchAway(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1775, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function intercept(){
@@ -1899,6 +2098,7 @@ function intercept(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1777, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function interceptVictory(){
@@ -1925,6 +2125,7 @@ function interceptVictory(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1777, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 function interceptLoss(){
 	population=0;
@@ -1943,6 +2144,7 @@ function interceptLoss(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1777, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function enslave2(){
@@ -1962,6 +2164,7 @@ function enslave2(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1777, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function execute2(){
@@ -1981,6 +2184,7 @@ function execute2(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1777, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function conscript(){
@@ -2000,6 +2204,7 @@ function conscript(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(1777, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 
 }
 function wonder(){
@@ -2018,6 +2223,7 @@ function wonder(){
 	caravanStart.destroy();
 	caravanStart = game.add.button(2255, 300, 'RndButton', moveWindowOnScreen, this, 'Hover','Up','Down');
 	caravanStart.anchor.set(0.5);
+AddPath();
 }
 
 //moves window for all three acts
@@ -2112,9 +2318,16 @@ function SpawnOldButtons() {
   narrative.bringToTop();
   button1.bringToTop();
   button2.bringToTop();
+
   b1t.bringToTop();
 	b2t.bringToTop();
   caravanStart.bringToTop();
+
+  if(button3 != null)
+  {
+    button3.bringToTop();
+    b3t.bringToTop();
+  }
 }
 
 //Adds the path variables everytime carvan button is created.
