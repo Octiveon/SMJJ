@@ -33,11 +33,9 @@ window.onload = function(){
 		game.state.add('act1', Act1);
 		game.state.add('act2', Act2);
 		game.state.add('act3', Act3);
-  //  game.state.add('credits', Credits);
 
-    game.state.add('DebugMenu', DebugMenu);
+    game.state.add('MainMenu', MainMenu);
     game.state.add('GameOver', GameOver);
-
 
 		game.state.start('boot');
 
@@ -78,7 +76,7 @@ Preload.prototype = {
 
 	},
 	create: function() {
-    var info = {timer: 3, scene: "DebugMenu", keepPreload: true, keepCreate: false, combat: null}
+    var info = {timer: 3, scene: "MainMenu", keepPreload: true, keepCreate: false, combat: null}
     LoadScene(info);
 
 	}
@@ -119,7 +117,7 @@ LoadCampfire.prototype = {
   }
 }
 
-
+//Loading Screen Function
 var Load = function(game) {};
 Load.prototype = {
   init: function(loadInfo) {
@@ -239,9 +237,6 @@ Load.prototype = {
 
     }
 
-
-
-    //Console.log(this.loadInfo);
     info = game.add.button(game.camera.width/2,game.camera.height/2 + 0, 'LongWindow', LoadScene, this);
     infoTxt = game.add.text(game.camera.width/2 - 50,game.camera.height/2 - 10, "March!");
     info.anchor.set(0.5);
@@ -312,8 +307,7 @@ function LoadScene(info) {
   }
 }
 
-//Temp Laod Functions
-
+//Laod Functions
 function LoadCombat(button) {
   var combat = {map:button.combatmap, prevScene:button.scene,
      lossFunction: button.lossFunction,  winFunction: button.winFunction}
@@ -403,8 +397,8 @@ function Restart()
 
 /////////////////////////////
 
-var DebugMenu = function(game) {};
-DebugMenu.prototype = {
+var MainMenu = function(game) {};
+MainMenu.prototype = {
 	preload: function() {
 	},
 	create: function() {
@@ -423,37 +417,38 @@ DebugMenu.prototype = {
     bg.scale.setTo(1.2); // scaling main menu background
 
     style = { fontSize: '31px', fill: '#000000', boundsAlignH: 'center'};
-
+    // Add button to start the game
     act1 = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 75 , 'menu', LoadNarrative, this, 'Play2', 'Play1','Play2');
     act1.scene = "act1";
-
+    // Add button to show instructions
     instructions = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 150 , 'menu', Instructions, this, 'Instructions2', 'Instructions1','Instructions2');
-    //credits.scene = "act1";
+    // Add button to show credits
     credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 225 , 'menu', Credits, this, 'Credits2', 'Credits1','Credits2');
-
 	},
 	update: function() {
 		//game.state.start('GamePlay', true, false);
 
 	}
 }
-
+//Add Instructions Sprite
 function Instructions(){
   instructions = game.add.sprite(100,50,'Instructions');
   close = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 325, 'RndButton', CloseInstructions, this, 'Hover', 'Up','Down');
   closeTxt = game.add.text(game.camera.width / 2 -150 , game.camera.height / 2 + 325, 'Close Instructions',style);
 }
+//Close Instructions Sprite
 function CloseInstructions(){
   instructions.destroy();
   close.destroy();
   closeTxt.destroy();
 }
-
+//Add Credits Sprite
 function Credits(){
   credits = game.add.sprite(100,50,'Credits');
   closeCredits = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 325, 'RndButton', CloseCredits, this, 'Hover', 'Up','Down');
   closeCreditsTxt = game.add.text(game.camera.width / 2 -150 , game.camera.height / 2 + 325, 'Close Credits',style);
 }
+//Close Credits Sprite
 function CloseCredits(){
   credits.destroy();
   closeCredits.destroy();
