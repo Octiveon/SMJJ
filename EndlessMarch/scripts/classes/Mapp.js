@@ -1,3 +1,4 @@
+//File structure that manages combat maps
 function Mapp(game, map, layer, spawnLayer) {
   this.tiles = [];
   this.eSpawnTiles = [];
@@ -29,6 +30,8 @@ function Mapp(game, map, layer, spawnLayer) {
 
 Mapp.prototype.Debug = function(){
   var tiled;
+
+  //loades in each tile
   if(tiled!= null)
   {
     tiled.destroy();
@@ -56,10 +59,12 @@ Mapp.prototype.getTile = function(x,y){
   return this.tiles[y][x];
 }
 
+//Gets the spawn data and returns it
 Mapp.prototype.GetVSpawn = function(){return this.vSpawnTiles;}
 Mapp.prototype.GetESpawn = function(){return this.eSpawnTiles;}
 
 
+//Functions to check avaliability and tiles status
 Mapp.prototype.getTileOccupant = function(x,y){
   return this.tiles[y][x].currentOccupant;
 }
@@ -98,6 +103,7 @@ Mapp.prototype.CreateTiles = function(x,y){
   return this.tiles[y][x];
 }
 
+//Etenral Tile class
 class Tile {
   constructor(x, y, movable, moveCost, spawnable) {
     this.x = x;
@@ -111,6 +117,7 @@ class Tile {
 
   }
 
+  //Getter setters
   get movable() {return this._movable;}
   set movable(value){this._movable = value}
 

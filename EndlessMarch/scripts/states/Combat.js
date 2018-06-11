@@ -98,11 +98,6 @@ Combat.prototype = {
 		endTurntext = game.add.text(unitWindow.width * 0.85 ,game.height - unitWindow.height * 0.25, "End Turn", style);
 		endTurntext.fixedToCamera = true;
 
-
-		// add instructions in the bottom right corner
-		combatInstructions = game.add.sprite(850, 600, 'instructions','combatInstructions');
-		combatInstructions.fixedToCamera = true;
-
 		uiGrp.add(endTurn);
 		tileText = game.add.text(game.camera.width * 0.70 , 80, "", style);
 

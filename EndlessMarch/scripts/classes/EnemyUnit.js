@@ -103,7 +103,6 @@ EnemyUnit.prototype.update = function() {
 	{
 		this.OnDeath();
 	}
-
 }
 
 EnemyUnit.prototype.Attack = function() {
