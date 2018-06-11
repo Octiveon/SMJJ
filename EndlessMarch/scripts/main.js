@@ -431,21 +431,6 @@ DebugMenu.prototype = {
     //credits.scene = "act1";
     credits = game.add.button(game.camera.width / 2 - 550,game.camera.height / 2 + 225 , 'menu', Credits, this, 'Credits2', 'Credits1','Credits2');
 
-    act2 = game.add.button(game.camera.width / 2 - 200 ,game.camera.height / 2 + 250, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
-		act2.anchor.x = act2.anchor.y = 0.5;
-		act2.scale.setTo(1.2,1);
-    act2.scene = "act2";
-
-    act2Txt = game.add.text(game.camera.width / 2 -175 , game.camera.height / 2 + 225, 'Load Act2',style)
-
-    act3 = game.add.button(game.camera.width / 2 - 200 , game.camera.height / 2 + 300, 'RndButton', LoadNarrative, this, 'Hover', 'Up','Down');
-		act3.anchor.x = act3.anchor.y = 0.5;
-		act3.scale.setTo(1.2,1);
-    act3.scene = "act3";
-
-    act3Txt = game.add.text(game.camera.width / 2 - 175 , game.camera.height / 2 + 275, 'Load Act3',style)
-
-
 	},
 	update: function() {
 		//game.state.start('GamePlay', true, false);
@@ -472,5 +457,5 @@ function Credits(){
 function CloseCredits(){
   credits.destroy();
   closeCredits.destroy();
-  closeCreditsTxtTxt.destroy();
+  closeCreditsTxt.destroy();
 }
